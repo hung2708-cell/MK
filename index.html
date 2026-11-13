@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="vi" class="scroll-smooth">
+<html lang="vi" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sổ Tay Công Thức Lớp 7 - Tri Thức Trong Tầm Tay</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Sổ Tay Học Tập Lớp 7 - Công Thức & Kiến Thức Trọng Tâm</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -12,1044 +12,1164 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                        },
-                        math: '#3b82f6',
-                        science: '#10b981',
-                        english: '#8b5cf6',
-                        literature: '#f59e0b',
-                        history: '#ef4444',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'Segoe UI', 'Roboto', 'sans-serif'],
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                        }
                     }
                 }
             }
         }
     </script>
-    <!-- FontAwesome icons -->
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- MathJax for rendering pretty Math formulas -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-        }
-        .dark .glass-effect {
-            background: rgba(17, 24, 39, 0.85);
-            backdrop-filter: blur(12px);
-        }
-        .card-hover {
-            transition: all 0.25s ease-in-out;
-        }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.15);
-        }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 9999px;
-        }
-        .dark ::-webkit-scrollbar-thumb {
-            background: #475569;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.4); border-radius: 4px; }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
 
-    <!-- Header & Navigation -->
-    <header class="sticky top-0 z-40 glass-effect border-b border-slate-200 dark:border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-            <!-- Logo -->
-            <div class="flex items-center gap-3 cursor-pointer" onclick="showSubject('all')">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-sky-500/20">
+                        7
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg leading-tight bg-gradient-to-r from-sky-600 to-indigo-600 dark:from-sky-400 dark:to-indigo-400 bg-clip-text text-transparent">Học Tốt Lớp 7</h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Chương Trình Mới SGK KNTT / Cánh Diều / CTST</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="font-bold text-lg leading-tight tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-                        Sổ Tay Lớp 7
-                    </h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Tổng hợp công thức & kiến thức</p>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-2">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-colors text-sky-600 bg-sky-50 dark:bg-slate-700 dark:text-sky-400">
+                        <i class="fa-solid fa-house mr-1.5"></i>Tổng Quan
+                    </button>
+                    <button onclick="switchTab('formulas')" id="nav-formulas" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">
+                        <i class="fa-solid fa-book-bookmark mr-1.5"></i>Kho Công Thức
+                    </button>
+                    <button onclick="switchTab('vocab')" id="nav-vocab" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">
+                        <i class="fa-solid fa-language mr-1.5"></i>Từ Vựng Tiếng Anh
+                    </button>
+                    <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">
+                        <i class="fa-solid fa-pen-to-square mr-1.5"></i>Trắc Nghiệm
+                    </button>
+                    <button onclick="switchTab('tools')" id="nav-tools" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">
+                        <i class="fa-solid fa-calculator mr-1.5"></i>Công Cụ Tính
+                    </button>
+                    <button onclick="switchTab('ai-assistant')" id="nav-ai-assistant" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 bg-purple-50 dark:bg-purple-950/40 transition-colors">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i>Trợ Lý AI
+                    </button>
+                </nav>
+
+                <!-- Actions: Dark mode toggle & mobile menu -->
+                <div class="flex items-center space-x-2">
+                    <button onclick="toggleDarkMode()" class="p-2.5 rounded-lg text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" title="Bật/tắt chế độ tối">
+                        <i class="fa-solid fa-moon dark:hidden text-lg"></i>
+                        <i class="fa-solid fa-sun hidden dark:block text-lg text-amber-400"></i>
+                    </button>
+                    
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
                 </div>
-            </div>
-
-            <!-- Search Bar (Desktop) -->
-            <div class="hidden md:flex flex-1 max-w-md relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <input type="text" id="searchInput" oninput="handleSearch()" 
-                       placeholder="Tìm kiếm công thức, quy tắc, định lí..." 
-                       class="w-full pl-10 pr-10 py-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
-            <!-- Right Utilities -->
-            <div class="flex items-center gap-2">
-                <!-- Bookmark View Toggle -->
-                <button onclick="toggleBookmarksView()" title="Xem đã lưu" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 relative transition">
-                    <i class="fa-solid fa-bookmark text-lg"></i>
-                    <span id="bookmarkCount" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
-                </button>
-
-                <!-- Tools Modal Button -->
-                <button onclick="openToolsModal()" title="Công cụ tiện ích" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition">
-                    <i class="fa-solid fa-calculator text-lg"></i>
-                </button>
-
-                <!-- Dark / Light Toggle -->
-                <button onclick="toggleDarkMode()" id="themeToggle" title="Chuyển giao diện" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-amber-500 dark:text-amber-400 transition">
-                    <i class="fa-solid fa-sun text-lg dark:hidden"></i>
-                    <i class="fa-solid fa-moon text-lg hidden dark:block"></i>
-                </button>
             </div>
         </div>
 
-        <!-- Mobile Search Input -->
-        <div class="p-3 border-t border-slate-200 dark:border-slate-800 md:hidden bg-slate-50/50 dark:bg-slate-950/50">
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <input type="text" id="mobileSearchInput" oninput="handleMobileSearch()" 
-                       placeholder="Tìm công thức..." 
-                       class="w-full pl-10 pr-8 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
+        <!-- Mobile Nav Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 space-y-1">
+            <button onclick="switchTab('dashboard')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-house w-6"></i>Tổng Quan</button>
+            <button onclick="switchTab('formulas')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-book-bookmark w-6"></i>Kho Công Thức</button>
+            <button onclick="switchTab('vocab')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-language w-6"></i>Từ Vựng Tiếng Anh</button>
+            <button onclick="switchTab('quiz')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-pen-to-square w-6"></i>Luyện Trắc Nghiệm</button>
+            <button onclick="switchTab('tools')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-calculator w-6"></i>Công Cụ Tính Nhanh</button>
+            <button onclick="switchTab('ai-assistant')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/40"><i class="fa-solid fa-wand-magic-sparkles w-6"></i>Trợ Lý AI Học Tập</button>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-6">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-        <!-- Subject Selector Chips / Navigation -->
-        <section class="overflow-x-auto pb-2 scrollbar-none">
-            <div class="flex items-center gap-2 min-w-max" id="subjectChips">
-                <!-- Dynamic Chips populated by JS -->
-            </div>
-        </section>
-
-        <!-- Dynamic Header Info / Filter Banner -->
-        <div id="bannerContainer" class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-                <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md text-xs font-semibold rounded-full mb-2">Chương trình Mới GDPT 2018</span>
-                <h2 id="bannerTitle" class="text-2xl font-bold">Tổng hợp công thức Lớp 7</h2>
-                <p id="bannerDesc" class="text-blue-100 text-sm mt-1 max-w-xl">Tra cứu nhanh chóng tất cả kiến thức trọng tâm, công thức toán, khoa học tự nhiên, từ vựng tiếng Anh và quy tắc Ngữ văn.</p>
-            </div>
-            <div class="flex gap-2">
-                <button onclick="switchTab('cards')" id="tabBtnCards" class="px-4 py-2 bg-white text-blue-700 font-medium rounded-xl text-sm shadow hover:bg-blue-50 transition">
-                    <i class="fa-solid fa-th-large mr-1.5"></i> Thẻ Bài Học
-                </button>
-                <button onclick="switchTab('flashcard')" id="tabBtnFlashcard" class="px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-medium rounded-xl text-sm transition">
-                    <i class="fa-solid fa-clone mr-1.5"></i> Ôn Flashcards
-                </button>
-            </div>
-        </div>
-
-        <!-- Main Content Area: Cards Grid -->
-        <section id="cardsView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Formula Cards will be generated dynamically -->
-        </section>
-
-        <!-- Flashcards View (Hidden by Default) -->
-        <section id="flashcardView" class="hidden flex-col items-center justify-center py-10">
-            <div class="w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl text-center relative min-h-[320px] flex flex-col justify-between cursor-pointer transition-transform duration-500 transform hover:scale-[1.01]" id="flashcardElement" onclick="flipFlashcard()">
-                <div class="flex justify-between items-center text-xs text-slate-400">
-                    <span id="fcSubject" class="font-semibold uppercase tracking-wider text-blue-500">Môn Học</span>
-                    <span>Chạm để lật thẻ <i class="fa-solid fa-rotate text-blue-500 ml-1"></i></span>
+        <!-- TAB 1: DASHBOARD (TỔNG QUAN) -->
+        <section id="tab-dashboard" class="tab-content space-y-6">
+            <!-- Banner chào mừng -->
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 p-6 md:p-8 text-white shadow-lg">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-semibold mb-3">Chương Trình Giáo Dục Phổ Thông Lớp 7</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mb-2">Chào mừng bạn tới Trung Tâm Học Tập Lớp 7! 👋</h2>
+                    <p class="text-sky-100 text-sm sm:text-base leading-relaxed mb-6">Ôn tập hệ thống công thức Toán 7, Khoa học tự nhiên (Lý - Hóa - Sinh), Tiếng Anh & Lịch sử Địa lý một cách khoa học, sinh động và hiệu quả nhất.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="switchTab('formulas')" class="px-4 py-2.5 bg-white text-sky-700 hover:bg-sky-50 font-semibold text-sm rounded-xl transition shadow-sm flex items-center">
+                            <i class="fa-solid fa-magnifying-glass mr-2"></i>Tra công thức ngay
+                        </button>
+                        <button onclick="switchTab('quiz')" class="px-4 py-2.5 bg-sky-700/60 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl backdrop-blur-md transition flex items-center">
+                            <i class="fa-solid fa-circle-play mr-2"></i>Thử sức trắc nghiệm
+                        </button>
+                    </div>
                 </div>
-                
-                <div class="my-auto py-6">
-                    <h3 id="fcTitle" class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">Tên Khái Niệm</h3>
-                    <div id="fcContent" class="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
-                        Mặt trước: Câu hỏi / Tên công thức
+                <div class="absolute -right-6 -bottom-10 opacity-20 md:opacity-30 text-white text-9xl font-black pointer-events-none">
+                    7
+                </div>
+            </div>
+
+            <!-- Quick Stats & Countdown Widget -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Exam Countdown -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 flex items-center text-base">
+                            <i class="fa-solid fa-hourglass-half text-amber-500 mr-2"></i>Đếm Ngược Thi Học Kỳ 2
+                        </h3>
+                        <span class="text-xs bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 font-semibold px-2 py-0.5 rounded-full">Sắp tới</span>
+                    </div>
+                    <div class="text-center py-2 bg-slate-50 dark:bg-slate-900/50 rounded-xl my-2">
+                        <div id="countdown-timer" class="text-3xl font-extrabold text-amber-600 dark:text-amber-400 tracking-tight">-- ngày --:--:--</div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Dự kiến: Kỳ Thi Kiểm Tra Tổng Hợp Cuối Kỳ</p>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 text-center">Hãy duy trì thói quen ôn 15 phút mỗi ngày nhé!</p>
+                </div>
+
+                <!-- Daily Study Planner -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between md:col-span-2">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-bold text-slate-800 dark:text-slate-100 flex items-center text-base">
+                            <i class="fa-solid fa-list-check text-emerald-500 mr-2"></i>Mục Tiêu Ôn Tập Hôm Nay
+                        </h3>
+                        <span id="planner-progress-text" class="text-xs text-emerald-600 dark:text-emerald-400 font-bold">0/3 hoàn thành</span>
+                    </div>
+                    <!-- Task list -->
+                    <div class="space-y-2 my-2" id="planner-task-list">
+                        <!-- Rendered by JS -->
+                    </div>
+                    <div class="flex items-center space-x-2 pt-2 border-t border-slate-100 dark:border-slate-700">
+                        <input type="text" id="new-task-input" placeholder="Thêm mục tiêu ôn tập mới (VD: Học 10 từ vựng Unit 7)..." class="flex-1 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                        <button onclick="addPlannerTask()" class="px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-sm font-semibold hover:bg-emerald-700 transition">Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subject Shortcut Cards -->
+            <div>
+                <h3 class="text-lg font-bold mb-4 text-slate-800 dark:text-slate-100 flex items-center">
+                    <i class="fa-solid fa-layer-group text-sky-500 mr-2"></i>Các Môn Học Lớp 7 Trọng Tâm
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Toán 7 -->
+                    <div onclick="filterSubjectAndSwitch('toan')" class="group bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-sky-500 transition cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-square-root-variable"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition">Toán Học 7</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Số hữu tỉ, tỉ lệ thức, hình học tam giác, góc song song, thống kê.</p>
+                        <span class="inline-block mt-3 text-xs text-sky-600 dark:text-sky-400 font-semibold"> Xem 12+ công thức <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                    </div>
+
+                    <!-- KHTN 7 -->
+                    <div onclick="filterSubjectAndSwitch('khtn')" class="group bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-emerald-500 transition cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-flask"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">Khoa Học Tự Nhiên 7</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Tốc độ $v=s/t$, Âm thanh, Ánh sáng, Nguyên tử & Phân tử, Trao đổi chất.</p>
+                        <span class="inline-block mt-3 text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Xem định luật & lý thuyết <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                    </div>
+
+                    <!-- Tiếng Anh 7 -->
+                    <div onclick="filterSubjectAndSwitch('tienganh')" class="group bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-500 transition cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-earth-americas"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition">Tiếng Anh 7</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Các thì cơ bản, So sánh, Động từ khuyết thiếu, Từ vựng theo Unit 1-12.</p>
+                        <span class="inline-block mt-3 text-xs text-purple-600 dark:text-purple-400 font-semibold">Tra cứu từ vựng & ngữ pháp <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                    </div>
+
+                    <!-- Lịch Sử & Địa Lý 7 -->
+                    <div onclick="filterSubjectAndSwitch('sudia')" class="group bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-amber-500 transition cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl font-bold mb-3 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-landmark"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition">Lịch Sử & Địa Lý 7</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Đại Việt thời Lý - Trần, Phong kiến Đông Nam Á, Các Châu lục trên thế giới.</p>
+                        <span class="inline-block mt-3 text-xs text-amber-600 dark:text-amber-400 font-semibold">Xem tóm tắt sơ đồ <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: FORMULA & KNOWLEDGE BANK (KHO CÔNG THỨC) -->
+        <section id="tab-formulas" class="tab-content hidden space-y-6">
+            <!-- Search & Filter Controls -->
+            <div class="bg-white dark:bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
+                    <div class="relative w-full sm:w-80">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="formula-search-input" onkeyup="renderFormulas()" placeholder="Tìm kiếm công thức, khái niệm (VD: vận tốc, tỉ lệ thức)..." class="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500">
+                    </div>
+
+                    <!-- Subject Badges Filter -->
+                    <div class="flex flex-wrap gap-1.5 w-full sm:w-auto" id="subject-filter-group">
+                        <button onclick="setFormulaSubject('all')" class="formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-sky-600 text-white transition" data-sub="all">Tất cả môn</button>
+                        <button onclick="setFormulaSubject('toan')" class="formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition" data-sub="toan">Toán 7</button>
+                        <button onclick="setFormulaSubject('khtn')" class="formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition" data-sub="khtn">KHTN 7 (Lý/Hóa/Sinh)</button>
+                        <button onclick="setFormulaSubject('tienganh')" class="formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition" data-sub="tienganh">Tiếng Anh 7</button>
+                        <button onclick="setFormulaSubject('sudia')" class="formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition" data-sub="sudia">Sử - Địa 7</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulas Container Grid -->
+            <div id="formulas-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Dynamic Formula Cards Rendered via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 3: ENGLISH VOCABULARY & FLASHCARDS -->
+        <section id="tab-vocab" class="tab-content hidden space-y-6">
+            <!-- Mode Switcher (List vs Flashcard) -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                <div class="flex items-center space-x-2">
+                    <button onclick="setVocabMode('list')" id="vocab-mode-list-btn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-purple-600 text-white shadow-sm">
+                        <i class="fa-solid fa-list mr-1.5"></i>Danh Sách Từ Vựng
+                    </button>
+                    <button onclick="setVocabMode('flashcard')" id="vocab-mode-card-btn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition">
+                        <i class="fa-solid fa-clone mr-1.5"></i>Lật Thẻ Flashcard
+                    </button>
+                </div>
+
+                <!-- Unit Filter -->
+                <div class="flex items-center space-x-2 w-full sm:w-auto">
+                    <span class="text-xs font-medium text-slate-500 whitespace-nowrap">Chủ đề:</span>
+                    <select id="vocab-unit-filter" onchange="renderVocab()" class="w-full sm:w-auto text-xs sm:text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="all">Tất cả các Unit (Lớp 7)</option>
+                        <option value="Unit 1: Hobbies">Unit 1: Hobbies (Sở thích)</option>
+                        <option value="Unit 2: Healthy Living">Unit 2: Healthy Living (Sống khỏe)</option>
+                        <option value="Unit 3: Community Service">Unit 3: Community Service (Phục vụ cộng đồng)</option>
+                        <option value="Unit 4: Music and Arts">Unit 4: Music & Arts (Âm nhạc & Nghệ thuật)</option>
+                        <option value="Unit 5: Food and Drink">Unit 5: Food & Drink (Ẩm thực)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- View Mode 1: List View -->
+            <div id="vocab-list-view" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Rendered by JS -->
+            </div>
+
+            <!-- View Mode 2: Flashcard View -->
+            <div id="vocab-flashcard-view" class="hidden flex flex-col items-center justify-center py-6">
+                <div class="w-full max-w-md perspective-1000">
+                    <div id="flashcard-element" onclick="flipFlashcard()" class="relative w-full h-72 bg-white dark:bg-slate-800 rounded-3xl border-2 border-purple-200 dark:border-purple-900/50 shadow-xl cursor-pointer transition-transform duration-500 transform-style-3d flex items-center justify-center p-6 text-center">
+                        <!-- Front Face -->
+                        <div class="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-6 space-y-3">
+                            <span id="fc-unit-badge" class="px-3 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold">Unit 1</span>
+                            <h3 id="fc-word" class="text-3xl font-extrabold text-slate-800 dark:text-white">Hobby</h3>
+                            <p id="fc-phonetic" class="text-sm text-purple-600 dark:text-purple-400 font-medium">/ˈhɒbi/</p>
+                            <button onclick="event.stopPropagation(); speakWord(currentFlashcardWord());" class="p-2 rounded-full bg-purple-50 dark:bg-slate-700 text-purple-600 dark:text-purple-300 hover:scale-110 transition">
+                                <i class="fa-solid fa-volume-high text-base"></i>
+                            </button>
+                            <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-rotate mr-1"></i>Nhấn vào thẻ để xem nghĩa</p>
+                        </div>
+                        <!-- Back Face -->
+                        <div class="absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-center justify-center p-6 space-y-3 bg-purple-50 dark:bg-slate-850 rounded-3xl">
+                            <span id="fc-type" class="px-2.5 py-0.5 bg-purple-200 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded text-xs font-bold">Danh từ (n)</span>
+                            <p id="fc-meaning" class="text-2xl font-bold text-purple-700 dark:text-purple-300">Sở thích</p>
+                            <p id="fc-example" class="text-xs text-slate-600 dark:text-slate-300 italic max-w-xs">"My hobby is collecting stamps."</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="text-xs text-slate-400">
-                    <span id="fcIndex">1 / 10</span>
+                <!-- Flashcard Controls -->
+                <div class="flex items-center space-x-6 mt-6">
+                    <button onclick="prevFlashcard()" class="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 rounded-xl text-slate-700 dark:text-slate-200 font-bold text-sm transition flex items-center">
+                        <i class="fa-solid fa-chevron-left mr-2"></i> Từ trước
+                    </button>
+                    <span id="fc-index-indicator" class="text-sm font-semibold text-slate-500">1 / 10</span>
+                    <button onclick="nextFlashcard()" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-sm transition flex items-center">
+                        Từ tiếp <i class="fa-solid fa-chevron-right ml-2"></i>
+                    </button>
                 </div>
-            </div>
-
-            <div class="flex items-center gap-4 mt-6">
-                <button onclick="prevFlashcard()" class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 transition">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
-                <button onclick="randomFlashcard()" class="px-5 py-3 rounded-2xl bg-blue-600 text-white font-medium hover:bg-blue-700 shadow-md transition flex items-center gap-2 text-sm">
-                    <i class="fa-solid fa-shuffle"></i> Ngẫu nhiên
-                </button>
-                <button onclick="nextFlashcard()" class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 transition">
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
             </div>
         </section>
 
-        <!-- Empty State (When no search match) -->
-        <div id="emptyState" class="hidden text-center py-16">
-            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-slate-400 text-3xl">
-                <i class="fa-solid fa-magnifying-glass"></i>
+        <!-- TAB 4: INTERACTIVE QUIZ (TRẮC NGHIỆM) -->
+        <section id="tab-quiz" class="tab-content hidden space-y-6">
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm max-w-3xl mx-auto space-y-6">
+                <!-- Quiz Header -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-700 gap-4">
+                    <div>
+                        <h2 class="text-xl font-extrabold text-slate-800 dark:text-white flex items-center">
+                            <i class="fa-solid fa-circle-question text-sky-500 mr-2"></i>Luyện Trắc Nghiệm Trọng Tâm Lớp 7
+                        </h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Kiểm tra kiến thức nhanh có đáp án & lời giải chi tiết</p>
+                    </div>
+
+                    <!-- Subject Select for Quiz -->
+                    <select id="quiz-subject-select" onchange="initQuiz()" class="text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 font-semibold">
+                        <option value="all">Tất cả các môn</option>
+                        <option value="toan">Môn Toán 7</option>
+                        <option value="khtn">Môn Khoa Học Tự Nhiên 7</option>
+                        <option value="tienganh">Môn Tiếng Anh 7</option>
+                        <option value="sudia">Môn Lịch Sử & Địa Lý 7</option>
+                    </select>
+                </div>
+
+                <!-- Quiz Progress Bar -->
+                <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                    <div id="quiz-progress-bar" class="bg-sky-500 h-full w-0 transition-all duration-300"></div>
+                </div>
+
+                <!-- Active Question Container -->
+                <div id="quiz-question-container" class="space-y-4">
+                    <!-- Dynamic Question HTML -->
+                </div>
+
+                <!-- Quiz Result Summary (Hidden by default) -->
+                <div id="quiz-result-container" class="hidden text-center py-8 space-y-4">
+                    <div class="w-20 h-20 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-500 flex items-center justify-center text-4xl mx-auto mb-2">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-slate-800 dark:text-white">Hoàn Thành Bài Trắc Nghiệm!</h3>
+                    <p id="quiz-final-score" class="text-lg font-bold text-sky-600 dark:text-sky-400">Bạn đã trả lời đúng 8 / 10 câu</p>
+                    <p class="text-xs text-slate-500 max-w-sm mx-auto">Hãy duy trì luyện tập hàng ngày để nắm vững kiến thức lớp 7 nhé!</p>
+                    <button onclick="initQuiz()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm rounded-xl transition shadow-md">
+                        <i class="fa-solid fa-rotate-right mr-2"></i>Làm bài test khác
+                    </button>
+                </div>
             </div>
-            <h3 class="text-lg font-bold text-slate-700 dark:text-slate-200">Không tìm thấy nội dung phù hợp</h3>
-            <p class="text-sm text-slate-500 mt-1">Thử đổi từ khóa khác hoặc xem tất cả các môn.</p>
-            <button onclick="clearSearch()" class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-blue-700 transition">
-                Xem tất cả kiến thức
-            </button>
-        </div>
+        </section>
+
+        <!-- TAB 5: QUICK CALCULATORS & TOOLKITS -->
+        <section id="tab-tools" class="tab-content hidden space-y-6">
+            <h2 class="text-xl font-bold text-slate-800 dark:text-white flex items-center">
+                <i class="fa-solid fa-calculator text-emerald-500 mr-2"></i>Công Cụ Tính Toán Nhanh Dành Cho Học Sinh Lớp 7
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Tool 1: Speed Calculator v = s / t -->
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-gauge-high"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 dark:text-white">Tính Tốc Độ Chuyển Động (KHTN 7)</h3>
+                            <p class="text-xs text-slate-500">Công thức: $v = \frac{s}{t}$</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Quãng đường $s$ (m hoặc km):</label>
+                            <input type="number" id="calc-s" placeholder="Nhập quãng đường s..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Thời gian $t$ (giây hoặc giờ):</label>
+                            <input type="number" id="calc-t" placeholder="Nhập thời gian t..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                        </div>
+                        <button onclick="calculateSpeed()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold transition">Tính toán ngay</button>
+                        <div id="calc-speed-result" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-200 text-xs font-semibold text-emerald-800 dark:text-emerald-300"></div>
+                    </div>
+                </div>
+
+                <!-- Tool 2: Proportion Calculator (Tỉ lệ thức a/b = c/d) -->
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-percent"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-800 dark:text-white">Giải Tỉ Lệ Thức $\frac{a}{b} = \frac{c}{d}$ (Toán 7)</h3>
+                            <p class="text-xs text-slate-500">Tìm giá trị ẩn $x$ khi biết 3 số còn lại</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Số a:</label>
+                            <input type="text" id="prop-a" placeholder="Số a hoặc x..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Số b:</label>
+                            <input type="text" id="prop-b" placeholder="Số b..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Số c:</label>
+                            <input type="text" id="prop-c" placeholder="Số c..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Số d:</label>
+                            <input type="text" id="prop-d" placeholder="Số d..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                        </div>
+                    </div>
+                    <button onclick="calculateProportions()" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold transition">Tìm x còn thiếu</button>
+                    <div id="prop-result" class="hidden p-3 bg-blue-50 dark:bg-blue-950/40 rounded-xl border border-blue-200 text-xs font-semibold text-blue-800 dark:text-blue-300"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: AI FORMULA & STUDY ASSISTANT (GEMINI API) -->
+        <section id="tab-ai-assistant" class="tab-content hidden space-y-6">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden max-w-4xl mx-auto flex flex-col h-[600px]">
+                <!-- AI Header -->
+                <div class="p-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-sm sm:text-base">Trợ Lý Gia Sư AI Lớp 7</h3>
+                            <p class="text-xs text-purple-200">Hỏi đáp công thức Toán, KHTN, Ngữ pháp Tiếng Anh 24/7</p>
+                        </div>
+                    </div>
+                    <span class="text-[10px] bg-white/20 px-2.5 py-1 rounded-full font-semibold">Gemini 3 Flash</span>
+                </div>
+
+                <!-- Chat Log Area -->
+                <div id="ai-chat-log" class="flex-1 p-4 overflow-y-auto space-y-4 custom-scrollbar bg-slate-50 dark:bg-slate-900/50">
+                    <!-- Welcome message -->
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold shrink-0">AI</div>
+                        <div class="bg-white dark:bg-slate-800 p-3.5 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 max-w-lg text-sm space-y-1.5 shadow-sm">
+                            <p class="font-semibold text-purple-600 dark:text-purple-400">Chào bạn! Thầy/Cô AI Lớp 7 sẵn sàng trợ giúp bạn 🤖</p>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">Bạn có thể hỏi về bất kỳ bài tập hay công thức nào của Lớp 7. Ví dụ:</p>
+                            <div class="flex flex-wrap gap-1.5 pt-1">
+                                <button onclick="quickAIQuery('Giải thích định luật phản xạ ánh sáng lớp 7')" class="text-[11px] bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 px-2.5 py-1 rounded-lg border border-purple-200 dark:border-purple-800 hover:bg-purple-100 transition">Định luật phản xạ ánh sáng</button>
+                                <button onclick="quickAIQuery('Cách tính tổng các góc trong một tam giác')" class="text-[11px] bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 px-2.5 py-1 rounded-lg border border-purple-200 dark:border-purple-800 hover:bg-purple-100 transition">Tổng góc tam giác = 180°</button>
+                                <button onclick="quickAIQuery('Cấu trúc thì Quá khứ đơn Tiếng Anh 7')" class="text-[11px] bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 px-2.5 py-1 rounded-lg border border-purple-200 dark:border-purple-800 hover:bg-purple-100 transition">Cấu trúc Thì Quá khứ đơn</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input Form -->
+                <div class="p-3 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex items-center space-x-2">
+                    <input type="text" id="ai-chat-input" onkeypress="if(event.key==='Enter') sendAIMessage()" placeholder="Nhập câu hỏi về công thức hoặc bài tập Lớp 7..." class="flex-1 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <button onclick="sendAIMessage()" id="ai-send-btn" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-sm transition flex items-center shrink-0">
+                        <span>Gửi</span>
+                        <i class="fa-solid fa-paper-plane ml-2 text-xs"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
 
     </main>
 
-    <!-- Interactive Tools Modal -->
-    <div id="toolsModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-xl p-6 shadow-2xl relative overflow-hidden">
-            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-4 mb-4">
-                <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
-                    <i class="fa-solid fa-calculator text-xl"></i>
-                    <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100">Tiện Ích Tính Nhanh Công Thức</h3>
-                </div>
-                <button onclick="closeToolsModal()" class="w-8 h-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-slate-600">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-
-            <!-- Tool Selection Tabs -->
-            <div class="flex border-b border-slate-200 dark:border-slate-800 mb-4 gap-4 text-sm font-medium">
-                <button onclick="switchTool('speed')" id="toolTabSpeed" class="pb-2 border-b-2 border-blue-600 text-blue-600 dark:text-blue-400">Tính Tốc Độ (v = s/t)</button>
-                <button onclick="switchTool('ratio')" id="toolTabRatio" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200">Tỉ Lệ Thức (a/b = c/d)</button>
-                <button onclick="switchTool('density')" id="toolTabDensity" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200">Mật Độ Dân Số</button>
-            </div>
-
-            <!-- Tool 1: Speed Calculator -->
-            <div id="toolSpeed" class="space-y-4">
-                <p class="text-xs text-slate-500">Tính Tốc độ \(v\), Quãng đường \(s\) hoặc Thời gian \(t\):</p>
-                <div class="grid grid-cols-3 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold mb-1">Quãng đường s (km)</label>
-                        <input type="number" id="calcS" placeholder="Ví dụ: 120" class="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold mb-1">Thời gian t (h)</label>
-                        <input type="number" id="calcT" placeholder="Ví dụ: 2" class="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold mb-1">Tốc độ v (km/h)</label>
-                        <input type="number" id="calcV" placeholder="Ví dụ: 60" class="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    </div>
-                </div>
-                <button onclick="calculateSpeed()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-sm shadow transition">
-                    Tính Toán Kết Quả
-                </button>
-                <div id="resSpeed" class="p-3 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900 rounded-xl text-sm font-semibold text-blue-700 dark:text-blue-300 text-center">
-                    Nhập 2 trong 3 thông số để tính giá trị còn lại.
-                </div>
-            </div>
-
-            <!-- Tool 2: Ratio Calculator -->
-            <div id="toolRatio" class="space-y-4 hidden">
-                <p class="text-xs text-slate-500">Tìm x trong Tỉ lệ thức \(\frac{a}{b} = \frac{c}{x}\):</p>
-                <div class="grid grid-cols-3 gap-3 items-center text-center">
-                    <input type="number" id="ratioA" placeholder="a" class="p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm text-center">
-                    <span class="text-lg font-bold">/</span>
-                    <input type="number" id="ratioB" placeholder="b" class="p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm text-center">
-                </div>
-                <div class="text-center font-bold text-slate-400">=</div>
-                <div class="grid grid-cols-3 gap-3 items-center text-center">
-                    <input type="number" id="ratioC" placeholder="c" class="p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm text-center">
-                    <span class="text-lg font-bold">/</span>
-                    <input type="text" value="x (Cần tìm)" disabled class="p-2.5 bg-slate-200 dark:bg-slate-700 rounded-xl text-sm text-center font-semibold text-blue-600 dark:text-blue-300">
-                </div>
-                <button onclick="calculateRatio()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-sm shadow transition">
-                    Tìm x = (b × c) / a
-                </button>
-                <div id="resRatio" class="p-3 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900 rounded-xl text-sm font-semibold text-blue-700 dark:text-blue-300 text-center">
-                    Kết quả x sẽ hiển thị ở đây.
-                </div>
-            </div>
-
-            <!-- Tool 3: Population Density Calculator -->
-            <div id="toolDensity" class="space-y-4 hidden">
-                <p class="text-xs text-slate-500">Tính Mật độ dân số = Dân số (người) / Diện tích (km²)</p>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-semibold mb-1">Dân số (người)</label>
-                        <input type="number" id="popVal" placeholder="Số dân..." class="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold mb-1">Diện tích (km²)</label>
-                        <input type="number" id="areaVal" placeholder="Diện tích..." class="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm">
-                    </div>
-                </div>
-                <button onclick="calculateDensity()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-sm shadow transition">
-                    Tính Mật Độ Dân Số
-                </button>
-                <div id="resDensity" class="p-3 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900 rounded-xl text-sm font-semibold text-blue-700 dark:text-blue-300 text-center">
-                    Kết quả (người/km²)
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 border border-slate-700">
-        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
-        <span id="toastMsg" class="text-sm font-medium">Thông báo</span>
-    </div>
-
     <!-- Footer -->
-    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 py-6 bg-white dark:bg-slate-900">
-        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 dark:text-slate-400 space-y-2">
-            <p class="font-medium">© 2026 Sổ Tay Công Thức Lớp 7 - Biên soạn bám sát Chương trình GDPT 2018 (Kết nối tri thức, Cánh diều, Chân trời sáng tạo)</p>
-            <p>Thiết kế dành riêng cho học sinh THCS giúp tra cứu nhanh và ghi nhớ hiệu quả.</p>
-        </div>
+    <footer class="mt-12 border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+        <p>© 2026 Sổ Tay Học Tập Lớp 7. Ứng dụng ôn tập công thức bám sát Bộ Giáo Dục & Đào Tạo (KNTT / Cánh Diều / CTST).</p>
     </footer>
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Data Structure for Grade 7 Subjects & Formulas
-        const subjectsData = [
-            { id: 'all', name: 'Tất Cả Môn', icon: 'fa-layer-group', color: 'bg-slate-600' },
-            { id: 'math', name: 'Toán Học', icon: 'fa-calculator', color: 'bg-blue-600', badgeClass: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300' },
-            { id: 'science', name: 'KHTN (Lý - Hóa - Sinh)', icon: 'fa-flask', color: 'bg-emerald-600', badgeClass: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300' },
-            { id: 'english', name: 'Tiếng Anh', icon: 'fa-language', color: 'bg-purple-600', badgeClass: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300' },
-            { id: 'literature', name: 'Ngữ Văn', icon: 'fa-book-open', color: 'bg-amber-600', badgeClass: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300' },
-            { id: 'history_geo', name: 'Lịch Sử & Địa Lí', icon: 'fa-earth-americas', color: 'bg-rose-600', badgeClass: 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300' }
-        ];
-
-        const formulasData = [
-            // --- TOÁN HỌC ---
+        /* -------------------------------------------------------------
+         * 1. DATABASE DATA (Toán 7, KHTN 7, Tiếng Anh 7, Sử Địa 7)
+         * ------------------------------------------------------------- */
+        const FORMULAS_DATA = [
+            // TOÁN 7
             {
-                id: 'm1',
-                subjectId: 'math',
-                category: 'Đại số - Chương 1',
-                title: 'Tập Hợp Số Hữu Tỉ (ℚ)',
-                description: 'Số hữu tỉ là số viết được dưới dạng phân số \\( \\frac{a}{b} \\) với \\( a, b \\in \\mathbb{Z}, b \\neq 0 \\).',
-                content: `
-                    <div class="space-y-2">
-                        <p><b>• Phép cộng, trừ:</b> \\( \\frac{a}{m} + \\frac{b}{m} = \\frac{a+b}{m} \\)</p>
-                        <p><b>• Phép nhân:</b> \\( \\frac{a}{b} \\cdot \\frac{c}{d} = \\frac{a \\cdot c}{b \\cdot d} \\)</p>
-                        <p><b>• Phép chia:</b> \\( \\frac{a}{b} : \\frac{c}{d} = \\frac{a}{b} \\cdot \\frac{d}{c} = \\frac{a \\cdot d}{b \\cdot c} \\) \\((c, d \\neq 0)\\)</p>
-                        <p><b>• Giá trị tuyệt đối:</b> \\( |x| = x \\) nếu \\( x \\ge 0 \\); \\( |x| = -x \\) nếu \\( x < 0 \\).</p>
-                    </div>
-                `,
-                keyPoints: ['\\( \\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\)', '|x| luôn ≥ 0 với mọi x']
+                id: 't1',
+                subject: 'toan',
+                topic: 'Số Hữu Tỉ (Chương I - Đại Số)',
+                title: 'Các Phép Tính Với Số Hữu Tỉ',
+                formula: 'x = \\frac{a}{m}, y = \\frac{b}{m} \\Rightarrow x + y = \\frac{a + b}{m}',
+                description: 'Số hữu tỉ là số viết được dưới dạng phân số a/b (a, b ∈ Z, b ≠ 0). Tập hợp số hữu tỉ ký hiệu là Q.',
+                example: 'Ví dụ: 3/4 + (-1/4) = (3 - 1)/4 = 2/4 = 1/2.'
             },
             {
-                id: 'm2',
-                subjectId: 'math',
-                category: 'Đại số - Lũy Thừa',
-                title: 'Các Công Thức Lũy Thừa Với Số Mũ Tự Nhiên',
-                description: 'Tổng hợp quy tắc nhân, chia và lũy thừa của lũy thừa trên tập hợp số hữu tỉ.',
-                content: `
-                    <div class="space-y-2">
-                        <p><b>1. Nhân 2 lũy thừa cùng cơ số:</b> \\( x^m \\cdot x^n = x^{m+n} \\)</p>
-                        <p><b>2. Chia 2 lũy thừa cùng cơ số:</b> \\( x^m : x^n = x^{m-n} \\) \\((x \\neq 0, m \\ge n)\\)</p>
-                        <p><b>3. Lũy thừa của lũy thừa:</b> \\( (x^m)^n = x^{m \\cdot n} \\)</p>
-                        <p><b>4. Lũy thừa của một tích:</b> \\( (x \\cdot y)^n = x^n \\cdot y^n \\)</p>
-                        <p><b>5. Lũy thừa của một thương:</b> \\( \\left(\\frac{x}{y}\\right)^n = \\frac{x^n}{y^n} \\) \\((y \\neq 0)\\)</p>
-                        <p><b> Quy ước:</b> \\( x^0 = 1 \\) \\((x \\neq 0)\\); \\( x^1 = x \\)</p>
-                    </div>
-                `,
-                keyPoints: ['Lưu ý cơ số phải giống nhau', 'Quy ước x⁰ = 1']
+                id: 't2',
+                subject: 'toan',
+                topic: 'Tỉ Lệ Thức & Tỉ Lệ Thuận/Nghịch',
+                title: 'Tính Chất Dãy Tỉ Số Bằng Nhau',
+                formula: '\\frac{a}{b} = \\frac{c}{d} = \\frac{a + c}{b + d} = \\frac{a - c}{b - d}',
+                description: 'Nếu a/b = c/d thì a.d = b.c (tích trung tỉ bằng tích ngoại tỉ). Hai đại lượng y và x tỉ lệ thuận khi y = k.x (k ≠ 0).',
+                example: 'Ví dụ: Cho x/2 = y/3 và x + y = 10 ⟹ x/2 = y/3 = (x+y)/(2+3) = 10/5 = 2 ⟹ x=4, y=6.'
             },
             {
-                id: 'm3',
-                subjectId: 'math',
-                category: 'Đại số - Tỉ Lệ Thức',
-                title: 'Tỉ Lệ Thức & Tính Chất Dãy Tỉ Số Bằng Nhau',
-                description: 'Công thức tỉ lệ thức và áp dụng giải bài toán chia tỉ lệ thuận, tỉ lệ nghịch.',
-                content: `
-                    <div class="space-y-2">
-                        <p><b>• Định nghĩa:</b> Tỉ lệ thức là đẳng thức của hai tỉ số \\( \\frac{a}{b} = \\frac{c}{d} \\)</p>
-                        <p><b>• Tính chất cơ bản:</b> Nếu \\( \\frac{a}{b} = \\frac{c}{d} \\) thì \\( a \\cdot d = b \\cdot c \\)</p>
-                        <p><b>• Dãy tỉ số bằng nhau:</b></p>
-                        <div class="bg-blue-50 dark:bg-blue-950/40 p-2.5 rounded-xl border border-blue-200 dark:border-blue-900 my-1">
-                            \\( \\frac{a}{b} = \\frac{c}{d} = \\frac{e}{f} = \\frac{a + c + e}{b + d + f} = \\frac{a - c + e}{b - d + f} \\)
-                        </div>
-                        <p class="text-xs text-slate-500">* Giả thiết các mẫu số đều khác 0 và có nghĩa.</p>
-                    </div>
-                `,
-                keyPoints: ['Tích ngoại tỉ = Tích trung tỉ', 'Áp dụng cho bài toán chia phần tỉ lệ']
+                id: 't3',
+                subject: 'toan',
+                topic: 'Hình Học Tam Giác (Chương IV)',
+                title: 'Tổng Ba Góc Trong Một Tam Giác',
+                formula: '\\widehat{A} + \\widehat{B} + \\widehat{C} = 180^\\circ',
+                description: 'Trong tam giác vuông, hai góc nhọn phụ nhau. Góc ngoài của tam giác bằng tổng hai góc trong không kề với nó.',
+                example: 'Ví dụ: ΔABC có góc A = 70°, góc B = 60° ⟹ góc C = 180° - (70° + 60°) = 50°.'
             },
             {
-                id: 'm4',
-                subjectId: 'math',
-                category: 'Hình học - Chương 3',
+                id: 't4',
+                subject: 'toan',
+                topic: 'Hình Học Tam Giác (Chương IV)',
                 title: 'Các Trường Hợp Bằng Nhau Của Tam Giác',
-                description: 'Quy tắc chứng minh hai tam giác thường và hai tam giác vuông bằng nhau.',
-                content: `
-                    <div class="space-y-2">
-                        <p><b>1. Tam giác thường (3 trường hợp):</b></p>
-                        <ul class="list-disc pl-5 space-y-1 text-sm">
-                            <li><b>c - c - c:</b> Cạnh - Cạnh - Cạnh</li>
-                            <li><b>c - g - c:</b> Cạnh - Góc - Cạnh (Góc xen giữa 2 cạnh)</li>
-                            <li><b>g - c - g:</b> Góc - Cạnh - Góc (Cạnh kề 2 góc)</li>
-                        </ul>
-                        <p><b>2. Tam giác vuông (Các trường hợp đặc biệt):</b></p>
-                        <ul class="list-disc pl-5 space-y-1 text-sm">
-                            <li>Cạnh huyền - góc nhọn</li>
-                            <li>Cạnh huyền - cạnh góc vuông</li>
-                            <li>Hai cạnh góc vuông (c-g-c)</li>
-                        </ul>
-                    </div>
-                `,
-                keyPoints: ['Góc phải nằm XEN GIỮA 2 cạnh', 'Cạnh phải nằm KỀ 2 góc']
-            },
-            {
-                id: 'm5',
-                subjectId: 'math',
-                category: 'Hình học - Đường Đồng Quy',
-                title: 'Các Đường Đồng Quy Trong Tam Giác',
-                description: 'Tính chất Trọng tâm, Trực tâm, Tâm đường tròn nội tiếp, ngoại tiếp.',
-                content: `
-                    <div class="space-y-2 text-sm">
-                        <p><b>1. Ba đường Trung tuyến:</b> Giao nhau tại <b>Trọng tâm (G)</b>. Trọng tâm cách đỉnh \\( \\frac{2}{3} \\) độ dài đường trung tuyến tương ứng.</p>
-                        <p><b>2. Ba đường Phân giác:</b> Giao nhau tại tâm đường tròn <b>Nội tiếp</b> (cách đều 3 cạnh).</p>
-                        <p><b>3. Ba đường Trung trực:</b> Giao nhau tại tâm đường tròn <b>Ngoại tiếp</b> (cách đều 3 đỉnh).</p>
-                        <p><b>4. Ba đường Cao:</b> Giao nhau tại <b>Trực tâm (H)</b>.</p>
-                    </div>
-                `,
-                keyPoints: ['Trọng tâm G = 2/3 đường trung tuyến', 'Trung trực cách đều 3 đỉnh']
+                formula: '\\text{c-c-c}, \\quad \\text{c-g-c}, \\quad \\text{g-c-g}',
+                description: 'Hai tam giác bằng nhau khi các cạnh tương ứng bằng nhau và các góc tương ứng bằng nhau. Tam giác vuông có thêm TH cạnh huyền - góc nhọn.',
+                example: 'Ứng dụng: Chứng minh 2 đoạn thẳng bằng nhau hoặc 2 góc bằng nhau.'
             },
 
-            // --- KHOA HỌC TỰ NHIÊN (KHTN 7) ---
+            // KHOA HỌC TỰ NHIÊN 7
             {
-                id: 's1',
-                subjectId: 'science',
-                category: 'Vật lí - Tốc Độ & Chuyển Động',
-                title: 'Công Thức Tính Tốc Độ & Đồ Thị Chuyển Động',
-                description: 'Đơn vị và công thức tính tốc độ chuyển động trong KHTN 7.',
-                content: `
-                    <div class="space-y-2">
-                        <p><b>Công thức tính tốc độ:</b> \\( v = \\frac{s}{t} \\)</p>
-                        <div class="bg-emerald-50 dark:bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-200 dark:border-emerald-800 text-sm">
-                            • <b>s:</b> Quãng đường đi được (m hoặc km)<br>
-                            • <b>t:</b> Thời gian đi hết quãng đường đó (s hoặc h)<br>
-                            • <b>v:</b> Tốc độ chuyển động (m/s hoặc km/h)
-                        </div>
-                        <p><b>Đổi đơn vị:</b></p>
-                        <p>\\( 1 \\text{ m/s} = 3{,}6 \\text{ km/h} \\) &nbsp;|&nbsp; \\( 1 \\text{ km/h} = \\frac{1}{3{,}6} \\text{ m/s} \\)</p>
-                    </div>
-                `,
-                keyPoints: ['1 m/s = 3.6 km/h', 'v = s / t']
+                id: 'k1',
+                subject: 'khtn',
+                topic: 'Vật Lý: Tốc Độ Chuyển Động',
+                title: 'Công Thức Tính Tốc Độ',
+                formula: 'v = \\frac{s}{t} \\quad \\Rightarrow \\quad s = v \\cdot t, \\quad t = \\frac{s}{v}',
+                description: 'Tốc độ cho biết độ nhanh chậm của chuyển động. Đơn vị hợp pháp: m/s hoặc km/h (1 m/s = 3.6 km/h).',
+                example: 'Ví dụ: Xe chạy s = 90 km trong t = 2 giờ ⟹ v = 90/2 = 45 km/h.'
             },
             {
-                id: 's2',
-                subjectId: 'science',
-                category: 'Vật lí - Âm Thanh',
-                title: 'Tần Số & Biên Độ Dao Động Âm',
-                description: 'Đặc trưng của âm thanh: Độ cao, độ to, phản xạ âm.',
-                content: `
-                    <div class="space-y-2 text-sm">
-                        <p><b>1. Tần số dao động:</b> Là số dao động trong 1 giây. Đơn vị Hertz (Hz).</p>
-                        <p>• Dao động càng nhanh \\(\\rightarrow\\) Tần số càng lớn \\(\\rightarrow\\) Âm càng <b>BỔNG (cao)</b>.</p>
-                        <p>• Dao động càng chậm \\(\\rightarrow\\) Tần số càng nhỏ \\(\\rightarrow\\) Âm càng <b>TRẦM (thấp)</b>.</p>
-                        <p><b>2. Biên độ dao động:</b></p>
-                        <p>• Biên độ dao động càng lớn \\(\\rightarrow\\) Âm phát ra càng <b>TO</b>.</p>
-                        <p><b>3. Vận tốc truyền âm:</b> \\( v_{rắn} > v_{lỏng} > v_{khí} \\). (Chân không không truyền được âm).</p>
-                    </div>
-                `,
-                keyPoints: ['Tần số quyết định ĐỘ CAO (trầm/bổng)', 'Biên độ quyết định ĐỘ TO']
+                id: 'k2',
+                subject: 'khtn',
+                topic: 'Vật Lý: Ánh Sáng & Âm Thanh',
+                title: 'Định Luật Phản Xạ Ánh Sáng',
+                formula: 'i = i\' \\quad (\\text{Góc tới} = \\text{Góc phản xạ})',
+                description: 'Tia phản xạ nằm trong mặt phẳng chứa tia tới và đường pháp tuyến. Tần số âm càng cao thì âm phát ra càng bổng (cao).',
+                example: 'Ví dụ: Nếu chiếu tia tới hợp với pháp tuyến góc i = 30° thì tia phản xạ i\' = 30°.'
             },
             {
-                id: 's3',
-                subjectId: 'science',
-                category: 'Hóa học - Nguyên Tử & Phân Tử',
-                title: 'Cấu Tạo Nguyên Tử & Công Thức Hóa Học',
-                description: 'Hạt electron, proton, neutron, tính hóa trị và khối lượng phân tử.',
-                content: `
-                    <div class="space-y-2 text-sm">
-                        <p><b>1. Cấu tạo nguyên tử:</b></p>
-                        <p>• Hạt nhân (ở tâm): gồm <b>Proton</b> (mang điện +) và <b>Neutron</b> (không mang điện).</p>
-                        <p>• Vỏ nguyên tử: gồm các <b>Electron</b> (mang điện -) chuyển động xung quanh.</p>
-                        <p>• Nguyên tử trung hòa về điện: <b>Số p = Số e</b>.</p>
-                        <p><b>2. Khối lượng nguyên tử (amu):</b> \\( m_{NT} \\approx m_p + m_n \\)</p>
-                        <p><b>3. Quy tắc Hóa trị:</b> Trong hợp chất \\( A_a^x B_b^y \\): \\( a \\cdot x = b \\cdot y \\)</p>
-                    </div>
-                `,
-                keyPoints: ['Số p = Số e', 'Quy tắc hóa trị: a · x = b · y']
+                id: 'k3',
+                subject: 'khtn',
+                topic: 'Hóa Học: Nguyên Tử - Nguyên Tố',
+                title: 'Cấu Tạo Nguyên Tử & Khối Lượng Nguyên Tử',
+                formula: '\\text{Khối lượng nguyên tử} \\approx p + n \\quad (\\text{do } m_e \\ll m_p, m_n)',
+                description: 'Nguyên tử gồm hạt nhân mang điện dương (proton p + neutron n) và vỏ chứa electron e mang điện âm (Số p = Số e).',
+                example: 'Ví dụ: Nguyên tử Carbon có 6p, 6n ⟹ Khối lượng nguyên tử C ≈ 12 amu.'
             },
             {
-                id: 's4',
-                subjectId: 'science',
-                category: 'Sinh học - Trao Đổi Chất',
-                title: 'Quang Hợp & Hô Hấp Tế Bào',
-                description: 'Phương trình tổng quát của quá trình Quang hợp ở thực vật và Hô hấp ở tế bào.',
-                content: `
-                    <div class="space-y-3 text-sm">
-                        <div class="p-2.5 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-200 dark:border-emerald-800">
-                            <p class="font-bold text-emerald-800 dark:text-emerald-300">🌿 Quang hợp (Thực vật):</p>
-                            <p class="mt-1">Nước + Khí Carbon dioxide \\( \\xrightarrow[Diệp\\ thực]{Ánh\\ sáng} \\) Glucose + Khí Oxygen</p>
-                        </div>
-                        <div class="p-2.5 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-800">
-                            <p class="font-bold text-amber-800 dark:text-amber-300">🫁 Hô hấp tế bào (Sinh vật):</p>
-                            <p class="mt-1">Glucose + Khí Oxygen \\( \\rightarrow \\) Khí Carbon dioxide + Nước + Năng lượng (ATP)</p>
-                        </div>
-                        <p class="text-xs text-slate-500">* Hai quá trình này có mối quan hệ trái ngược và bổ sung cho nhau.</p>
-                    </div>
-                `,
-                keyPoints: ['Quang hợp tích lũy năng lượng', 'Hô hấp giải phóng năng lượng (ATP)']
+                id: 'k4',
+                subject: 'khtn',
+                topic: 'Sinh Học: Trao Đổi Chất & Cảm Ứng',
+                title: 'Quang Hợp Ở Thực Vật',
+                formula: '\\text{Khí CO}_2 + \\text{Nước} \\xrightarrow[\\text{Diệp lục}]{\\text{Ánh sáng}} \\text{Glucose} + \\text{Khí O}_2',
+                description: 'Quang hợp là quá trình lá cây tổng hợp chất hữu cơ từ CO2 và H2O nhờ năng lượng ánh sáng mặt trời.',
+                example: 'Ý nghĩa: Cung cấp Oxi cho sự hô hấp của sinh vật và cân bằng khí hậu.'
             },
 
-            // --- TIẾNG ANH ---
+            // TIẾNG ANH 7
             {
                 id: 'e1',
-                subjectId: 'english',
-                category: 'Grammar - Tenses',
-                title: 'Present Simple & Present Continuous',
-                description: 'Thì Hiện tại đơn & Hiện tại tiếp diễn (Cấu trúc, dấu hiệu nhận biết).',
-                content: `
-                    <div class="space-y-3 text-sm">
-                        <div>
-                            <p class="font-bold text-purple-600 dark:text-purple-400">1. Present Simple (Hiện tại đơn):</p>
-                            <p>• Form: <b>S + V(s/es)</b> | <b>S + do/does + not + V_bare</b></p>
-                            <p>• Signal: <i>always, usually, often, sometimes, everyday, every week...</i></p>
-                        </div>
-                        <hr class="border-slate-200 dark:border-slate-800">
-                        <div>
-                            <p class="font-bold text-purple-600 dark:text-purple-400">2. Present Continuous (Hiện tại tiếp diễn):</p>
-                            <p>• Form: <b>S + am/is/are + V-ing</b></p>
-                            <p>• Signal: <i>now, at the moment, right now, Look!, Listen!...</i></p>
-                        </div>
-                    </div>
-                `,
-                keyPoints: ['HTĐ: Thói quen / Sự thật', 'HTTD: Đang diễn ra lúc nói']
+                subject: 'tienganh',
+                topic: 'Ngữ Pháp Trọng Tâm',
+                title: 'Thì Hiện Tại Đơn & Hiện Tại Tiếp Diễn',
+                formula: 'S + V_{(s/es)} \\quad \\text{vs} \\quad S + \\text{am/is/are} + V\\text{-ing}',
+                description: 'Hiện tại đơn diễn tả thói quen/sự thật hiển nhiên. Hiện tại tiếp diễn diễn tả hành động đang xảy ra lúc nói.',
+                example: 'Ví dụ: She plays badminton every day. Look! She is playing badminton right now.'
             },
             {
                 id: 'e2',
-                subjectId: 'english',
-                category: 'Grammar - Tenses',
-                title: 'Past Simple Tense (Thì Quá Khứ Đơn)',
-                description: 'Công thức thì Quá quá đơn với động từ To be và Động từ thường.',
-                content: `
-                    <div class="space-y-2 text-sm">
-                        <p><b>• Với To Be:</b> S + was/were + N/Adj</p>
-                        <p><b>• Với Động từ thường:</b></p>
-                        <ul class="list-disc pl-5 space-y-1">
-                            <li>(+) S + V2/ed</li>
-                            <li>(-) S + did not (didn't) + V_bare</li>
-                            <li>(?) Did + S + V_bare?</li>
-                        </ul>
-                        <p><b>• Dấu hiệu nhận biết:</b> <i>yesterday, last night/week/year, ... ago, in 2020.</i></p>
-                    </div>
-                `,
-                keyPoints: ['Was (I/he/she/it), Were (you/we/they)', 'Mượn trợ động từ DID ở phủ định/nghi vấn']
-            },
-            {
-                id: 'e3',
-                subjectId: 'english',
-                category: 'Grammar - Comparison',
-                title: 'Comparative & Superlative Adjectives',
-                description: 'Cấu trúc so sánh hơn và so sánh nhất của tính từ ngắn và tính từ dài.',
-                content: `
-                    <div class="space-y-3 text-sm">
-                        <div class="p-2 bg-purple-50 dark:bg-purple-950/40 rounded-xl">
-                            <p class="font-semibold text-purple-700 dark:text-purple-300">So Sánh Hơn (Comparative):</p>
-                            <p>• Tính từ ngắn: <b>S1 + V + Adj-er + than + S2</b> (<i>tall → taller than</i>)</p>
-                            <p>• Tính từ dài: <b>S1 + V + more + Adj + than + S2</b> (<i>beautiful → more beautiful than</i>)</p>
-                        </div>
-                        <div class="p-2 bg-purple-50 dark:bg-purple-950/40 rounded-xl">
-                            <p class="font-semibold text-purple-700 dark:text-purple-300">So Sánh Nhất (Superlative):</p>
-                            <p>• Tính từ ngắn: <b>S + V + the + Adj-est</b> (<i>the tallest</i>)</p>
-                            <p>• Tính từ dài: <b>S + V + the most + Adj</b> (<i>the most expensive</i>)</p>
-                        </div>
-                    </div>
-                `,
-                keyPoints: ['Good → better → the best', 'Bad → worse → the worst']
+                subject: 'tienganh',
+                topic: 'Ngữ Pháp Trọng Tâm',
+                title: 'Cấu Trúc So Sánh Bằng & So Sánh Hơn',
+                formula: '\\text{as} + \\text{adj} + \\text{as} \\quad | \\quad \\text{adj-er} + \\text{than} \\quad | \\quad \\text{more} + \\text{adj} + \\text{than}',
+                description: 'Dùng so sánh tính chất giữa hai người hoặc hai vật.',
+                example: 'Ví dụ: Fast ➔ faster than; Beautiful ➔ more beautiful than.'
             },
 
-            // --- NGỮ VĂN ---
+            // LỊCH SỬ & ĐỊA LÝ 7
             {
-                id: 'l1',
-                subjectId: 'literature',
-                category: 'Tiếng Việt - Biện Pháp Tu Từ',
-                title: 'Các Biện Pháp Tu Từ Trọng Tâm Lớp 7',
-                description: 'Nhận biết và tác dụng của Điệp ngữ, Nói giảm nói tránh, Nói quá.',
-                content: `
-                    <div class="space-y-2 text-sm">
-                        <p><b>1. Điệp ngữ:</b> Nhắc đi nhắc lại một từ/cụm từ nhằm nhấn mạnh ý, tạo nhịp điệu, tăng sức gợi hình gợi cảm.</p>
-                        <p><b>2. Nói quá (Phóng đại):</b> Biện pháp phóng đại quy mô, tính chất của sự vật/hiện tượng nhằm gây ấn tượng mạnh, tăng sức biểu cảm.</p>
-                        <p><b>3. Nói giảm nói tránh:</b> Dùng cách diễn đạt tế nhị, uyển chuyển nhằm tránh gây cảm giác quá đau buồn, ghê sợ, nặng nề hoặc thiếu lịch sự.</p>
-                    </div>
-                `,
-                keyPoints: ['Nói quá ≠ Nói dối (Nói quá tăng biểu cảm)', 'Nói giảm nói tránh thể hiện sự tế nhị']
+                id: 'sd1',
+                subject: 'sudia',
+                topic: 'Lịch Sử Đại Việt',
+                title: 'Đại Việt Thời Lý - Trần (Thế kỷ XI - XIV)',
+                formula: '\\text{Chiến thắng Như Nguyệt (1077)} + \\text{3 Lần Đánh Thắng Quân Nguyên Mông}',
+                description: 'Thời kỳ củng cố chủ quyền dân tộc mạnh mẽ với chiến thuật "Vườn không nhà trống" nổi tiếng của Hưng Đạo Vương Trần Quốc Tuấn.',
+                example: 'Trận chiến kinh điển: Chiến thắng Bạch Đằng năm 1288.'
             },
             {
-                id: 'l2',
-                subjectId: 'literature',
-                category: 'Văn Bản & Thể Loại',
-                title: 'Thơ 4 Chữ, 5 Chữ & Thơ Lục Bát',
-                description: 'Đặc điểm vần, nhịp và thể thơ trong chương trình Ngữ văn 7.',
-                content: `
-                    <div class="space-y-2 text-sm">
-                        <p><b>• Thơ 4 chữ / 5 chữ:</b></p>
-                        <p>- Số tiếng trong mỗi dòng: 4 tiếng hoặc 5 tiếng.</p>
-                        <p>- Ngắt nhịp linh hoạt (nhịp 2/2, 2/3, 3/2).</p>
-                        <p>- Vần: Vần chân (cuối dòng), vần lưng, vần liền hoặc vần gián cách.</p>
-                        <p><b>• Thơ Lục Bát:</b> Các cặp câu 6 - 8 tiếng. Tiếng thứ 6 câu lục vần với tiếng 6 câu bát. Tiếng thứ 8 câu bát vần với tiếng 6 câu lục tiếp theo.</p>
-                    </div>
-                `,
-                keyPoints: ['Thơ 4-5 chữ thích hợp diễn tả cảm xúc nhịp nhàng', 'Chú ý cách ngắt nhịp và gieo vần']
-            },
-
-            // --- LỊCH SỬ VÀ ĐỊA LÍ ---
-            {
-                id: 'hg1',
-                subjectId: 'history_geo',
-                category: 'Địa Lí - Công Thức Tính',
-                title: 'Công Thức Tính Mật Độ Dân Số & Tỉ Lệ Dân Số',
-                description: 'Các công thức tính toán địa lí quan trọng nhất chương trình Lớp 7.',
-                content: `
-                    <div class="space-y-2 text-sm">
-                        <div class="p-2.5 bg-rose-50 dark:bg-rose-950/40 rounded-xl border border-rose-200 dark:border-rose-900">
-                            <p><b>1. Công thức Mật độ dân số:</b></p>
-                            <p class="text-center font-bold my-1 text-rose-700 dark:text-rose-300">
-                                \\( \\text{Mật độ dân số} = \\frac{\\text{Dân số (người)}}{\\text{Diện tích (km}^2\\text{)}} \\)
-                            </p>
-                            <p class="text-xs text-slate-500 text-center">(Đơn vị: người/km²)</p>
-                        </div>
-                        <p><b>2. Công thức Cơ cấu / Tỉ trọng (%):</b></p>
-                        <p>\\( \\text{Tỉ trọng thành phần} = \\frac{\\text{Giá trị thành phần}}{\\text{Tổng giá trị}} \\times 100\\% \\)</p>
-                    </div>
-                `,
-                keyPoints: ['Đơn vị Mật độ: người/km²', 'Tổng tỉ trọng các thành phần = 100%']
-            },
-            {
-                id: 'hg2',
-                subjectId: 'history_geo',
-                category: 'Lịch Sử - Mốc Tiêu Biểu',
-                title: 'Các Triều Đại Phong Kiến Độc Lập Việt Nam (Lý - Trần - Lê Sơ)',
-                description: 'Tóm tắt các mốc thời gian và chiến công hiển hách thế kỷ XI - XV.',
-                content: `
-                    <div class="space-y-2 text-sm">
-                        <p><b>• Nhà Lý (1009 - 1225):</b> Lý Công Uẩn dời đô về Thăng Long (1010). Lý Thường Kiệt đánh tan quân Tống trên sông Như Nguyệt (1077).</p>
-                        <p><b>• Nhà Trần (1226 - 1400):</b> Ba lần chiến thắng quân xâm lược Mông - Nguyên (1258, 1285, 1287-1288). Trận Bạch Đằng vĩ đại (1288).</p>
-                        <p><b>• Khởi nghĩa Lam Sơn & Nhà Lê Sơ (1418 - 1427):</b> Lê Lợi và Nguyễn Trãi lãnh đạo đánh đuổi quân Minh, lập ra nhà Lê Sơ.</p>
-                    </div>
-                `,
-                keyPoints: ['1010: Dời đô Thăng Long', '3 lần thắng Mông - Nguyên', '1427: Đại thắng quân Minh']
+                id: 'sd2',
+                subject: 'sudia',
+                topic: 'Địa Lý Các Châu Lục',
+                title: 'Đặc Điểm Địa Lý Châu Âu & Châu Á',
+                formula: '\\text{Châu Á: Diện tích lớn nhất} \\quad | \\quad \\text{Châu Âu: Khí hậu Ôn đới chủ đạo}',
+                description: 'Châu Á có địa hình nhiều dãy núi cao đồ sộ (Himalaya). Châu Âu có bờ biển bị cắt xẻ mạnh tạo nhiều bán đảo.',
+                example: 'Đỉnh núi Everest (8848.86m) nằm ở Châu Á là đỉnh núi cao nhất thế giới.'
             }
         ];
 
-        // Global State
-        let currentSubject = 'all';
-        let currentSearchQuery = '';
-        let currentViewTab = 'cards'; // 'cards' or 'flashcard'
-        let bookmarks = JSON.parse(localStorage.getItem('g7_bookmarks') || '[]');
-        let currentFCIndex = 0;
-        let isFlipped = false;
+        const VOCAB_DATA = [
+            { word: 'Hobby', type: 'n', phonetic: '/ˈhɒbi/', meaning: 'Sở thích, thú vui', unit: 'Unit 1: Hobbies', example: 'Collecting stamps is my favorite hobby.' },
+            { word: 'Community', type: 'n', phonetic: '/kəˈmjuːnəti/', meaning: 'Cộng đồng', unit: 'Unit 3: Community Service', example: 'We join hands to clean our local community.' },
+            { word: 'Donate', type: 'v', phonetic: '/dəʊˈneɪt/', meaning: 'Quyên góp, ủng hộ', unit: 'Unit 3: Community Service', example: 'They donate old books to poor children.' },
+            { word: 'Nutritious', type: 'adj', phonetic: '/njuːˈtrɪʃəs/', meaning: 'Bổ dưỡng', unit: 'Unit 2: Healthy Living', example: 'Vegetables are very nutritious food.' },
+            { word: 'Instrument', type: 'n', phonetic: '/ˈɪnstrəmənt/', meaning: 'Nhạc cụ', unit: 'Unit 4: Music and Arts', example: 'Can you play any musical instrument?' },
+            { word: 'Ingredient', type: 'n', phonetic: '/ɪnˈɡriːdiənt/', meaning: 'Thành phần, nguyên liệu', unit: 'Unit 5: Food and Drink', example: 'Flour is the main ingredient of bread.' },
+            { word: 'Volunteer', type: 'n/v', phonetic: '/ˌvɒlənˈtɪə(r)/', meaning: 'Tình nguyện viên / Tình nguyện', unit: 'Unit 3: Community Service', example: 'She works as a volunteer at the hospital.' },
+            { word: 'Traditional', type: 'adj', phonetic: '/trəˈdɪʃənl/', meaning: 'Truyền thống', unit: 'Unit 4: Music and Arts', example: 'Pho is a traditional Vietnamese dish.' },
+            { word: 'Calories', type: 'n', phonetic: '/ˈkæləriz/', meaning: 'Calo (năng lượng)', unit: 'Unit 2: Healthy Living', example: 'Cycling burns a lot of calories.' }
+        ];
 
-        // Initialize App
-        window.addEventListener('DOMContentLoaded', () => {
-            initTheme();
-            renderSubjectChips();
-            renderCards();
-            updateBookmarkBadge();
-        });
-
-        // Theme Toggle Functionality
-        function initTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
+        const QUIZ_DATA = [
+            {
+                subject: 'toan',
+                question: 'Công thức tính tổng ba góc của một tam giác ABC là gì?',
+                options: ['A. Góc A + B + C = 90°', 'B. Góc A + B + C = 180°', 'C. Góc A + B + C = 360°', 'D. Góc A + B = C'],
+                answer: 1,
+                explanation: 'Theo định lý tổng ba góc trong một tam giác, tổng số đo ba góc của bất kỳ tam giác nào cũng bằng 180°.'
+            },
+            {
+                subject: 'khtn',
+                question: 'Một xe đạp đi được quãng đường 12 km trong thời gian 0.5 giờ. Tốc độ của xe đạp là bao nhiêu?',
+                options: ['A. 6 km/h', 'B. 24 km/h', 'C. 12 km/h', 'D. 18 km/h'],
+                answer: 1,
+                explanation: 'Áp dụng công thức v = s / t = 12 / 0.5 = 24 km/h.'
+            },
+            {
+                subject: 'tienganh',
+                question: 'Điền từ thích hợp: "She _____ (play) football with her friends every Sunday."',
+                options: ['A. is playing', 'B. played', 'C. plays', 'D. play'],
+                answer: 2,
+                explanation: 'Dấu hiệu "every Sunday" chỉ thói quen lặp đi lặp lại ➔ Dùng thì Hiện tại đơn với chủ ngữ "She" ➔ plays.'
+            },
+            {
+                subject: 'sudia',
+                question: 'Ai là người chỉ huy trận chiến thắng quân Nguyên Mông lần thứ 3 trên sông Bạch Đằng năm 1288?',
+                options: ['A. Lý Thường Kiệt', 'B. Trần Hưng Đạo', 'C. Lê Lợi', 'D. Quang Trung'],
+                answer: 1,
+                explanation: 'Hưng Đạo Vương Trần Quốc Tuấn là vị tướng tài năng đã lãnh đạo quân dân nhà Trần đánh tan quân Nguyên Mông năm 1288.'
             }
+        ];
+
+        /* -------------------------------------------------------------
+         * 2. APP STATE MANAGEMENT
+         * ------------------------------------------------------------- */
+        let currentSubjectFilter = 'all';
+        let currentVocabMode = 'list';
+        let flashcardIndex = 0;
+        let isFlashcardFlipped = false;
+        let quizCurrentIndex = 0;
+        let quizScore = 0;
+        let selectedQuizSubject = 'all';
+        let plannerTasks = JSON.parse(localStorage.getItem('g7_planner_tasks')) || [
+            { id: 1, text: 'Học 5 công thức Toán 7 (Số hữu tỉ)', completed: true },
+            { id: 2, text: 'Làm bài tập KHTN 7 tính tốc độ v=s/t', completed: false },
+            { id: 3, text: 'Ôn 10 từ vựng Tiếng Anh Unit 1', completed: false }
+        ];
+
+        /* -------------------------------------------------------------
+         * 3. TAB SWITCHING LOGIC
+         * ------------------------------------------------------------- */
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const activeTab = document.getElementById(`tab-${tabId}`);
+            if (activeTab) activeTab.classList.remove('hidden');
+
+            // Update Nav styles
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-sky-600', 'bg-sky-50', 'dark:bg-slate-700', 'dark:text-sky-400');
+                btn.classList.add('text-slate-600', 'dark:text-slate-300');
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav && tabId !== 'ai-assistant') {
+                activeNav.classList.add('text-sky-600', 'bg-sky-50', 'dark:bg-slate-700', 'dark:text-sky-400');
+            }
+
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        function filterSubjectAndSwitch(sub) {
+            setFormulaSubject(sub);
+            switchTab('formulas');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         }
 
         function toggleDarkMode() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.theme = 'light';
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.theme = 'dark';
-            }
+            document.documentElement.classList.toggle('dark');
         }
 
-        // Render Subject Selection Chips
-        function renderSubjectChips() {
-            const container = document.getElementById('subjectChips');
-            container.innerHTML = subjectsData.map(sub => {
-                const isActive = currentSubject === sub.id;
-                const activeClasses = isActive 
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
-                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800';
-                return `
-                    <button onclick="selectSubject('${sub.id}')" class="px-4 py-2 rounded-2xl text-sm font-semibold flex items-center gap-2 transition ${activeClasses}">
-                        <i class="fa-solid ${sub.icon}"></i>
-                        <span>${sub.name}</span>
-                    </button>
-                `;
-            }).join('');
+        /* -------------------------------------------------------------
+         * 4. FORMULAS & KNOWLEDGE RENDER
+         * ------------------------------------------------------------- */
+        function setFormulaSubject(sub) {
+            currentSubjectFilter = sub;
+            document.querySelectorAll('.formula-filter-btn').forEach(btn => {
+                if (btn.dataset.sub === sub) {
+                    btn.className = "formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-sky-600 text-white transition";
+                } else {
+                    btn.className = "formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition";
+                }
+            });
+            renderFormulas();
         }
 
-        // Select Subject Event
-        function selectSubject(subId) {
-            currentSubject = subId;
-            renderSubjectChips();
-            updateBanner();
-            renderCards();
-            if (currentViewTab === 'flashcard') {
-                initFlashcards();
-            }
-        }
+        function renderFormulas() {
+            const container = document.getElementById('formulas-list');
+            const searchKeyword = document.getElementById('formula-search-input').value.toLowerCase().trim();
 
-        function updateBanner() {
-            const bannerTitle = document.getElementById('bannerTitle');
-            const bannerDesc = document.getElementById('bannerDesc');
-            const subObj = subjectsData.find(s => s.id === currentSubject);
-
-            if (currentSubject === 'all') {
-                bannerTitle.textContent = 'Tổng hợp công thức Lớp 7';
-                bannerDesc.textContent = 'Tra cứu nhanh chóng tất cả kiến thức trọng tâm, công thức toán, khoa học tự nhiên, từ vựng tiếng Anh và quy tắc Ngữ văn.';
-            } else {
-                bannerTitle.textContent = `Công Thức & Kiến Thức: ${subObj.name}`;
-                bannerDesc.textContent = `Tổng hợp đầy đủ các định lý, công thức, quy tắc trọng tâm môn ${subObj.name} Lớp 7 bám sát sách giáo khoa.`;
-            }
-        }
-
-        // Render Formula Cards
-        function renderCards() {
-            const container = document.getElementById('cardsView');
-            const emptyState = document.getElementById('emptyState');
-
-            // Filter logic
-            let filtered = formulasData.filter(item => {
-                const matchesSubject = currentSubject === 'all' || item.subjectId === currentSubject;
-                const matchesSearch = currentSearchQuery === '' || 
-                    item.title.toLowerCase().includes(currentSearchQuery.toLowerCase()) ||
-                    item.category.toLowerCase().includes(currentSearchQuery.toLowerCase()) ||
-                    item.description.toLowerCase().includes(currentSearchQuery.toLowerCase());
-                return matchesSubject && matchesSearch;
+            const filtered = FORMULAS_DATA.filter(item => {
+                const matchSubject = currentSubjectFilter === 'all' || item.subject === currentSubjectFilter;
+                const matchSearch = item.title.toLowerCase().includes(searchKeyword) || 
+                                    item.topic.toLowerCase().includes(searchKeyword) || 
+                                    item.description.toLowerCase().includes(searchKeyword);
+                return matchSubject && matchSearch;
             });
 
             if (filtered.length === 0) {
-                container.innerHTML = '';
-                emptyState.classList.remove('hidden');
+                container.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-slate-400 dark:text-slate-500">
+                        <i class="fa-solid fa-folder-open text-4xl mb-2"></i>
+                        <p class="text-sm">Không tìm thấy công thức nào phù hợp.</p>
+                    </div>`;
                 return;
             }
 
-            emptyState.classList.add('hidden');
-
-            container.innerHTML = filtered.map(item => {
-                const subObj = subjectsData.find(s => s.id === item.subjectId);
-                const isBookmarked = bookmarks.includes(item.id);
-
-                return `
-                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm card-hover flex flex-col justify-between relative overflow-hidden">
-                        <!-- Top Tag & Bookmark -->
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="px-3 py-1 rounded-full text-xs font-bold tracking-wide ${subObj.badgeClass || 'bg-slate-100 text-slate-700'}">
-                                    ${item.category}
-                                </span>
-                                <button onclick="toggleBookmark('${item.id}')" title="Lưu công thức" class="text-slate-400 hover:text-amber-500 transition">
-                                    <i class="${isBookmarked ? 'fa-solid text-amber-500' : 'fa-regular'} fa-bookmark text-lg"></i>
-                                </button>
-                            </div>
-
-                            <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-1 leading-snug">
-                                ${item.title}
-                            </h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
-                                ${item.description}
-                            </p>
-
-                            <!-- Formula Box Content -->
-                            <div class="bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-4 text-slate-700 dark:text-slate-200 text-sm leading-relaxed mb-4">
-                                ${item.content}
-                            </div>
-                        </div>
-
-                        <!-- Footer Highlights -->
-                        <div class="pt-3 border-t border-slate-100 dark:border-slate-800/60 flex flex-wrap gap-1.5 items-center">
-                            <span class="text-[11px] font-semibold text-slate-400">Ghi nhớ:</span>
-                            ${item.keyPoints.map(pt => `
-                                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-md text-[11px]">
-                                    ${pt}
-                                </span>
-                            `).join('')}
-                        </div>
+            container.innerHTML = filtered.map(item => `
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-3 hover:border-sky-300 transition">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${getSubjectBadgeClass(item.subject)}">
+                            ${getSubjectName(item.subject)}
+                        </span>
+                        <span class="text-xs text-slate-400 font-medium">${item.topic}</span>
                     </div>
-                `;
-            }).join('');
-
-            // Trigger MathJax re-render for formulas
-            if (window.MathJax && window.MathJax.typesetPromise) {
-                window.MathJax.typesetPromise();
-            }
-        }
-
-        // Handle Search Inputs
-        function handleSearch() {
-            const val = document.getElementById('searchInput').value.trim();
-            currentSearchQuery = val;
-            const clearBtn = document.getElementById('clearSearchBtn');
-            if (val.length > 0) clearBtn.classList.remove('hidden');
-            else clearBtn.classList.add('hidden');
-            renderCards();
-        }
-
-        function handleMobileSearch() {
-            currentSearchQuery = document.getElementById('mobileSearchInput').value.trim();
-            renderCards();
-        }
-
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('mobileSearchInput').value = '';
-            document.getElementById('clearSearchBtn').classList.add('hidden');
-            currentSearchQuery = '';
-            renderCards();
-        }
-
-        // Bookmark System
-        function toggleBookmark(id) {
-            if (bookmarks.includes(id)) {
-                bookmarks = bookmarks.filter(bId => bId !== id);
-                showToast('Đã xóa khỏi danh sách lưu');
-            } else {
-                bookmarks.push(id);
-                showToast('Đã lưu công thức thành công!');
-            }
-            localStorage.setItem('g7_bookmarks', JSON.stringify(bookmarks));
-            updateBookmarkBadge();
-            renderCards();
-        }
-
-        function updateBookmarkBadge() {
-            const badge = document.getElementById('bookmarkCount');
-            if (bookmarks.length > 0) {
-                badge.textContent = bookmarks.length;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
-        }
-
-        function toggleBookmarksView() {
-            if (bookmarks.length === 0) {
-                showToast('Chưa có công thức nào được lưu!');
-                return;
-            }
-            // Filter to show bookmarked items
-            const filtered = formulasData.filter(i => bookmarks.includes(i.id));
-            document.getElementById('bannerTitle').textContent = 'Công Thức Đã Lưu';
-            document.getElementById('bannerDesc').textContent = 'Danh sách các định lí và công thức bạn đã đánh dấu yêu thích để ôn tập nhanh.';
-            
-            const container = document.getElementById('cardsView');
-            container.innerHTML = filtered.map(item => {
-                const subObj = subjectsData.find(s => s.id === item.subjectId);
-                return `
-                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm card-hover flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-center justify-between mb-3">
-                                <span class="px-3 py-1 rounded-full text-xs font-bold ${subObj.badgeClass}">
-                                    ${item.category}
-                                </span>
-                                <button onclick="toggleBookmark('${item.id}')" title="Xóa lưu" class="text-amber-500 hover:text-slate-400 transition">
-                                    <i class="fa-solid fa-bookmark text-lg"></i>
-                                </button>
-                            </div>
-                            <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-1">${item.title}</h3>
-                            <div class="bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-2xl p-4 text-slate-700 dark:text-slate-200 text-sm mb-4">
-                                ${item.content}
-                            </div>
-                        </div>
+                    <h3 class="font-bold text-base text-slate-800 dark:text-slate-100">${item.title}</h3>
+                    <div class="p-3 bg-slate-50 dark:bg-slate-900/80 rounded-xl border border-slate-100 dark:border-slate-800 font-mono text-sm text-sky-700 dark:text-sky-300 font-semibold text-center overflow-x-auto">
+                        ${item.formula}
                     </div>
-                `;
-            }).join('');
-            
-            if (window.MathJax && window.MathJax.typesetPromise) {
-                window.MathJax.typesetPromise();
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${item.description}</p>
+                    <div class="text-[11px] bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-300 p-2.5 rounded-lg border border-amber-100 dark:border-amber-900/40 italic">
+                        <i class="fa-solid fa-lightbulb mr-1.5 text-amber-500"></i>${item.example}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getSubjectBadgeClass(sub) {
+            switch(sub) {
+                case 'toan': return 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300';
+                case 'khtn': return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300';
+                case 'tienganh': return 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300';
+                default: return 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300';
             }
         }
 
-        // Switch View Tabs (Cards / Flashcard)
-        function switchTab(tab) {
-            currentViewTab = tab;
-            const btnCards = document.getElementById('tabBtnCards');
-            const btnFC = document.getElementById('tabBtnFlashcard');
-            const cardsView = document.getElementById('cardsView');
-            const fcView = document.getElementById('flashcardView');
+        function getSubjectName(sub) {
+            switch(sub) {
+                case 'toan': return 'Toán 7';
+                case 'khtn': return 'KHTN 7';
+                case 'tienganh': return 'Tiếng Anh 7';
+                default: return 'Sử - Địa 7';
+            }
+        }
 
-            if (tab === 'cards') {
-                btnCards.className = 'px-4 py-2 bg-white text-blue-700 font-medium rounded-xl text-sm shadow hover:bg-blue-50 transition';
-                btnFC.className = 'px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-medium rounded-xl text-sm transition';
-                cardsView.classList.remove('hidden');
-                fcView.classList.add('hidden');
-                renderCards();
+        /* -------------------------------------------------------------
+         * 5. VOCABULARY & FLASHCARDS LOGIC
+         * ------------------------------------------------------------- */
+        function setVocabMode(mode) {
+            currentVocabMode = mode;
+            const listView = document.getElementById('vocab-list-view');
+            const cardView = document.getElementById('vocab-flashcard-view');
+            const listBtn = document.getElementById('vocab-mode-list-btn');
+            const cardBtn = document.getElementById('vocab-mode-card-btn');
+
+            if (mode === 'list') {
+                listView.classList.remove('hidden');
+                cardView.classList.add('hidden');
+                listBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-purple-600 text-white shadow-sm";
+                cardBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition";
             } else {
-                btnFC.className = 'px-4 py-2 bg-white text-blue-700 font-medium rounded-xl text-sm shadow hover:bg-blue-50 transition';
-                btnCards.className = 'px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-medium rounded-xl text-sm transition';
-                cardsView.classList.add('hidden');
-                fcView.classList.remove('hidden');
-                initFlashcards();
+                listView.classList.add('hidden');
+                cardView.classList.remove('hidden');
+                cardBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-purple-600 text-white shadow-sm";
+                listBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition";
+                updateFlashcard();
             }
         }
 
-        // Flashcards Logic
-        function getActiveFlashcards() {
-            return formulasData.filter(item => currentSubject === 'all' || item.subjectId === currentSubject);
+        function getFilteredVocab() {
+            const unit = document.getElementById('vocab-unit-filter').value;
+            if (unit === 'all') return VOCAB_DATA;
+            return VOCAB_DATA.filter(item => item.unit === unit);
         }
 
-        function initFlashcards() {
-            currentFCIndex = 0;
-            isFlipped = false;
-            updateFlashcardUI();
+        function renderVocab() {
+            const list = getFilteredVocab();
+            const container = document.getElementById('vocab-list-view');
+
+            container.innerHTML = list.map(item => `
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between space-y-3">
+                    <div class="space-y-1">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">${item.unit}</span>
+                            <span class="text-xs font-semibold text-slate-400">${item.type}</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-1">
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-white">${item.word}</h4>
+                            <button onclick="speakWord('${item.word}')" class="p-1.5 rounded-lg text-purple-600 hover:bg-purple-50 dark:hover:bg-slate-700 transition">
+                                <i class="fa-solid fa-volume-high text-sm"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-purple-600 dark:text-purple-400 font-medium">${item.phonetic}</p>
+                        <p class="text-sm font-semibold text-slate-700 dark:text-slate-200 pt-1">${item.meaning}</p>
+                    </div>
+                    <p class="text-xs text-slate-500 italic bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg">"${item.example}"</p>
+                </div>
+            `).join('');
+
+            flashcardIndex = 0;
+            if (currentVocabMode === 'flashcard') updateFlashcard();
+        }
+
+        function currentFlashcardWord() {
+            const list = getFilteredVocab();
+            return list[flashcardIndex] ? list[flashcardIndex].word : '';
+        }
+
+        function updateFlashcard() {
+            const list = getFilteredVocab();
+            if (list.length === 0) return;
+
+            if (flashcardIndex >= list.length) flashcardIndex = 0;
+            const item = list[flashcardIndex];
+
+            document.getElementById('fc-unit-badge').innerText = item.unit;
+            document.getElementById('fc-word').innerText = item.word;
+            document.getElementById('fc-phonetic').innerText = item.phonetic;
+            document.getElementById('fc-type').innerText = item.type;
+            document.getElementById('fc-meaning').innerText = item.meaning;
+            document.getElementById('fc-example').innerText = `"${item.example}"`;
+            document.getElementById('fc-index-indicator').innerText = `${flashcardIndex + 1} / ${list.length}`;
+
+            // Reset flip state
+            isFlashcardFlipped = false;
+            document.getElementById('flashcard-element').classList.remove('rotate-y-180');
         }
 
         function flipFlashcard() {
-            isFlipped = !isFlipped;
-            updateFlashcardUI();
-        }
-
-        function updateFlashcardUI() {
-            const cards = getActiveFlashcards();
-            if (cards.length === 0) return;
-
-            const item = cards[currentFCIndex];
-            const fcSub = document.getElementById('fcSubject');
-            const fcTitle = document.getElementById('fcTitle');
-            const fcContent = document.getElementById('fcContent');
-            const fcIndex = document.getElementById('fcIndex');
-            const subObj = subjectsData.find(s => s.id === item.subjectId);
-
-            fcSub.textContent = `${subObj.name} • ${item.category}`;
-            fcIndex.textContent = `Thẻ ${currentFCIndex + 1} / ${cards.length}`;
-
-            if (!isFlipped) {
-                fcTitle.textContent = item.title;
-                fcContent.innerHTML = `<p class="italic text-slate-500 dark:text-slate-400">${item.description}</p><p class="mt-4 font-semibold text-blue-600 dark:text-blue-400 text-sm">Chạm vào đây để xem nội dung công thức ➔</p>`;
-            } else {
-                fcTitle.textContent = "Nội dung & Định lý:";
-                fcContent.innerHTML = item.content;
-                if (window.MathJax && window.MathJax.typesetPromise) {
-                    window.MathJax.typesetPromise();
-                }
-            }
-        }
-
-        function nextFlashcard() {
-            const cards = getActiveFlashcards();
-            if (cards.length === 0) return;
-            currentFCIndex = (currentFCIndex + 1) % cards.length;
-            isFlipped = false;
-            updateFlashcardUI();
+            isFlashcardFlipped = !isFlashcardFlipped;
+            const card = document.getElementById('flashcard-element');
+            if (isFlashcardFlipped) card.classList.add('rotate-y-180');
+            else card.classList.remove('rotate-y-180');
         }
 
         function prevFlashcard() {
-            const cards = getActiveFlashcards();
-            if (cards.length === 0) return;
-            currentFCIndex = (currentFCIndex - 1 + cards.length) % cards.length;
-            isFlipped = false;
-            updateFlashcardUI();
+            const list = getFilteredVocab();
+            if (flashcardIndex > 0) flashcardIndex--;
+            else flashcardIndex = list.length - 1;
+            updateFlashcard();
         }
 
-        function randomFlashcard() {
-            const cards = getActiveFlashcards();
-            if (cards.length === 0) return;
-            currentFCIndex = Math.floor(Math.random() * cards.length);
-            isFlipped = false;
-            updateFlashcardUI();
+        function nextFlashcard() {
+            const list = getFilteredVocab();
+            if (flashcardIndex < list.length - 1) flashcardIndex++;
+            else flashcardIndex = 0;
+            updateFlashcard();
         }
 
-        // Tools Modal Functions & Calculations
-        function openToolsModal() {
-            document.getElementById('toolsModal').classList.remove('hidden');
+        function speakWord(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            }
         }
 
-        function closeToolsModal() {
-            document.getElementById('toolsModal').classList.add('hidden');
+        /* -------------------------------------------------------------
+         * 6. INTERACTIVE QUIZ SYSTEM
+         * ------------------------------------------------------------- */
+        function initQuiz() {
+            selectedQuizSubject = document.getElementById('quiz-subject-select').value;
+            quizCurrentIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-result-container').classList.add('hidden');
+            document.getElementById('quiz-question-container').classList.remove('hidden');
+            renderQuizQuestion();
         }
 
-        function switchTool(tool) {
-            const tools = ['speed', 'ratio', 'density'];
-            tools.forEach(t => {
-                document.getElementById(`tool${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.add('hidden');
-                document.getElementById(`toolTab${t.charAt(0).toUpperCase() + t.slice(1)}`).className = 'pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200';
+        function getFilteredQuiz() {
+            if (selectedQuizSubject === 'all') return QUIZ_DATA;
+            return QUIZ_DATA.filter(q => q.subject === selectedQuizSubject);
+        }
+
+        function renderQuizQuestion() {
+            const questions = getFilteredQuiz();
+            const container = document.getElementById('quiz-question-container');
+            const progressBar = document.getElementById('quiz-progress-bar');
+
+            if (questions.length === 0 || quizCurrentIndex >= questions.length) {
+                showQuizResults();
+                return;
+            }
+
+            const q = questions[quizCurrentIndex];
+            const progressPercent = ((quizCurrentIndex) / questions.length) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            container.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between text-xs text-slate-400 font-semibold">
+                        <span>Câu hỏi ${quizCurrentIndex + 1} / ${questions.length}</span>
+                        <span class="uppercase tracking-wider px-2 py-0.5 rounded bg-sky-100 text-sky-700 dark:bg-sky-900/50 dark:text-sky-300">${getSubjectName(q.subject)}</span>
+                    </div>
+                    <h3 class="text-base font-bold text-slate-800 dark:text-white leading-relaxed">${q.question}</h3>
+                    
+                    <div class="space-y-2.5 pt-2">
+                        ${q.options.map((opt, idx) => `
+                            <button onclick="checkQuizAnswer(${idx})" class="quiz-opt-btn w-full text-left p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 hover:bg-sky-50 hover:border-sky-300 dark:hover:bg-slate-700 text-sm font-medium transition">
+                                ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div id="quiz-explanation" class="hidden p-4 bg-blue-50 dark:bg-blue-950/40 rounded-xl border border-blue-200 dark:border-blue-800 text-xs text-blue-900 dark:text-blue-200 space-y-2">
+                        <p class="font-bold flex items-center"><i class="fa-solid fa-circle-info mr-1.5"></i> Lời giải chi tiết:</p>
+                        <p>${q.explanation}</p>
+                        <button onclick="nextQuizQuestion()" class="mt-2 px-4 py-1.5 bg-sky-600 text-white rounded-lg font-bold hover:bg-sky-700 transition">Câu tiếp theo <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkQuizAnswer(selectedIdx) {
+            const questions = getFilteredQuiz();
+            const q = questions[quizCurrentIndex];
+            const optBtns = document.querySelectorAll('.quiz-opt-btn');
+
+            optBtns.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (idx === q.answer) {
+                    btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800', 'dark:bg-emerald-950/60', 'dark:text-emerald-300');
+                } else if (idx === selectedIdx) {
+                    btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-800', 'dark:bg-rose-950/60', 'dark:text-rose-300');
+                }
             });
 
-            document.getElementById(`tool${tool.charAt(0).toUpperCase() + tool.slice(1)}`).classList.remove('hidden');
-            document.getElementById(`toolTab${tool.charAt(0).toUpperCase() + tool.slice(1)}`).className = 'pb-2 border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 font-bold';
+            if (selectedIdx === q.answer) {
+                quizScore++;
+            }
+
+            document.getElementById('quiz-explanation').classList.remove('hidden');
         }
 
+        function nextQuizQuestion() {
+            quizCurrentIndex++;
+            renderQuizQuestion();
+        }
+
+        function showQuizResults() {
+            const questions = getFilteredQuiz();
+            document.getElementById('quiz-question-container').classList.add('hidden');
+            document.getElementById('quiz-result-container').classList.remove('hidden');
+            document.getElementById('quiz-progress-bar').style.width = '100%';
+            document.getElementById('quiz-final-score').innerText = `Bạn đã đạt ${quizScore} / ${questions.length} điểm!`;
+        }
+
+        /* -------------------------------------------------------------
+         * 7. QUICK CALCULATOR TOOLS LOGIC
+         * ------------------------------------------------------------- */
         function calculateSpeed() {
-            const s = parseFloat(document.getElementById('calcS').value);
-            const t = parseFloat(document.getElementById('calcT').value);
-            const v = parseFloat(document.getElementById('calcV').value);
-            const res = document.getElementById('resSpeed');
+            const s = parseFloat(document.getElementById('calc-s').value);
+            const t = parseFloat(document.getElementById('calc-t').value);
+            const resDiv = document.getElementById('calc-speed-result');
 
-            if (!isNaN(s) && !isNaN(t) && t > 0) {
-                const calculatedV = (s / t).toFixed(2);
-                res.textContent = `Tốc độ v = ${s} / ${t} = ${calculatedV} km/h (hoặc ${(calculatedV/3.6).toFixed(2)} m/s)`;
-            } else if (!isNaN(v) && !isNaN(t)) {
-                const calculatedS = (v * t).toFixed(2);
-                res.textContent = `Quãng đường s = ${v} × ${t} = ${calculatedS} km`;
-            } else if (!isNaN(s) && !isNaN(v) && v > 0) {
-                const calculatedT = (s / v).toFixed(2);
-                res.textContent = `Thời gian t = ${s} / ${v} = ${calculatedT} giờ`;
+            if (isNaN(s) || isNaN(t) || t <= 0) {
+                resDiv.classList.remove('hidden');
+                resDiv.innerText = 'Vui lòng nhập quãng đường s và thời gian t hợp lệ (t > 0).';
+                return;
+            }
+
+            const v = s / t;
+            resDiv.classList.remove('hidden');
+            resDiv.innerHTML = `Tốc độ v = ${s} / ${t} = <strong>${v.toFixed(2)}</strong> (m/s hoặc km/h).`;
+        }
+
+        function calculateProportions() {
+            const aVal = document.getElementById('prop-a').value.trim();
+            const bVal = document.getElementById('prop-b').value.trim();
+            const cVal = document.getElementById('prop-c').value.trim();
+            const dVal = document.getElementById('prop-d').value.trim();
+            const resDiv = document.getElementById('prop-result');
+
+            let a = parseFloat(aVal), b = parseFloat(bVal), c = parseFloat(cVal), d = parseFloat(dVal);
+            resDiv.classList.remove('hidden');
+
+            if (aVal.toLowerCase() === 'x') {
+                if (!isNaN(b) && !isNaN(c) && !isNaN(d) && d !== 0) {
+                    let x = (b * c) / d;
+                    resDiv.innerHTML = `Kết quả: <strong>x = (b × c) / d = (${b} × ${c}) / ${d} = ${x}</strong>`;
+                } else resDiv.innerText = 'Nhập đủ b, c, d hợp lệ để tìm x.';
+            } else if (dVal.toLowerCase() === 'x') {
+                if (!isNaN(a) && !isNaN(b) && !isNaN(c) && a !== 0) {
+                    let x = (b * c) / a;
+                    resDiv.innerHTML = `Kết quả: <strong>x = (b × c) / a = (${b} × ${c}) / ${a} = ${x}</strong>`;
+                } else resDiv.innerText = 'Nhập đủ a, b, c hợp lệ để tìm x.';
             } else {
-                res.textContent = 'Vui lòng nhập hợp lệ 2 trong 3 ô trên!';
+                resDiv.innerText = 'Hãy đặt 1 ô là "x" (ví dụ ô a hoặc ô d) để ứng dụng tìm ẩn x.';
             }
         }
 
-        function calculateRatio() {
-            const a = parseFloat(document.getElementById('ratioA').value);
-            const b = parseFloat(document.getElementById('ratioB').value);
-            const c = parseFloat(document.getElementById('ratioC').value);
-            const res = document.getElementById('resRatio');
+        /* -------------------------------------------------------------
+         * 8. AI ASSISTANT INTEGRATION (GEMINI API)
+         * ------------------------------------------------------------- */
+        function quickAIQuery(queryText) {
+            document.getElementById('ai-chat-input').value = queryText;
+            sendAIMessage();
+        }
 
-            if (!isNaN(a) && !isNaN(b) && !isNaN(c) && a !== 0) {
-                const x = ((b * c) / a).toFixed(2);
-                res.textContent = `Giá trị x = (${b} × ${c}) / ${a} = ${x}`;
-            } else {
-                res.textContent = 'Vui lòng nhập đầy đủ a, b, c (với a ≠ 0)!';
+        async function sendAIMessage() {
+            const inputEl = document.getElementById('ai-chat-input');
+            const message = inputEl.value.trim();
+            if (!message) return;
+
+            const chatLog = document.getElementById('ai-chat-log');
+
+            // Render User Message
+            chatLog.innerHTML += `
+                <div class="flex items-start justify-end space-x-3">
+                    <div class="bg-purple-600 text-white p-3 rounded-2xl rounded-tr-none text-sm max-w-lg shadow-sm">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            inputEl.value = '';
+            chatLog.scrollTop = chatLog.scrollHeight;
+
+            // Render Loading Indicator
+            const loadingId = 'loading-' + Date.now();
+            chatLog.innerHTML += `
+                <div id="${loadingId}" class="flex items-start space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold shrink-0">AI</div>
+                    <div class="bg-white dark:bg-slate-800 p-3.5 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 text-xs text-slate-500 italic">
+                        <i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Thầy/Cô AI đang suy nghĩ câu trả lời...
+                    </div>
+                </div>
+            `;
+            chatLog.scrollTop = chatLog.scrollHeight;
+
+            try {
+                const systemPrompt = "Bạn là Gia Sư AI học tập chuyên về chương trình Lớp 7 (Toán, KHTN, Tiếng Anh, Sử Địa). Hãy trả lời ngắn gọn, sinh động, dễ hiểu đối với học sinh cấp 2. Nếu có công thức hãy viết thật rõ ràng.";
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: message }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const data = await response.json();
+                document.getElementById(loadingId)?.remove();
+
+                let aiResponseText = "Xin lỗi, hiện tại hệ thống bận. Bạn hãy thử lại sau nhé!";
+                if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+                    aiResponseText = data.candidates[0].content.parts[0].text;
+                }
+
+                // Render AI Answer
+                chatLog.innerHTML += `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold shrink-0">AI</div>
+                        <div class="bg-white dark:bg-slate-800 p-3.5 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 max-w-xl text-sm text-slate-800 dark:text-slate-100 shadow-sm leading-relaxed whitespace-pre-line">
+                            ${aiResponseText}
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                document.getElementById(loadingId)?.remove();
+                chatLog.innerHTML += `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold shrink-0">AI</div>
+                        <div class="bg-rose-50 dark:bg-rose-950/40 p-3.5 rounded-2xl rounded-tl-none border border-rose-200 text-xs text-rose-700 dark:text-rose-300">
+                            Không thể kết nối với dịch vụ AI. Bạn hãy kiểm tra lại kết nối mạng.
+                        </div>
+                    </div>
+                `;
             }
+
+            chatLog.scrollTop = chatLog.scrollHeight;
         }
 
-        function calculateDensity() {
-            const pop = parseFloat(document.getElementById('popVal').value);
-            const area = parseFloat(document.getElementById('areaVal').value);
-            const res = document.getElementById('resDensity');
+        /* -------------------------------------------------------------
+         * 9. PLANNER & EXAM COUNTDOWN
+         * ------------------------------------------------------------- */
+        function renderPlannerTasks() {
+            const container = document.getElementById('planner-task-list');
+            container.innerHTML = plannerTasks.map(task => `
+                <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-700">
+                    <label class="flex items-center space-x-2.5 cursor-pointer text-xs font-medium ${task.completed ? 'line-through text-slate-400' : 'text-slate-700 dark:text-slate-200'}">
+                        <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${task.id})" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4">
+                        <span>${task.text}</span>
+                    </label>
+                    <button onclick="deleteTask(${task.id})" class="text-slate-400 hover:text-rose-500 text-xs px-1">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
 
-            if (!isNaN(pop) && !isNaN(area) && area > 0) {
-                const density = Math.round(pop / area);
-                res.textContent = `Mật độ dân số = ${pop.toLocaleString()} / ${area.toLocaleString()} = ${density.toLocaleString()} người/km²`;
-            } else {
-                res.textContent = 'Vui lòng nhập dân số và diện tích hợp lệ!';
-            }
+            const completedCount = plannerTasks.filter(t => t.completed).length;
+            document.getElementById('planner-progress-text').innerText = `${completedCount}/${plannerTasks.length} hoàn thành`;
+            localStorage.setItem('g7_planner_tasks', JSON.stringify(plannerTasks));
         }
 
-        // Toast Notification Helper
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').textContent = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
+        function addPlannerTask() {
+            const input = document.getElementById('new-task-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            plannerTasks.push({ id: Date.now(), text: text, completed: false });
+            input.value = '';
+            renderPlannerTasks();
         }
+
+        function toggleTask(id) {
+            plannerTasks = plannerTasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+            renderPlannerTasks();
+        }
+
+        function deleteTask(id) {
+            plannerTasks = plannerTasks.filter(t => t.id !== id);
+            renderPlannerTasks();
+        }
+
+        function startCountdownTimer() {
+            // Target date: end of semester exam
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 45); // 45 days from now
+
+            setInterval(() => {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+
+                if (diff <= 0) {
+                    document.getElementById('countdown-timer').innerText = "Đã tới kỳ thi!";
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('countdown-timer').innerText = `${days} ngày ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+            }, 1000);
+        }
+
+        /* -------------------------------------------------------------
+         * INITIALIZATION ON WINDOW LOAD
+         * ------------------------------------------------------------- */
+        window.onload = function() {
+            renderFormulas();
+            renderVocab();
+            initQuiz();
+            renderPlannerTasks();
+            startCountdownTimer();
+        };
     </script>
 </body>
 </html>
