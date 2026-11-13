@@ -1,1175 +1,1573 @@
 <!DOCTYPE html>
-<html lang="vi" class="light">
+<html lang="vi" class="h-full">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sổ Tay Học Tập Lớp 7 - Công Thức & Kiến Thức Trọng Tâm</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            500: '#0284c7',
-                            600: '#0369a1',
-                            700: '#075985',
-                        }
-                    }
-                }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Học Tốt Lớp 7 - Mobile Study Hub</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
             }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
         }
-    </script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .perspective-1000 { perspective: 1000px; }
-        .transform-style-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.4); border-radius: 4px; }
-    </style>
+      }
+    }
+  </script>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Mobile-first touch enhancements & smooth scrolling */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    input, textarea, [contenteditable="true"] {
+      user-select: text;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      touch-action: manipulation;
+    }
+    /* Hide scrollbars for clean mobile feel */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    /* 3D Flashcard Animation */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    
+    /* Safe area padding for mobile notch/home indicator */
+    .pb-safe {
+      padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+    }
+    .pt-safe {
+      padding-top: max(1rem, env(safe-area-inset-top, 0px));
+    }
+  </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 h-full flex flex-col transition-colors duration-200">
 
-    <!-- Header Navigation -->
-    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo & Title -->
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-sky-500/20">
-                        7
-                    </div>
-                    <div>
-                        <h1 class="font-bold text-lg leading-tight bg-gradient-to-r from-sky-600 to-indigo-600 dark:from-sky-400 dark:to-indigo-400 bg-clip-text text-transparent">Học Tốt Lớp 7</h1>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Chương Trình Mới SGK KNTT / Cánh Diều / CTST</p>
-                    </div>
-                </div>
+  <!-- TOP APP HEADER -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 px-4 py-3 flex items-center justify-between shadow-sm pt-safe">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-md font-extrabold text-lg">
+        7
+      </div>
+      <div>
+        <h1 class="font-bold text-base leading-tight tracking-tight text-gray-900 dark:text-white">HỌC TỐT LỚP 7</h1>
+        <p class="text-[10px] font-medium text-sky-600 dark:text-sky-400">Chương trình GDPT mới 2018</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <!-- Search Trigger -->
+      <button onclick="toggleQuickSearchModal()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center active:scale-95 transition-transform" aria-label="Tìm kiếm">
+        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+      </button>
 
-                <!-- Desktop Nav -->
-                <nav class="hidden md:flex space-x-1 lg:space-x-2">
-                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition-colors text-sky-600 bg-sky-50 dark:bg-slate-700 dark:text-sky-400">
-                        <i class="fa-solid fa-house mr-1.5"></i>Tổng Quan
-                    </button>
-                    <button onclick="switchTab('formulas')" id="nav-formulas" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">
-                        <i class="fa-solid fa-book-bookmark mr-1.5"></i>Kho Công Thức
-                    </button>
-                    <button onclick="switchTab('vocab')" id="nav-vocab" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">
-                        <i class="fa-solid fa-language mr-1.5"></i>Từ Vựng Tiếng Anh
-                    </button>
-                    <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">
-                        <i class="fa-solid fa-pen-to-square mr-1.5"></i>Trắc Nghiệm
-                    </button>
-                    <button onclick="switchTab('tools')" id="nav-tools" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-sky-600 dark:text-slate-300 dark:hover:text-sky-400 transition-colors">
-                        <i class="fa-solid fa-calculator mr-1.5"></i>Công Cụ Tính
-                    </button>
-                    <button onclick="switchTab('ai-assistant')" id="nav-ai-assistant" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 bg-purple-50 dark:bg-purple-950/40 transition-colors">
-                        <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i>Trợ Lý AI
-                    </button>
-                </nav>
+      <!-- Bookmark Drawer Toggle -->
+      <button onclick="openNotebookDrawer()" class="relative w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center active:scale-95 transition-transform" aria-label="Sổ tay cá nhân">
+        <i class="fa-solid fa-bookmark text-sm"></i>
+        <span id="bookmark-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">0</span>
+      </button>
 
-                <!-- Actions: Dark mode toggle & mobile menu -->
-                <div class="flex items-center space-x-2">
-                    <button onclick="toggleDarkMode()" class="p-2.5 rounded-lg text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" title="Bật/tắt chế độ tối">
-                        <i class="fa-solid fa-moon dark:hidden text-lg"></i>
-                        <i class="fa-solid fa-sun hidden dark:block text-lg text-amber-400"></i>
-                    </button>
-                    
-                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
+      <!-- Dark Mode Toggle -->
+      <button id="theme-toggle" onclick="toggleDarkMode()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-700 text-amber-500 dark:text-amber-300 flex items-center justify-center active:scale-95 transition-transform" aria-label="Đổi giao diện">
+        <i class="fa-solid fa-sun dark:hidden text-sm"></i>
+        <i class="fa-solid fa-moon hidden dark:block text-sm"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN SCROLLABLE CONTENT AREA -->
+  <main class="flex-1 overflow-y-auto no-scrollbar pb-safe px-4 pt-3 max-w-md mx-auto w-full">
+    
+    <!-- TAB 1: TRANG CHỦ & DÁSHBOARD -->
+    <section id="tab-home" class="tab-content space-y-4">
+      
+      <!-- Greeting Banner -->
+      <div class="bg-gradient-to-r from-sky-600 via-indigo-600 to-purple-600 rounded-2xl p-4 text-white shadow-lg relative overflow-hidden">
+        <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+        <div class="flex justify-between items-start">
+          <div>
+            <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/20 backdrop-blur-md mb-2">
+              <i class="fa-solid fa-fire mr-1 text-amber-300"></i> Mục tiêu hôm nay
+            </span>
+            <h2 class="text-xl font-bold">Xin chào, Lâm Minh Khang! 👋</h2>
+            <p class="text-xs text-sky-100 mt-1 opacity-90">Hãy ôn tập 10 phút để nắm chắc kiến thức hôm nay nhé.</p>
+          </div>
         </div>
 
-        <!-- Mobile Nav Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 space-y-1">
-            <button onclick="switchTab('dashboard')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-house w-6"></i>Tổng Quan</button>
-            <button onclick="switchTab('formulas')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-book-bookmark w-6"></i>Kho Công Thức</button>
-            <button onclick="switchTab('vocab')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-language w-6"></i>Từ Vựng Tiếng Anh</button>
-            <button onclick="switchTab('quiz')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-pen-to-square w-6"></i>Luyện Trắc Nghiệm</button>
-            <button onclick="switchTab('tools')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"><i class="fa-solid fa-calculator w-6"></i>Công Cụ Tính Nhanh</button>
-            <button onclick="switchTab('ai-assistant')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/40"><i class="fa-solid fa-wand-magic-sparkles w-6"></i>Trợ Lý AI Học Tập</button>
-        </div>
-    </header>
-
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-
-        <!-- TAB 1: DASHBOARD (TỔNG QUAN) -->
-        <section id="tab-dashboard" class="tab-content space-y-6">
-            <!-- Banner chào mừng -->
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-sky-500 via-indigo-500 to-purple-600 p-6 md:p-8 text-white shadow-lg">
-                <div class="relative z-10 max-w-2xl">
-                    <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-semibold mb-3">Chương Trình Giáo Dục Phổ Thông Lớp 7</span>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold mb-2">Chào mừng bạn tới Trung Tâm Học Tập Lớp 7! 👋</h2>
-                    <p class="text-sky-100 text-sm sm:text-base leading-relaxed mb-6">Ôn tập hệ thống công thức Toán 7, Khoa học tự nhiên (Lý - Hóa - Sinh), Tiếng Anh & Lịch sử Địa lý một cách khoa học, sinh động và hiệu quả nhất.</p>
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="switchTab('formulas')" class="px-4 py-2.5 bg-white text-sky-700 hover:bg-sky-50 font-semibold text-sm rounded-xl transition shadow-sm flex items-center">
-                            <i class="fa-solid fa-magnifying-glass mr-2"></i>Tra công thức ngay
-                        </button>
-                        <button onclick="switchTab('quiz')" class="px-4 py-2.5 bg-sky-700/60 hover:bg-sky-700 text-white font-semibold text-sm rounded-xl backdrop-blur-md transition flex items-center">
-                            <i class="fa-solid fa-circle-play mr-2"></i>Thử sức trắc nghiệm
-                        </button>
-                    </div>
-                </div>
-                <div class="absolute -right-6 -bottom-10 opacity-20 md:opacity-30 text-white text-9xl font-black pointer-events-none">
-                    7
-                </div>
-            </div>
-
-            <!-- Quick Stats & Countdown Widget -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Exam Countdown -->
-                <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-bold text-slate-800 dark:text-slate-100 flex items-center text-base">
-                            <i class="fa-solid fa-hourglass-half text-amber-500 mr-2"></i>Đếm Ngược Thi Học Kỳ 2
-                        </h3>
-                        <span class="text-xs bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 font-semibold px-2 py-0.5 rounded-full">Sắp tới</span>
-                    </div>
-                    <div class="text-center py-2 bg-slate-50 dark:bg-slate-900/50 rounded-xl my-2">
-                        <div id="countdown-timer" class="text-3xl font-extrabold text-amber-600 dark:text-amber-400 tracking-tight">-- ngày --:--:--</div>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Dự kiến: Kỳ Thi Kiểm Tra Tổng Hợp Cuối Kỳ</p>
-                    </div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 text-center">Hãy duy trì thói quen ôn 15 phút mỗi ngày nhé!</p>
-                </div>
-
-                <!-- Daily Study Planner -->
-                <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between md:col-span-2">
-                    <div class="flex items-center justify-between mb-2">
-                        <h3 class="font-bold text-slate-800 dark:text-slate-100 flex items-center text-base">
-                            <i class="fa-solid fa-list-check text-emerald-500 mr-2"></i>Mục Tiêu Ôn Tập Hôm Nay
-                        </h3>
-                        <span id="planner-progress-text" class="text-xs text-emerald-600 dark:text-emerald-400 font-bold">0/3 hoàn thành</span>
-                    </div>
-                    <!-- Task list -->
-                    <div class="space-y-2 my-2" id="planner-task-list">
-                        <!-- Rendered by JS -->
-                    </div>
-                    <div class="flex items-center space-x-2 pt-2 border-t border-slate-100 dark:border-slate-700">
-                        <input type="text" id="new-task-input" placeholder="Thêm mục tiêu ôn tập mới (VD: Học 10 từ vựng Unit 7)..." class="flex-1 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-sky-500">
-                        <button onclick="addPlannerTask()" class="px-3 py-1.5 bg-emerald-600 text-white rounded-lg text-sm font-semibold hover:bg-emerald-700 transition">Thêm</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Subject Shortcut Cards -->
+        <!-- Exam Countdown Widget -->
+        <div class="mt-4 pt-3 border-t border-white/20 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-hourglass-half text-amber-300 text-base animate-pulse"></i>
             <div>
-                <h3 class="text-lg font-bold mb-4 text-slate-800 dark:text-slate-100 flex items-center">
-                    <i class="fa-solid fa-layer-group text-sky-500 mr-2"></i>Các Môn Học Lớp 7 Trọng Tâm
-                </h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <!-- Toán 7 -->
-                    <div onclick="filterSubjectAndSwitch('toan')" class="group bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-sky-500 transition cursor-pointer">
-                        <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold mb-3 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-square-root-variable"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition">Toán Học 7</h4>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Số hữu tỉ, tỉ lệ thức, hình học tam giác, góc song song, thống kê.</p>
-                        <span class="inline-block mt-3 text-xs text-sky-600 dark:text-sky-400 font-semibold"> Xem 12+ công thức <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
-                    </div>
-
-                    <!-- KHTN 7 -->
-                    <div onclick="filterSubjectAndSwitch('khtn')" class="group bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-emerald-500 transition cursor-pointer">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold mb-3 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-flask"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">Khoa Học Tự Nhiên 7</h4>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Tốc độ $v=s/t$, Âm thanh, Ánh sáng, Nguyên tử & Phân tử, Trao đổi chất.</p>
-                        <span class="inline-block mt-3 text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Xem định luật & lý thuyết <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
-                    </div>
-
-                    <!-- Tiếng Anh 7 -->
-                    <div onclick="filterSubjectAndSwitch('tienganh')" class="group bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-500 transition cursor-pointer">
-                        <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold mb-3 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-earth-americas"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition">Tiếng Anh 7</h4>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Các thì cơ bản, So sánh, Động từ khuyết thiếu, Từ vựng theo Unit 1-12.</p>
-                        <span class="inline-block mt-3 text-xs text-purple-600 dark:text-purple-400 font-semibold">Tra cứu từ vựng & ngữ pháp <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
-                    </div>
-
-                    <!-- Lịch Sử & Địa Lý 7 -->
-                    <div onclick="filterSubjectAndSwitch('sudia')" class="group bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-amber-500 transition cursor-pointer">
-                        <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl font-bold mb-3 group-hover:scale-110 transition-transform">
-                            <i class="fa-solid fa-landmark"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition">Lịch Sử & Địa Lý 7</h4>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Đại Việt thời Lý - Trần, Phong kiến Đông Nam Á, Các Châu lục trên thế giới.</p>
-                        <span class="inline-block mt-3 text-xs text-amber-600 dark:text-amber-400 font-semibold">Xem tóm tắt sơ đồ <i class="fa-solid fa-arrow-right text-[10px]"></i></span>
-                    </div>
-                </div>
+              <div class="text-[10px] text-sky-100 uppercase tracking-wider font-medium">Đếm ngược Thi HK2</div>
+              <div id="countdown-timer" class="text-sm font-extrabold font-mono text-white">-- Ngày -- Giờ</div>
             </div>
-        </section>
+          </div>
+          <button onclick="switchTab('tab-quiz')" class="bg-white text-sky-700 hover:bg-sky-50 text-xs font-bold px-3 py-1.5 rounded-xl shadow-md active:scale-95 transition-all flex items-center gap-1">
+            <i class="fa-solid fa-play text-[10px]"></i> Luyện Quiz
+          </button>
+        </div>
+      </div>
 
-        <!-- TAB 2: FORMULA & KNOWLEDGE BANK (KHO CÔNG THỨC) -->
-        <section id="tab-formulas" class="tab-content hidden space-y-6">
-            <!-- Search & Filter Controls -->
-            <div class="bg-white dark:bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
-                <div class="flex flex-col sm:flex-row gap-3 items-center justify-between">
-                    <div class="relative w-full sm:w-80">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                        <input type="text" id="formula-search-input" onkeyup="renderFormulas()" placeholder="Tìm kiếm công thức, khái niệm (VD: vận tốc, tỉ lệ thức)..." class="w-full pl-9 pr-4 py-2 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-500">
-                    </div>
+      <!-- Quick Subject Shortcut Grid -->
+      <div>
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="text-sm font-bold text-gray-800 dark:text-gray-200">Môn Học Lớp 7</h3>
+          <span class="text-xs text-sky-600 dark:text-sky-400 font-medium">GDPT 2018</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <!-- Toán 7 -->
+          <button onclick="openSubjectKnowledge('toan')" class="bg-white dark:bg-gray-800 p-3.5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3 active:scale-95 transition-all text-left group">
+            <div class="w-11 h-11 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg font-bold group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-gray-900 dark:text-white">Toán 7</h4>
+              <p class="text-[11px] text-gray-500 dark:text-gray-400">Đại số & Hình học</p>
+            </div>
+          </button>
 
-                    <!-- Subject Badges Filter -->
-                    <div class="flex flex-wrap gap-1.5 w-full sm:w-auto" id="subject-filter-group">
-                        <button onclick="setFormulaSubject('all')" class="formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-sky-600 text-white transition" data-sub="all">Tất cả môn</button>
-                        <button onclick="setFormulaSubject('toan')" class="formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition" data-sub="toan">Toán 7</button>
-                        <button onclick="setFormulaSubject('khtn')" class="formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition" data-sub="khtn">KHTN 7 (Lý/Hóa/Sinh)</button>
-                        <button onclick="setFormulaSubject('tienganh')" class="formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition" data-sub="tienganh">Tiếng Anh 7</button>
-                        <button onclick="setFormulaSubject('sudia')" class="formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition" data-sub="sudia">Sử - Địa 7</button>
-                    </div>
+          <!-- Khoa Học Tự Nhiên 7 -->
+          <button onclick="openSubjectKnowledge('khtn')" class="bg-white dark:bg-gray-800 p-3.5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3 active:scale-95 transition-all text-left group">
+            <div class="w-11 h-11 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg font-bold group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-atom"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-gray-900 dark:text-white">KHTN 7</h4>
+              <p class="text-[11px] text-gray-500 dark:text-gray-400">Hóa - Lý - Sinh</p>
+            </div>
+          </button>
+
+          <!-- Tiếng Anh 7 -->
+          <button onclick="openSubjectKnowledge('tienganh')" class="bg-white dark:bg-gray-800 p-3.5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3 active:scale-95 transition-all text-left group">
+            <div class="w-11 h-11 rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-lg font-bold group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-language"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-gray-900 dark:text-white">Tiếng Anh 7</h4>
+              <p class="text-[11px] text-gray-500 dark:text-gray-400">Grammar & Vocab</p>
+            </div>
+          </button>
+
+          <!-- Lịch Sử & Địa Lý 7 -->
+          <button onclick="openSubjectKnowledge('sudia')" class="bg-white dark:bg-gray-800 p-3.5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3 active:scale-95 transition-all text-left group">
+            <div class="w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg font-bold group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-earth-americas"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-gray-900 dark:text-white">Lịch Sử & Địa Lý</h4>
+              <p class="text-[11px] text-gray-500 dark:text-gray-400">Phát kiến & Châu lục</p>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Utility Bar -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm space-y-3">
+        <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i> Công Cụ Tương Tác
+        </h3>
+        <div class="grid grid-cols-3 gap-2">
+          <button onclick="switchTab('tab-calc')" class="flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-sky-50 dark:hover:bg-gray-700 transition-colors">
+            <i class="fa-solid fa-square-root-variable text-sky-600 text-lg mb-1"></i>
+            <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Tính Công Thức</span>
+          </button>
+          <button onclick="switchTab('tab-flashcards')" class="flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-purple-50 dark:hover:bg-gray-700 transition-colors">
+            <i class="fa-solid fa-clone text-purple-600 text-lg mb-1"></i>
+            <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Flashcard 3D</span>
+          </button>
+          <button onclick="switchTab('tab-ai')" class="flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors">
+            <i class="fa-solid fa-robot text-indigo-600 text-lg mb-1"></i>
+            <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Hỏi Trợ Lý AI</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Highlight Formula of the Day -->
+      <div class="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 rounded-2xl p-4 text-amber-900 dark:text-amber-200">
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-[11px] font-bold uppercase tracking-wide text-amber-700 dark:text-amber-400">💡 Công thức quan trọng hôm nay</span>
+          <span class="text-xs font-semibold bg-amber-200 dark:bg-amber-900 text-amber-800 dark:text-amber-200 px-2 py-0.5 rounded-md">Toán 7</span>
+        </div>
+        <h4 class="font-bold text-sm">Tính chất dãy tỉ số bằng nhau</h4>
+        <div class="my-2 p-2 bg-white/80 dark:bg-gray-800/80 rounded-xl text-center font-mono text-sm font-bold text-sky-700 dark:text-sky-300 shadow-inner">
+          \(\frac{a}{b} = \frac{c}{d} = \frac{a+c}{b+d} = \frac{a-c}{b-d}\)
+        </div>
+        <p class="text-xs text-amber-800 dark:text-amber-300 opacity-90">(với b ≠ d và b ≠ -d). Thường dùng trong các bài toán chia tỉ lệ và tìm x, y!</p>
+      </div>
+
+    </section>
+
+    <!-- TAB 2: HỆ THỐNG KẾT NỐI KIẾN THỨC THEO MÔN -->
+    <section id="tab-knowledge" class="tab-content hidden space-y-4">
+      
+      <!-- Subject Nav Chips -->
+      <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1 -mx-1 px-1">
+        <button onclick="filterSubjectTab('all')" class="subject-chip active text-xs font-bold px-3.5 py-2 rounded-full whitespace-nowrap transition-all bg-sky-600 text-white shadow-md">
+          Tất cả (Lớp 7)
+        </button>
+        <button onclick="filterSubjectTab('toan')" class="subject-chip text-xs font-medium px-3.5 py-2 rounded-full whitespace-nowrap transition-all bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+          Toán 7
+        </button>
+        <button onclick="filterSubjectTab('khtn')" class="subject-chip text-xs font-medium px-3.5 py-2 rounded-full whitespace-nowrap transition-all bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+          Khoa Học Tự Nhiên 7
+        </button>
+        <button onclick="filterSubjectTab('tienganh')" class="subject-chip text-xs font-medium px-3.5 py-2 rounded-full whitespace-nowrap transition-all bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+          Tiếng Anh 7
+        </button>
+        <button onclick="filterSubjectTab('sudia')" class="subject-chip text-xs font-medium px-3.5 py-2 rounded-full whitespace-nowrap transition-all bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+          Lịch Sử & Địa Lý 7
+        </button>
+      </div>
+
+      <!-- Knowledge List Accordion Container -->
+      <div id="knowledge-list-container" class="space-y-3">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </section>
+
+    <!-- TAB 3: MÁY TÍNH CÔNG THỨC NHANH (INTERACTIVE CALCULATORS) -->
+    <section id="tab-calc" class="tab-content hidden space-y-4">
+      
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
+        <h2 class="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-1">
+          <i class="fa-solid fa-calculator text-sky-600"></i> Máy Tính Công Thức Lớp 7
+        </h2>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Nhập các tham số để tính toán nhanh kết quả bài tập.</p>
+
+        <!-- Tool Selector Tabs -->
+        <div class="grid grid-cols-2 gap-2 mb-4 bg-gray-100 dark:bg-gray-700/50 p-1 rounded-xl">
+          <button onclick="selectCalcTool('speed')" id="btn-calc-speed" class="calc-tab-btn py-1.5 text-xs font-bold rounded-lg bg-white dark:bg-gray-800 text-sky-600 dark:text-sky-400 shadow-sm">Tốc Độ (v = s / t)</button>
+          <button onclick="selectCalcTool('proportion')" id="btn-calc-proportion" class="calc-tab-btn py-1.5 text-xs font-medium rounded-lg text-gray-600 dark:text-gray-300">Tỉ Lệ Thức</button>
+          <button onclick="selectCalcTool('prism')" id="btn-calc-prism" class="calc-tab-btn py-1.5 text-xs font-medium rounded-lg text-gray-600 dark:text-gray-300">Hình Lăng Trụ Đứng</button>
+          <button onclick="selectCalcTool('molarmass')" id="btn-calc-molarmass" class="calc-tab-btn py-1.5 text-xs font-medium rounded-lg text-gray-600 dark:text-gray-300">Khối Lượng Phân Tử</button>
+        </div>
+
+        <!-- CALCULATOR 1: SPEED (KHTN 7 / Vật Lý) -->
+        <div id="calc-tool-speed" class="calc-panel space-y-3">
+          <div class="bg-sky-50 dark:bg-sky-950/40 p-3 rounded-xl text-xs text-sky-800 dark:text-sky-300 font-medium">
+            Công thức: \( v = \frac{s}{t} \) (Trong đó: \(v\) là tốc độ, \(s\) là quãng đường, \(t\) là thời gian).
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Quãng đường (s):</label>
+            <div class="flex gap-2">
+              <input type="number" id="speed-s" placeholder="Nhập quãng đường..." class="flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <select id="speed-unit-s" class="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-xs font-bold rounded-xl px-2">
+                <option value="km">km</option>
+                <option value="m">m</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Thời gian (t):</label>
+            <div class="flex gap-2">
+              <input type="number" id="speed-t" placeholder="Nhập thời gian..." class="flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <select id="speed-unit-t" class="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-xs font-bold rounded-xl px-2">
+                <option value="h">giờ (h)</option>
+                <option value="s">giây (s)</option>
+              </select>
+            </div>
+          </div>
+          <button onclick="calculateSpeed()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-xl shadow-md active:scale-95 transition-transform text-sm">
+            Tính Tốc Độ v
+          </button>
+          <div id="result-speed" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-center font-bold text-emerald-700 dark:text-emerald-300 text-sm">
+          </div>
+        </div>
+
+        <!-- CALCULATOR 2: PROPORTION (TOÁN 7) -->
+        <div id="calc-tool-proportion" class="calc-panel hidden space-y-3">
+          <div class="bg-sky-50 dark:bg-sky-950/40 p-3 rounded-xl text-xs text-sky-800 dark:text-sky-300 font-medium">
+            Tỉ lệ thức: Tìm \(x\) trong đẳng thức \(\frac{a}{b} = \frac{c}{x} \implies x = \frac{b \cdot c}{a}\)
+          </div>
+          <div class="grid grid-cols-2 gap-3 items-center">
+            <div class="space-y-2">
+              <div>
+                <label class="text-[11px] font-semibold text-gray-600 dark:text-gray-400">Giá trị a:</label>
+                <input type="number" id="prop-a" value="2" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm">
+              </div>
+              <div>
+                <label class="text-[11px] font-semibold text-gray-600 dark:text-gray-400">Giá trị b:</label>
+                <input type="number" id="prop-b" value="5" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm">
+              </div>
+            </div>
+            <div class="space-y-2">
+              <div>
+                <label class="text-[11px] font-semibold text-gray-600 dark:text-gray-400">Giá trị c:</label>
+                <input type="number" id="prop-c" value="6" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm">
+              </div>
+              <div>
+                <label class="text-[11px] font-semibold text-sky-600 dark:text-sky-400 font-bold">Cần tìm x:</label>
+                <div class="w-full bg-sky-100 dark:bg-sky-900/50 border border-sky-300 dark:border-sky-700 text-sky-800 dark:text-sky-200 font-bold rounded-xl px-3 py-2 text-sm flex items-center justify-center">
+                  ? (x)
                 </div>
+              </div>
+            </div>
+          </div>
+          <button onclick="calculateProportion()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-xl shadow-md active:scale-95 transition-transform text-sm">
+            Tính Tìm X
+          </button>
+          <div id="result-proportion" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-center font-bold text-emerald-700 dark:text-emerald-300 text-sm">
+          </div>
+        </div>
+
+        <!-- CALCULATOR 3: 3D PRISM GEOMETRY (TOÁN 7) -->
+        <div id="calc-tool-prism" class="calc-panel hidden space-y-3">
+          <div class="bg-sky-50 dark:bg-sky-950/40 p-3 rounded-xl text-xs text-sky-800 dark:text-sky-300 font-medium">
+            Hình hộp chữ nhật: Thể tích \(V = a \cdot b \cdot h\), Thể tích Lăng trụ đứng \(V = S_{đáy} \cdot h\)
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Diện tích đáy (\(S_{đáy}\)) [cm²]:</label>
+            <input type="number" id="prism-base-area" placeholder="VD: 15" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Chiều cao lăng trụ (\(h\)) [cm]:</label>
+            <input type="number" id="prism-height" placeholder="VD: 10" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm">
+          </div>
+          <button onclick="calculatePrismVolume()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-xl shadow-md active:scale-95 transition-transform text-sm">
+            Tính Thể Tích (V)
+          </button>
+          <div id="result-prism" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-center font-bold text-emerald-700 dark:text-emerald-300 text-sm">
+          </div>
+        </div>
+
+        <!-- CALCULATOR 4: MOLAR MASS (KHTN 7 / HÓA HỌC) -->
+        <div id="calc-tool-molarmass" class="calc-panel hidden space-y-3">
+          <div class="bg-sky-50 dark:bg-sky-950/40 p-3 rounded-xl text-xs text-sky-800 dark:text-sky-300 font-medium">
+            Khối lượng phân tử (amu): Chọn hoặc nhập công thức phân tử đơn giản.
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Chọn chất hóa học thường gặp Lớp 7:</label>
+            <select id="molar-preset" onchange="autoFillMolarMass()" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm mb-2">
+              <option value="H2O">Nước (H₂O) - [2H + 1O]</option>
+              <option value="CO2">Khí Cacbonic (CO₂) - [1C + 2O]</option>
+              <option value="NaCl">Muối ăn (NaCl) - [1Na + 1Cl]</option>
+              <option value="O2">Khí Oxi (O₂) - [2O]</option>
+              <option value="CH4">Khí Mêtan (CH₄) - [1C + 4H]</option>
+            </select>
+          </div>
+          <button onclick="calculateMolarMass()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-xl shadow-md active:scale-95 transition-transform text-sm">
+            Tính Khối Lượng Phân Tử
+          </button>
+          <div id="result-molarmass" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl font-bold text-emerald-700 dark:text-emerald-300 text-sm space-y-1 text-left">
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TAB 4: FLASHCARD ÔN TẬP (3D FLIP & AUDIO PRONUNCIATION) -->
+    <section id="tab-flashcards" class="tab-content hidden space-y-4">
+      
+      <!-- Top Filters -->
+      <div class="flex justify-between items-center">
+        <h2 class="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <i class="fa-solid fa-clone text-purple-600"></i> Thẻ Ghi Nhớ Flashcard 3D
+        </h2>
+        <span id="flashcard-counter" class="text-xs font-bold px-2.5 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 rounded-full">
+          1 / 10
+        </span>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
+        <button onclick="filterFlashcards('all')" class="fc-filter active px-3 py-1 text-xs font-bold rounded-full bg-purple-600 text-white">Tất cả</button>
+        <button onclick="filterFlashcards('english')" class="fc-filter px-3 py-1 text-xs font-medium rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Tiếng Anh 7</button>
+        <button onclick="filterFlashcards('khtn')" class="fc-filter px-3 py-1 text-xs font-medium rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Khoa Học Tự Nhiên</button>
+        <button onclick="filterFlashcards('toan')" class="fc-filter px-3 py-1 text-xs font-medium rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Toán 7</button>
+      </div>
+
+      <!-- 3D FLIP CONTAINER -->
+      <div class="perspective-1000 w-full h-72">
+        <div id="flashcard-card" onclick="flipFlashcard()" class="transform-style-3d w-full h-full duration-500 cursor-pointer relative rounded-3xl shadow-xl transition-transform">
+          
+          <!-- FRONT FACE -->
+          <div class="backface-hidden absolute inset-0 bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-gray-900 border-2 border-purple-200 dark:border-purple-800/50 rounded-3xl p-6 flex flex-col justify-between items-center text-center">
+            <div class="w-full flex justify-between items-center">
+              <span id="fc-subject-badge" class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 rounded-full">
+                MÔN HỌC
+              </span>
+              <button onclick="speakFlashcardText(event)" class="w-9 h-9 rounded-full bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 flex items-center justify-center hover:scale-110 active:scale-95 transition-transform" title="Phát âm">
+                <i class="fa-solid fa-volume-high text-sm"></i>
+              </button>
             </div>
 
-            <!-- Formulas Container Grid -->
-            <div id="formulas-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Dynamic Formula Cards Rendered via JS -->
-            </div>
-        </section>
-
-        <!-- TAB 3: ENGLISH VOCABULARY & FLASHCARDS -->
-        <section id="tab-vocab" class="tab-content hidden space-y-6">
-            <!-- Mode Switcher (List vs Flashcard) -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                <div class="flex items-center space-x-2">
-                    <button onclick="setVocabMode('list')" id="vocab-mode-list-btn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-purple-600 text-white shadow-sm">
-                        <i class="fa-solid fa-list mr-1.5"></i>Danh Sách Từ Vựng
-                    </button>
-                    <button onclick="setVocabMode('flashcard')" id="vocab-mode-card-btn" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition">
-                        <i class="fa-solid fa-clone mr-1.5"></i>Lật Thẻ Flashcard
-                    </button>
-                </div>
-
-                <!-- Unit Filter -->
-                <div class="flex items-center space-x-2 w-full sm:w-auto">
-                    <span class="text-xs font-medium text-slate-500 whitespace-nowrap">Chủ đề:</span>
-                    <select id="vocab-unit-filter" onchange="renderVocab()" class="w-full sm:w-auto text-xs sm:text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 font-medium focus:outline-none focus:ring-2 focus:ring-purple-500">
-                        <option value="all">Tất cả các Unit (Lớp 7)</option>
-                        <option value="Unit 1: Hobbies">Unit 1: Hobbies (Sở thích)</option>
-                        <option value="Unit 2: Healthy Living">Unit 2: Healthy Living (Sống khỏe)</option>
-                        <option value="Unit 3: Community Service">Unit 3: Community Service (Phục vụ cộng đồng)</option>
-                        <option value="Unit 4: Music and Arts">Unit 4: Music & Arts (Âm nhạc & Nghệ thuật)</option>
-                        <option value="Unit 5: Food and Drink">Unit 5: Food & Drink (Ẩm thực)</option>
-                    </select>
-                </div>
+            <div class="my-auto px-2">
+              <h3 id="fc-front-title" class="text-xl font-extrabold text-gray-900 dark:text-white mb-2">
+                Khái niệm / Từ vựng
+              </h3>
+              <p id="fc-front-subtitle" class="text-xs text-purple-600 dark:text-purple-400 font-medium">
+                (Chạm vào thẻ để xem đáp án/định nghĩa 🔄)
+              </p>
             </div>
 
-            <!-- View Mode 1: List View -->
-            <div id="vocab-list-view" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Rendered by JS -->
+            <div class="text-[11px] text-gray-400 flex items-center gap-1">
+              <i class="fa-solid fa-hand-pointer"></i> Nhấp thẻ để lật 3D
+            </div>
+          </div>
+
+          <!-- BACK FACE -->
+          <div class="rotate-y-180 backface-hidden absolute inset-0 bg-gradient-to-br from-purple-700 to-indigo-800 text-white rounded-3xl p-6 flex flex-col justify-between items-center text-center shadow-2xl">
+            <div class="w-full flex justify-between items-center opacity-80 text-xs">
+              <span>ĐÁP ÁN & ĐỊNH NGHĨA</span>
+              <i class="fa-solid fa-check-circle"></i>
             </div>
 
-            <!-- View Mode 2: Flashcard View -->
-            <div id="vocab-flashcard-view" class="hidden flex flex-col items-center justify-center py-6">
-                <div class="w-full max-w-md perspective-1000">
-                    <div id="flashcard-element" onclick="flipFlashcard()" class="relative w-full h-72 bg-white dark:bg-slate-800 rounded-3xl border-2 border-purple-200 dark:border-purple-900/50 shadow-xl cursor-pointer transition-transform duration-500 transform-style-3d flex items-center justify-center p-6 text-center">
-                        <!-- Front Face -->
-                        <div class="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-6 space-y-3">
-                            <span id="fc-unit-badge" class="px-3 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 rounded-full text-xs font-semibold">Unit 1</span>
-                            <h3 id="fc-word" class="text-3xl font-extrabold text-slate-800 dark:text-white">Hobby</h3>
-                            <p id="fc-phonetic" class="text-sm text-purple-600 dark:text-purple-400 font-medium">/ˈhɒbi/</p>
-                            <button onclick="event.stopPropagation(); speakWord(currentFlashcardWord());" class="p-2 rounded-full bg-purple-50 dark:bg-slate-700 text-purple-600 dark:text-purple-300 hover:scale-110 transition">
-                                <i class="fa-solid fa-volume-high text-base"></i>
-                            </button>
-                            <p class="text-xs text-slate-400 mt-2"><i class="fa-solid fa-rotate mr-1"></i>Nhấn vào thẻ để xem nghĩa</p>
-                        </div>
-                        <!-- Back Face -->
-                        <div class="absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-center justify-center p-6 space-y-3 bg-purple-50 dark:bg-slate-850 rounded-3xl">
-                            <span id="fc-type" class="px-2.5 py-0.5 bg-purple-200 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded text-xs font-bold">Danh từ (n)</span>
-                            <p id="fc-meaning" class="text-2xl font-bold text-purple-700 dark:text-purple-300">Sở thích</p>
-                            <p id="fc-example" class="text-xs text-slate-600 dark:text-slate-300 italic max-w-xs">"My hobby is collecting stamps."</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Flashcard Controls -->
-                <div class="flex items-center space-x-6 mt-6">
-                    <button onclick="prevFlashcard()" class="px-4 py-2.5 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 rounded-xl text-slate-700 dark:text-slate-200 font-bold text-sm transition flex items-center">
-                        <i class="fa-solid fa-chevron-left mr-2"></i> Từ trước
-                    </button>
-                    <span id="fc-index-indicator" class="text-sm font-semibold text-slate-500">1 / 10</span>
-                    <button onclick="nextFlashcard()" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-sm transition flex items-center">
-                        Từ tiếp <i class="fa-solid fa-chevron-right ml-2"></i>
-                    </button>
-                </div>
+            <div class="my-auto px-2">
+              <p id="fc-back-desc" class="text-base font-semibold leading-relaxed">
+                Nội dung chi tiết giải thích cho flashcard...
+              </p>
+              <div id="fc-back-example" class="mt-3 text-xs bg-white/10 p-2.5 rounded-xl backdrop-blur-sm text-purple-100 font-mono">
+                Ví dụ...
+              </div>
             </div>
-        </section>
 
-        <!-- TAB 4: INTERACTIVE QUIZ (TRẮC NGHIỆM) -->
-        <section id="tab-quiz" class="tab-content hidden space-y-6">
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm max-w-3xl mx-auto space-y-6">
-                <!-- Quiz Header -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-700 gap-4">
-                    <div>
-                        <h2 class="text-xl font-extrabold text-slate-800 dark:text-white flex items-center">
-                            <i class="fa-solid fa-circle-question text-sky-500 mr-2"></i>Luyện Trắc Nghiệm Trọng Tâm Lớp 7
-                        </h2>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Kiểm tra kiến thức nhanh có đáp án & lời giải chi tiết</p>
-                    </div>
-
-                    <!-- Subject Select for Quiz -->
-                    <select id="quiz-subject-select" onchange="initQuiz()" class="text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 font-semibold">
-                        <option value="all">Tất cả các môn</option>
-                        <option value="toan">Môn Toán 7</option>
-                        <option value="khtn">Môn Khoa Học Tự Nhiên 7</option>
-                        <option value="tienganh">Môn Tiếng Anh 7</option>
-                        <option value="sudia">Môn Lịch Sử & Địa Lý 7</option>
-                    </select>
-                </div>
-
-                <!-- Quiz Progress Bar -->
-                <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                    <div id="quiz-progress-bar" class="bg-sky-500 h-full w-0 transition-all duration-300"></div>
-                </div>
-
-                <!-- Active Question Container -->
-                <div id="quiz-question-container" class="space-y-4">
-                    <!-- Dynamic Question HTML -->
-                </div>
-
-                <!-- Quiz Result Summary (Hidden by default) -->
-                <div id="quiz-result-container" class="hidden text-center py-8 space-y-4">
-                    <div class="w-20 h-20 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-500 flex items-center justify-center text-4xl mx-auto mb-2">
-                        <i class="fa-solid fa-trophy"></i>
-                    </div>
-                    <h3 class="text-2xl font-extrabold text-slate-800 dark:text-white">Hoàn Thành Bài Trắc Nghiệm!</h3>
-                    <p id="quiz-final-score" class="text-lg font-bold text-sky-600 dark:text-sky-400">Bạn đã trả lời đúng 8 / 10 câu</p>
-                    <p class="text-xs text-slate-500 max-w-sm mx-auto">Hãy duy trì luyện tập hàng ngày để nắm vững kiến thức lớp 7 nhé!</p>
-                    <button onclick="initQuiz()" class="px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm rounded-xl transition shadow-md">
-                        <i class="fa-solid fa-rotate-right mr-2"></i>Làm bài test khác
-                    </button>
-                </div>
+            <div class="text-[11px] text-purple-200 opacity-80">
+              Nhấp để quay lại mặt trước 🔄
             </div>
-        </section>
+          </div>
 
-        <!-- TAB 5: QUICK CALCULATORS & TOOLKITS -->
-        <section id="tab-tools" class="tab-content hidden space-y-6">
-            <h2 class="text-xl font-bold text-slate-800 dark:text-white flex items-center">
-                <i class="fa-solid fa-calculator text-emerald-500 mr-2"></i>Công Cụ Tính Toán Nhanh Dành Cho Học Sinh Lớp 7
-            </h2>
+        </div>
+      </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Tool 1: Speed Calculator v = s / t -->
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 flex items-center justify-center font-bold">
-                            <i class="fa-solid fa-gauge-high"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-slate-800 dark:text-white">Tính Tốc Độ Chuyển Động (KHTN 7)</h3>
-                            <p class="text-xs text-slate-500">Công thức: $v = \frac{s}{t}$</p>
-                        </div>
-                    </div>
-                    <div class="space-y-3 pt-2">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Quãng đường $s$ (m hoặc km):</label>
-                            <input type="number" id="calc-s" placeholder="Nhập quãng đường s..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Thời gian $t$ (giây hoặc giờ):</label>
-                            <input type="number" id="calc-t" placeholder="Nhập thời gian t..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
-                        </div>
-                        <button onclick="calculateSpeed()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold transition">Tính toán ngay</button>
-                        <div id="calc-speed-result" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-200 text-xs font-semibold text-emerald-800 dark:text-emerald-300"></div>
-                    </div>
-                </div>
+      <!-- Flashcard Controls -->
+      <div class="flex items-center justify-between gap-3 pt-2">
+        <button onclick="prevFlashcard()" class="flex-1 py-3 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 font-bold text-xs flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-all">
+          <i class="fa-solid fa-chevron-left"></i> Thẻ Trước
+        </button>
+        <button onclick="shuffleFlashcards()" class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 font-bold text-sm flex items-center justify-center active:scale-95 transition-all" title="Trộn thẻ">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>
+        <button onclick="nextFlashcard()" class="flex-1 py-3 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all">
+          Thẻ Tiếp <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
 
-                <!-- Tool 2: Proportion Calculator (Tỉ lệ thức a/b = c/d) -->
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 flex items-center justify-center font-bold">
-                            <i class="fa-solid fa-percent"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-slate-800 dark:text-white">Giải Tỉ Lệ Thức $\frac{a}{b} = \frac{c}{d}$ (Toán 7)</h3>
-                            <p class="text-xs text-slate-500">Tìm giá trị ẩn $x$ khi biết 3 số còn lại</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Số a:</label>
-                            <input type="text" id="prop-a" placeholder="Số a hoặc x..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Số b:</label>
-                            <input type="text" id="prop-b" placeholder="Số b..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Số c:</label>
-                            <input type="text" id="prop-c" placeholder="Số c..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Số d:</label>
-                            <input type="text" id="prop-d" placeholder="Số d..." class="w-full text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
-                        </div>
-                    </div>
-                    <button onclick="calculateProportions()" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold transition">Tìm x còn thiếu</button>
-                    <div id="prop-result" class="hidden p-3 bg-blue-50 dark:bg-blue-950/40 rounded-xl border border-blue-200 text-xs font-semibold text-blue-800 dark:text-blue-300"></div>
-                </div>
+    </section>
+
+    <!-- TAB 5: TRẮC NGHIỆM QUIZ TỰ LUYỆN -->
+    <section id="tab-quiz" class="tab-content hidden space-y-4">
+      
+      <!-- Quiz Header Card -->
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
+        <div class="flex justify-between items-center mb-3">
+          <h2 class="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-circle-question text-emerald-500"></i> Ôn Trắc Nghiệm Lớp 7
+          </h2>
+          <div id="quiz-score-badge" class="text-xs font-bold px-2.5 py-1 bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 rounded-full">
+            Điểm: 0
+          </div>
+        </div>
+
+        <!-- Subject Quiz Selector -->
+        <div class="grid grid-cols-4 gap-1.5 mb-4 bg-gray-100 dark:bg-gray-700/50 p-1 rounded-xl">
+          <button onclick="loadQuizSubject('toan')" id="qz-btn-toan" class="qz-tab-btn py-1 text-[11px] font-bold rounded-lg bg-white dark:bg-gray-800 text-emerald-600 shadow-sm">Toán</button>
+          <button onclick="loadQuizSubject('khtn')" id="qz-btn-khtn" class="qz-tab-btn py-1 text-[11px] font-medium rounded-lg text-gray-600 dark:text-gray-300">KHTN</button>
+          <button onclick="loadQuizSubject('tienganh')" id="qz-btn-tienganh" class="qz-tab-btn py-1 text-[11px] font-medium rounded-lg text-gray-600 dark:text-gray-300">Anh 7</button>
+          <button onclick="loadQuizSubject('sudia')" id="qz-btn-sudia" class="qz-tab-btn py-1 text-[11px] font-medium rounded-lg text-gray-600 dark:text-gray-300">Sử Địa</button>
+        </div>
+
+        <!-- Question Box -->
+        <div id="quiz-box" class="space-y-4">
+          <div class="flex justify-between text-xs text-gray-500 font-semibold">
+            <span id="quiz-progress-text">Câu hỏi 1 / 5</span>
+            <span id="quiz-subject-tag" class="text-emerald-600 dark:text-emerald-400 font-bold uppercase">TOÁN 7</span>
+          </div>
+
+          <h3 id="quiz-question-text" class="text-sm font-bold text-gray-900 dark:text-white leading-snug">
+            Nội dung câu hỏi trắc nghiệm sẽ xuất hiện ở đây...
+          </h3>
+
+          <!-- Options Grid -->
+          <div id="quiz-options-container" class="space-y-2">
+            <!-- Dynamic Buttons -->
+          </div>
+
+          <!-- Answer Explanation Box -->
+          <div id="quiz-explanation-box" class="hidden p-3 rounded-xl bg-sky-50 dark:bg-sky-950/50 border border-sky-200 dark:border-sky-800 text-xs space-y-1">
+            <div class="font-bold text-sky-800 dark:text-sky-300 flex items-center gap-1">
+              <i class="fa-solid fa-lightbulb"></i> Giải thích chi tiết:
             </div>
-        </section>
+            <p id="quiz-explanation-text" class="text-gray-700 dark:text-gray-300 leading-relaxed"></p>
+          </div>
 
-        <!-- TAB 6: AI FORMULA & STUDY ASSISTANT (GEMINI API) -->
-        <section id="tab-ai-assistant" class="tab-content hidden space-y-6">
-            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden max-w-4xl mx-auto flex flex-col h-[600px]">
-                <!-- AI Header -->
-                <div class="p-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center font-bold">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-extrabold text-sm sm:text-base">Trợ Lý Gia Sư AI Lớp 7</h3>
-                            <p class="text-xs text-purple-200">Hỏi đáp công thức Toán, KHTN, Ngữ pháp Tiếng Anh 24/7</p>
-                        </div>
-                    </div>
-                    <span class="text-[10px] bg-white/20 px-2.5 py-1 rounded-full font-semibold">Gemini 3 Flash</span>
-                </div>
+          <div class="pt-2 flex justify-end">
+            <button id="btn-next-quiz" onclick="nextQuizQuestion()" class="hidden bg-emerald-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md active:scale-95 transition-all items-center gap-1">
+              Câu kế tiếp <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
 
-                <!-- Chat Log Area -->
-                <div id="ai-chat-log" class="flex-1 p-4 overflow-y-auto space-y-4 custom-scrollbar bg-slate-50 dark:bg-slate-900/50">
-                    <!-- Welcome message -->
-                    <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold shrink-0">AI</div>
-                        <div class="bg-white dark:bg-slate-800 p-3.5 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 max-w-lg text-sm space-y-1.5 shadow-sm">
-                            <p class="font-semibold text-purple-600 dark:text-purple-400">Chào bạn! Thầy/Cô AI Lớp 7 sẵn sàng trợ giúp bạn 🤖</p>
-                            <p class="text-xs text-slate-600 dark:text-slate-300">Bạn có thể hỏi về bất kỳ bài tập hay công thức nào của Lớp 7. Ví dụ:</p>
-                            <div class="flex flex-wrap gap-1.5 pt-1">
-                                <button onclick="quickAIQuery('Giải thích định luật phản xạ ánh sáng lớp 7')" class="text-[11px] bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 px-2.5 py-1 rounded-lg border border-purple-200 dark:border-purple-800 hover:bg-purple-100 transition">Định luật phản xạ ánh sáng</button>
-                                <button onclick="quickAIQuery('Cách tính tổng các góc trong một tam giác')" class="text-[11px] bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 px-2.5 py-1 rounded-lg border border-purple-200 dark:border-purple-800 hover:bg-purple-100 transition">Tổng góc tam giác = 180°</button>
-                                <button onclick="quickAIQuery('Cấu trúc thì Quá khứ đơn Tiếng Anh 7')" class="text-[11px] bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 px-2.5 py-1 rounded-lg border border-purple-200 dark:border-purple-800 hover:bg-purple-100 transition">Cấu trúc Thì Quá khứ đơn</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      </div>
 
-                <!-- Chat Input Form -->
-                <div class="p-3 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex items-center space-x-2">
-                    <input type="text" id="ai-chat-input" onkeypress="if(event.key==='Enter') sendAIMessage()" placeholder="Nhập câu hỏi về công thức hoặc bài tập Lớp 7..." class="flex-1 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                    <button onclick="sendAIMessage()" id="ai-send-btn" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-sm transition flex items-center shrink-0">
-                        <span>Gửi</span>
-                        <i class="fa-solid fa-paper-plane ml-2 text-xs"></i>
-                    </button>
-                </div>
+    </section>
+
+    <!-- TAB 6: TRỢ LÝ AI HỎI ĐÁP (GEMINI API INTEGRATION) -->
+    <section id="tab-ai" class="tab-content hidden space-y-3 flex flex-col h-[78vh]">
+      
+      <!-- AI Header -->
+      <div class="bg-gradient-to-r from-indigo-600 to-sky-600 rounded-2xl p-3.5 text-white flex items-center justify-between shadow-md">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-amber-300 text-lg">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div>
+            <h2 class="font-bold text-sm">Gia Sư AI Lớp 7</h2>
+            <p class="text-[10px] text-sky-100 opacity-90">Hỏi bài tập Toán, Lý, Hóa, Anh Lớp 7 tức thì</p>
+          </div>
+        </div>
+        <button onclick="clearAIChat()" class="text-xs bg-white/20 hover:bg-white/30 px-2.5 py-1 rounded-lg backdrop-blur-md font-medium transition-colors">
+          Xóa chat
+        </button>
+      </div>
+
+      <!-- Quick Prompt Suggestions Chips -->
+      <div class="flex gap-1.5 overflow-x-auto no-scrollbar py-1">
+        <button onclick="sendQuickPrompt('Giải thích đơn giản về cấu tạo nguyên tử trong môn KHTN 7?')" class="text-[11px] whitespace-nowrap bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-1.5 rounded-full text-gray-700 dark:text-gray-300 font-medium">
+          ⚛️ Cấu tạo nguyên tử?
+        </button>
+        <button onclick="sendQuickPrompt('Cách chứng minh 2 tam giác bằng nhau (c-c-c, c-g-c, g-c-g)?')" class="text-[11px] whitespace-nowrap bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-1.5 rounded-full text-gray-700 dark:text-gray-300 font-medium">
+          📐 Chứng minh Tam Giác?
+        </button>
+        <button onclick="sendQuickPrompt('Phân biệt Thì Quá khứ đơn (Past Simple) và Hiện tại đơn?')" class="text-[11px] whitespace-nowrap bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-1.5 rounded-full text-gray-700 dark:text-gray-300 font-medium">
+          🇬🇧 Ngữ pháp Tiếng Anh 7?
+        </button>
+      </div>
+
+      <!-- Chat Stream Window -->
+      <div id="ai-chat-messages" class="flex-1 overflow-y-auto no-scrollbar bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 rounded-2xl p-3 space-y-3">
+        <!-- Initial Welcome Message -->
+        <div class="flex items-start gap-2 max-w-[88%]">
+          <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl rounded-tl-none p-3 text-xs text-gray-800 dark:text-gray-200 leading-relaxed shadow-sm">
+            Chào em! Thầy/Cô AI Lớp 7 đây. Em đang gặp khó khăn ở bài tập Toán, Khoa học Tự nhiên hay Ngữ pháp Tiếng Anh nào? Cứ gõ câu hỏi cho thầy/cô nhé! 😊
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Chat Input Bar -->
+      <div class="flex items-center gap-2 pt-1">
+        <input type="text" id="ai-user-input" placeholder="Nhập câu hỏi Lớp 7 của em..." onkeydown="if(event.key === 'Enter') handleAskAI()" class="flex-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-2xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
+        <button onclick="handleAskAI()" id="btn-send-ai" class="w-11 h-11 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl flex items-center justify-center shadow-md active:scale-95 transition-transform shrink-0">
+          <i class="fa-solid fa-paper-plane text-sm"></i>
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700 px-2 py-1 shadow-lg">
+    <div class="max-w-md mx-auto grid grid-cols-5 gap-1 text-center">
+      
+      <!-- Nav 1: Trang chủ -->
+      <button onclick="switchTab('tab-home')" id="nav-btn-tab-home" class="nav-item active flex flex-col items-center py-1.5 px-1 text-sky-600 dark:text-sky-400">
+        <i class="fa-solid fa-house text-lg mb-0.5"></i>
+        <span class="text-[10px] font-bold">Trang chủ</span>
+      </button>
+
+      <!-- Nav 2: Kiến thức -->
+      <button onclick="switchTab('tab-knowledge')" id="nav-btn-tab-knowledge" class="nav-item flex flex-col items-center py-1.5 px-1 text-gray-400 hover:text-sky-600 dark:hover:text-sky-400">
+        <i class="fa-solid fa-book-open text-lg mb-0.5"></i>
+        <span class="text-[10px] font-semibold">Bài học</span>
+      </button>
+
+      <!-- Nav 3: Công cụ -->
+      <button onclick="switchTab('tab-calc')" id="nav-btn-tab-calc" class="nav-item flex flex-col items-center py-1.5 px-1 text-gray-400 hover:text-sky-600 dark:hover:text-sky-400">
+        <i class="fa-solid fa-calculator text-lg mb-0.5"></i>
+        <span class="text-[10px] font-semibold">Công cụ</span>
+      </button>
+
+      <!-- Nav 4: Flashcard & Quiz -->
+      <button onclick="switchTab('tab-flashcards')" id="nav-btn-tab-flashcards" class="nav-item flex flex-col items-center py-1.5 px-1 text-gray-400 hover:text-sky-600 dark:hover:text-sky-400">
+        <i class="fa-solid fa-clone text-lg mb-0.5"></i>
+        <span class="text-[10px] font-semibold">Ghi nhớ</span>
+      </button>
+
+      <!-- Nav 5: Hỏi AI -->
+      <button onclick="switchTab('tab-ai')" id="nav-btn-tab-ai" class="nav-item flex flex-col items-center py-1.5 px-1 text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 relative">
+        <span class="absolute -top-1 right-2 w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+        <i class="fa-solid fa-robot text-lg mb-0.5"></i>
+        <span class="text-[10px] font-semibold">Hỏi AI</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- MODAL 1: SEARCH MODAL -->
+  <div id="search-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-16 px-4">
+    <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
+      <div class="p-3 border-b border-gray-100 dark:border-gray-700 flex items-center gap-2">
+        <i class="fa-solid fa-magnifying-glass text-gray-400 pl-2"></i>
+        <input type="text" id="quick-search-input" onkeyup="filterQuickSearch()" placeholder="Tìm công thức, khái niệm Toán, KHTN..." class="w-full bg-transparent text-sm text-gray-900 dark:text-white focus:outline-none">
+        <button onclick="toggleQuickSearchModal()" class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2.5 py-1 rounded-lg">Đóng</button>
+      </div>
+      <div id="quick-search-results" class="max-h-80 overflow-y-auto p-3 space-y-2 text-xs">
+        <p class="text-gray-400 text-center py-4">Nhập từ khóa tìm kiếm (Ví dụ: "Tỷ lệ thức", "Nguyên tử", "Quá khứ đơn"...)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRAWER: SỔ TAY CÁ NHÂN & BOOKMARKS -->
+  <div id="notebook-drawer" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end">
+    <div class="bg-white dark:bg-gray-800 w-4/5 max-w-sm h-full p-4 flex flex-col shadow-2xl">
+      <div class="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700 mb-3">
+        <h3 class="font-bold text-base text-gray-900 dark:text-white flex items-center gap-2">
+          <i class="fa-solid fa-bookmark text-sky-600"></i> Sổ Tay Cá Nhân
+        </h3>
+        <button onclick="closeNotebookDrawer()" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Custom Note Add Form -->
+      <div class="mb-4 space-y-2">
+        <input type="text" id="custom-note-title" placeholder="Tiêu đề ghi chú..." class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-xs px-3 py-2 rounded-xl text-gray-900 dark:text-white">
+        <textarea id="custom-note-body" placeholder="Nội dung cần nhớ..." rows="2" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-xs px-3 py-2 rounded-xl text-gray-900 dark:text-white"></textarea>
+        <button onclick="saveCustomNote()" class="w-full bg-sky-600 text-white font-bold text-xs py-2 rounded-xl active:scale-95 transition-transform">
+          + Thêm Ghi Chú Mới
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto no-scrollbar space-y-2" id="notebook-items-container">
+        <!-- Rendered items -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC DATA & INTERACTION ENGINE -->
+  <script>
+    // ==========================================
+    // 1. DATA BANK FOR GRADE 7 (LỚP 7)
+    // ==========================================
+    const knowledgeData = [
+      // TOÁN 7
+      {
+        id: "toan-1",
+        subject: "toan",
+        subjectName: "Toán 7 - Đại Số",
+        title: "Tỉ lệ thức & Tính chất Dãy tỉ số bằng nhau",
+        desc: "Định nghĩa: Tỉ lệ thức là đẳng thức của hai tỉ số \\(\\frac{a}{b} = \\frac{c}{d}\\).",
+        formula: "\\frac{a}{b} = \\frac{c}{d} \\implies a \\cdot d = b \\cdot c \\quad \\text{và} \\quad \\frac{a}{b} = \\frac{c}{d} = \\frac{a+c}{b+d} = \\frac{a-c}{b-d}",
+        example: "Cho \\(\\frac{x}{3} = \\frac{y}{5}\\) và \\(x + y = 16\\). Ta có: \\(\\frac{x}{3} = \\frac{y}{5} = \\frac{x+y}{3+5} = \\frac{16}{8} = 2 \\implies x = 6, y = 10\\)."
+      },
+      {
+        id: "toan-2",
+        subject: "toan",
+        subjectName: "Toán 7 - Hình Học",
+        title: "Các trường hợp bằng nhau của Hai Tam Giác",
+        desc: "Hai tam giác bằng nhau khi các cạnh tương ứng bằng nhau và các góc tương ứng bằng nhau.",
+        formula: "1. Cạnh - Cạnh - Cạnh (c-c-c)\n2. Cạnh - Góc - Cạnh (c-g-c)\n3. Góc - Cạnh - Góc (g-c-g)",
+        example: "Tam giác vuông bằng nhau: Cạnh huyền - Cạnh góc vuông hoặc Cạnh huyền - Góc nhọn."
+      },
+      {
+        id: "toan-3",
+        subject: "toan",
+        subjectName: "Toán 7 - Hình Học 3D",
+        title: "Hình Lăng Trụ Đứng Tam Giác & Tứ Giác",
+        desc: "Hình lăng trụ đứng có các mặt bên là hình chữ nhật, hai đáy song song và bằng nhau.",
+        formula: "S_{XungQuan} = C_{đáy} \\cdot h \\quad | \\quad V = S_{đáy} \\cdot h",
+        example: "Hình hộp chữ nhật dài 4cm, rộng 3cm, cao 5cm \\(\\implies V = 4 \\cdot 3 \\cdot 5 = 60\\text{ cm}^3\\)."
+      },
+
+      // KHOA HỌC TỰ NHIÊN 7
+      {
+        id: "khtn-1",
+        subject: "khtn",
+        subjectName: "KHTN 7 - Hóa Học",
+        title: "Nguyên tử, Nguyên tố Hóa học & Bảng tuần hoàn",
+        desc: "Nguyên tử gồm hạt nhân mang điện tích dương (Proton + Neutron) và vỏ nguyên tử gồm các Electron mang điện tích âm.",
+        formula: "\\text{Khối lượng nguyên tử} \\approx m_p + m_n \\quad (m_e \\text{ rất nhỏ không đáng kể})",
+        example: "Số Proton = Số Electron (Nguyên tử luôn trung hòa về điện)."
+      },
+      {
+        id: "khtn-2",
+        subject: "khtn",
+        subjectName: "KHTN 7 - Vật Lý",
+        title: "Tốc độ di chuyển & Đồ thị Quãng đường - Thời gian",
+        desc: "Tốc độ cho biết mức độ nhanh hay chậm của chuyển động.",
+        formula: "v = \\frac{s}{t} \\quad \\implies s = v \\cdot t \\quad \\text{và} \\quad t = \\frac{s}{v}",
+        example: "Đơn vị hợp pháp: m/s hoặc km/h. Đổi đơn vị: \\(1\\text{ m/s} = 3.6\\text{ km/h}\\)."
+      },
+      {
+        id: "khtn-3",
+        subject: "khtn",
+        subjectName: "KHTN 7 - Sinh Học",
+        title: "Trao đổi chất và Chuyển hóa năng lượng ở sinh vật",
+        desc: "Quang hợp ở cây xanh tổng hợp chất hữu cơ từ CO₂ và H₂O dưới ánh sáng mặt trời.",
+        formula: "\\text{Nước} + \\text{Khí cacbonic} \\xrightarrow{\\text{Ánh sáng, Diệp lục}} \\text{Glucose} + \\text{Khí Oxi}",
+        example: "Lá cây là cơ quan quang hợp chủ yếu nhờ chứa tế bào diệp lục."
+      },
+
+      // TIẾNG ANH 7
+      {
+        id: "eng-1",
+        subject: "tienganh",
+        subjectName: "Tiếng Anh 7 - Grammar",
+        title: "Past Simple Tense (Thì Quá khứ đơn)",
+        desc: "Diễn tả hành động đã xảy ra và kết thúc hoàn toàn trong quá khứ.",
+        formula: "(+) S + V2/ed \n(-) S + did not (didn't) + V-bare \n(?) Did + S + V-bare?",
+        example: "Yesterday, I visited my grandparents. / She didn't go to school last Monday."
+      },
+      {
+        id: "eng-2",
+        subject: "tienganh",
+        subjectName: "Tiếng Anh 7 - Grammar",
+        title: "Comparative & Superlative Adjectives (So sánh hơn & So sánh nhất)",
+        desc: "Dùng để so sánh tính chất giữa 2 hoặc nhiều đối tượng.",
+        formula: "\\text{Short Adj: } S_1 + V + adj\\text{-er} + \\text{than } S_2 \n\\text{Long Adj: } S_1 + V + \\text{more } + adj + \\text{than } S_2",
+        example: "Ha Long Bay is more famous than my town. / English is easier than French."
+      },
+
+      // LỊCH SỬ & ĐỊA LÝ 7
+      {
+        id: "sudia-1",
+        subject: "sudia",
+        subjectName: "Lịch Sử & Địa Lý 7",
+        title: "Các cuộc Phát kiến Địa lý thế kỷ XV - XVI",
+        desc: "Các nhà hàng hải tiêu biểu: C.Cô-lôm-bô (tìm ra Châu Mỹ), Ma-gen-lăng (đi vòng quanh thế giới).",
+        formula: "\\text{Ý nghĩa: Mở rộng thương mại thế giới & tìm ra các châu lục mới.}",
+        example: "Năm 1492, C.Columbus phát hiện ra Tân Thế Giới (Châu Mỹ)."
+      }
+    ];
+
+    // FLASHCARD DATA BANK
+    const flashcardsData = [
+      {
+        subject: "tienganh",
+        subjectLabel: "Tiếng Anh 7",
+        front: "Hobby (n)",
+        subtitle: "Unit 1: Hobbies",
+        back: "Sở thích, hoạt động yêu thích lúc rảnh rỗi.",
+        example: "My favorite hobby is collecting stamp coins.",
+        speechText: "Hobby"
+      },
+      {
+        subject: "khtn",
+        subjectLabel: "KHTN 7 - Hóa",
+        front: "Electron (e)",
+        subtitle: "Vỏ nguyên tử",
+        back: "Hạt mang điện tích âm (-), chuyển động rất nhanh xung quanh hạt nhân.",
+        example: "Ký hiệu: e, Điện tích: -1",
+        speechText: "Electron"
+      },
+      {
+        subject: "toan",
+        subjectLabel: "Toán 7 - Hình Học",
+        front: "Hai góc đối đỉnh",
+        subtitle: "Chương góc & đường thẳng",
+        back: "Là hai góc mà mỗi cạnh của góc này là tia đối của một cạnh của góc kia. Hai góc đối đỉnh thì BẰNG NHAU.",
+        example: " Góc O1 = Góc O3",
+        speechText: "Hai góc đối đỉnh thì bằng nhau"
+      },
+      {
+        subject: "tienganh",
+        subjectLabel: "Tiếng Anh 7",
+        front: "Healthy (adj)",
+        subtitle: "Unit 2: Healthy Living",
+        back: "Lành mạnh, tốt cho sức khỏe.",
+        example: "Eating vegetables is very healthy.",
+        speechText: "Healthy"
+      },
+      {
+        subject: "sudia",
+        subjectLabel: "Lịch Sử 7",
+        front: "Phong trào Văn hóa Phục hưng",
+        subtitle: "Lịch sử Tây Âu",
+        back: "Khôi phục lại tinh hoa văn hóa cổ đại Hy Lạp - La Mã, đề cao giá trị con người.",
+        example: "Thế kỷ XIV - XVII ở Châu Âu",
+        speechText: "Phong trào văn hóa phục hưng"
+      }
+    ];
+
+    // QUIZ QUESTIONS BANK
+    const quizData = {
+      toan: [
+        {
+          q: "Nếu \\(\\frac{x}{4} = \\frac{3}{2}\\), giá trị của x là bao nhiêu?",
+          options: ["x = 5", "x = 6", "x = 8", "x = 12"],
+          correct: 1,
+          exp: "\\(x = \\frac{4 \\cdot 3}{2} = \\frac{12}{2} = 6\\)."
+        },
+        {
+          q: "Tổng số đo ba góc trong một tam giác bằng bao nhiêu độ?",
+          options: ["90°", "180°", "360°", "270°"],
+          correct: 1,
+          exp: "Theo định lý tổng ba góc của một tam giác luôn bằng 180°."
+        }
+      ],
+      khtn: [
+        {
+          q: "Hạt nào sau đây mang điện tích dương trong hạt nhân nguyên tử?",
+          options: ["Electron", "Neutron", "Proton", "Phân tử"],
+          correct: 2,
+          exp: "Proton mang điện tích dương (+), Neutron không mang điện, Electron mang điện âm (-)."
+        },
+        {
+          q: "Công thức tính tốc độ chuyển động là gì?",
+          options: ["v = s . t", "v = s / t", "v = t / s", "v = s + t"],
+          correct: 1,
+          exp: "Tốc độ v bằng quãng đường s chia cho thời gian t (v = s/t)."
+        }
+      ],
+      tienganh: [
+        {
+          q: "Choose the correct past form of 'GO':",
+          options: ["goed", "went", "gone", "going"],
+          correct: 1,
+          exp: "Động từ bất quy tắc: Go -> Went -> Gone."
+        }
+      ],
+      sudia: [
+        {
+          q: "Nhà hàng hải C.Cô-lôm-bô đã phát hiện ra châu lục nào vào năm 1492?",
+          options: ["Châu Á", "Châu Phi", "Châu Mỹ", "Châu Úc"],
+          correct: 2,
+          exp: "Năm 1492, Christopher Columbus đã dẫn đầu đoàn tàu tìm ra Châu Mỹ (Tân thế giới)."
+        }
+      ]
+    };
+
+    // ==========================================
+    // 2. STATE MANAGEMENT & SYSTEM LOGIC
+    // ==========================================
+    let currentTab = 'tab-home';
+    let currentFlashcardIndex = 0;
+    let isFlipped = false;
+    let filteredFlashcards = [...flashcardsData];
+    
+    let currentQuizSubject = 'toan';
+    let currentQuizIndex = 0;
+    let quizScore = 0;
+    
+    let bookmarks = JSON.parse(localStorage.getItem('g7_bookmarks') || '[]');
+    let customNotes = JSON.parse(localStorage.getItem('g7_custom_notes') || '[]');
+
+    // Countdown Timer logic for Grade 7 Exams
+    function initExamCountdown() {
+      // Set target date to May 20 (End of term 2 exam)
+      const targetDate = new Date();
+      targetDate.setMonth(targetDate.getMonth() + 2);
+
+      function update() {
+        const now = new Date();
+        const diff = targetDate - now;
+        if(diff <= 0) {
+          document.getElementById('countdown-timer').innerText = "Đã đến kỳ thi!";
+          return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('countdown-timer').innerText = `${days} Ngày ${hours} Giờ`;
+      }
+      update();
+      setInterval(update, 60000);
+    }
+
+    // Tab Switching
+    function switchTab(tabId) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      const activeContent = document.getElementById(tabId);
+      if(activeContent) activeContent.classList.remove('hidden');
+
+      // Update Nav buttons styling
+      document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.classList.remove('text-sky-600', 'dark:text-sky-400');
+        btn.classList.add('text-gray-400');
+        btn.querySelector('span').classList.remove('font-bold');
+      });
+
+      const activeNavBtn = document.getElementById(`nav-btn-${tabId}`);
+      if(activeNavBtn) {
+        activeNavBtn.classList.remove('text-gray-400');
+        activeNavBtn.classList.add('text-sky-600', 'dark:text-sky-400');
+        activeNavBtn.querySelector('span').classList.add('font-bold');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Dark mode toggle
+    function toggleDarkMode() {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    // Initialize Theme
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    // ==========================================
+    // 3. KNOWLEDGE TAB RENDERER & BOOKMARKS
+    // ==========================================
+    function renderKnowledgeList(filterSubject = 'all') {
+      const container = document.getElementById('knowledge-list-container');
+      container.innerHTML = '';
+
+      const items = filterSubject === 'all' 
+        ? knowledgeData 
+        : knowledgeData.filter(item => item.subject === filterSubject);
+
+      if(items.length === 0) {
+        container.innerHTML = `<p class="text-center text-xs text-gray-400 py-6">Chưa có bài học cho môn này.</p>`;
+        return;
+      }
+
+      items.forEach(item => {
+        const isSaved = bookmarks.some(b => b.id === item.id);
+        const cardHtml = `
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm transition-all hover:shadow-md">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 uppercase">
+                ${item.subjectName}
+              </span>
+              <button onclick="toggleBookmark('${item.id}')" class="text-sm ${isSaved ? 'text-amber-500' : 'text-gray-300 dark:text-gray-600'} hover:scale-110 active:scale-95 transition-all">
+                <i class="fa-solid fa-bookmark"></i>
+              </button>
             </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="mt-12 border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
-        <p>© 2026 Sổ Tay Học Tập Lớp 7. Ứng dụng ôn tập công thức bám sát Bộ Giáo Dục & Đào Tạo (KNTT / Cánh Diều / CTST).</p>
-    </footer>
-
-    <!-- JavaScript Application Logic -->
-    <script>
-        /* -------------------------------------------------------------
-         * 1. DATABASE DATA (Toán 7, KHTN 7, Tiếng Anh 7, Sử Địa 7)
-         * ------------------------------------------------------------- */
-        const FORMULAS_DATA = [
-            // TOÁN 7
-            {
-                id: 't1',
-                subject: 'toan',
-                topic: 'Số Hữu Tỉ (Chương I - Đại Số)',
-                title: 'Các Phép Tính Với Số Hữu Tỉ',
-                formula: 'x = \\frac{a}{m}, y = \\frac{b}{m} \\Rightarrow x + y = \\frac{a + b}{m}',
-                description: 'Số hữu tỉ là số viết được dưới dạng phân số a/b (a, b ∈ Z, b ≠ 0). Tập hợp số hữu tỉ ký hiệu là Q.',
-                example: 'Ví dụ: 3/4 + (-1/4) = (3 - 1)/4 = 2/4 = 1/2.'
-            },
-            {
-                id: 't2',
-                subject: 'toan',
-                topic: 'Tỉ Lệ Thức & Tỉ Lệ Thuận/Nghịch',
-                title: 'Tính Chất Dãy Tỉ Số Bằng Nhau',
-                formula: '\\frac{a}{b} = \\frac{c}{d} = \\frac{a + c}{b + d} = \\frac{a - c}{b - d}',
-                description: 'Nếu a/b = c/d thì a.d = b.c (tích trung tỉ bằng tích ngoại tỉ). Hai đại lượng y và x tỉ lệ thuận khi y = k.x (k ≠ 0).',
-                example: 'Ví dụ: Cho x/2 = y/3 và x + y = 10 ⟹ x/2 = y/3 = (x+y)/(2+3) = 10/5 = 2 ⟹ x=4, y=6.'
-            },
-            {
-                id: 't3',
-                subject: 'toan',
-                topic: 'Hình Học Tam Giác (Chương IV)',
-                title: 'Tổng Ba Góc Trong Một Tam Giác',
-                formula: '\\widehat{A} + \\widehat{B} + \\widehat{C} = 180^\\circ',
-                description: 'Trong tam giác vuông, hai góc nhọn phụ nhau. Góc ngoài của tam giác bằng tổng hai góc trong không kề với nó.',
-                example: 'Ví dụ: ΔABC có góc A = 70°, góc B = 60° ⟹ góc C = 180° - (70° + 60°) = 50°.'
-            },
-            {
-                id: 't4',
-                subject: 'toan',
-                topic: 'Hình Học Tam Giác (Chương IV)',
-                title: 'Các Trường Hợp Bằng Nhau Của Tam Giác',
-                formula: '\\text{c-c-c}, \\quad \\text{c-g-c}, \\quad \\text{g-c-g}',
-                description: 'Hai tam giác bằng nhau khi các cạnh tương ứng bằng nhau và các góc tương ứng bằng nhau. Tam giác vuông có thêm TH cạnh huyền - góc nhọn.',
-                example: 'Ứng dụng: Chứng minh 2 đoạn thẳng bằng nhau hoặc 2 góc bằng nhau.'
-            },
-
-            // KHOA HỌC TỰ NHIÊN 7
-            {
-                id: 'k1',
-                subject: 'khtn',
-                topic: 'Vật Lý: Tốc Độ Chuyển Động',
-                title: 'Công Thức Tính Tốc Độ',
-                formula: 'v = \\frac{s}{t} \\quad \\Rightarrow \\quad s = v \\cdot t, \\quad t = \\frac{s}{v}',
-                description: 'Tốc độ cho biết độ nhanh chậm của chuyển động. Đơn vị hợp pháp: m/s hoặc km/h (1 m/s = 3.6 km/h).',
-                example: 'Ví dụ: Xe chạy s = 90 km trong t = 2 giờ ⟹ v = 90/2 = 45 km/h.'
-            },
-            {
-                id: 'k2',
-                subject: 'khtn',
-                topic: 'Vật Lý: Ánh Sáng & Âm Thanh',
-                title: 'Định Luật Phản Xạ Ánh Sáng',
-                formula: 'i = i\' \\quad (\\text{Góc tới} = \\text{Góc phản xạ})',
-                description: 'Tia phản xạ nằm trong mặt phẳng chứa tia tới và đường pháp tuyến. Tần số âm càng cao thì âm phát ra càng bổng (cao).',
-                example: 'Ví dụ: Nếu chiếu tia tới hợp với pháp tuyến góc i = 30° thì tia phản xạ i\' = 30°.'
-            },
-            {
-                id: 'k3',
-                subject: 'khtn',
-                topic: 'Hóa Học: Nguyên Tử - Nguyên Tố',
-                title: 'Cấu Tạo Nguyên Tử & Khối Lượng Nguyên Tử',
-                formula: '\\text{Khối lượng nguyên tử} \\approx p + n \\quad (\\text{do } m_e \\ll m_p, m_n)',
-                description: 'Nguyên tử gồm hạt nhân mang điện dương (proton p + neutron n) và vỏ chứa electron e mang điện âm (Số p = Số e).',
-                example: 'Ví dụ: Nguyên tử Carbon có 6p, 6n ⟹ Khối lượng nguyên tử C ≈ 12 amu.'
-            },
-            {
-                id: 'k4',
-                subject: 'khtn',
-                topic: 'Sinh Học: Trao Đổi Chất & Cảm Ứng',
-                title: 'Quang Hợp Ở Thực Vật',
-                formula: '\\text{Khí CO}_2 + \\text{Nước} \\xrightarrow[\\text{Diệp lục}]{\\text{Ánh sáng}} \\text{Glucose} + \\text{Khí O}_2',
-                description: 'Quang hợp là quá trình lá cây tổng hợp chất hữu cơ từ CO2 và H2O nhờ năng lượng ánh sáng mặt trời.',
-                example: 'Ý nghĩa: Cung cấp Oxi cho sự hô hấp của sinh vật và cân bằng khí hậu.'
-            },
-
-            // TIẾNG ANH 7
-            {
-                id: 'e1',
-                subject: 'tienganh',
-                topic: 'Ngữ Pháp Trọng Tâm',
-                title: 'Thì Hiện Tại Đơn & Hiện Tại Tiếp Diễn',
-                formula: 'S + V_{(s/es)} \\quad \\text{vs} \\quad S + \\text{am/is/are} + V\\text{-ing}',
-                description: 'Hiện tại đơn diễn tả thói quen/sự thật hiển nhiên. Hiện tại tiếp diễn diễn tả hành động đang xảy ra lúc nói.',
-                example: 'Ví dụ: She plays badminton every day. Look! She is playing badminton right now.'
-            },
-            {
-                id: 'e2',
-                subject: 'tienganh',
-                topic: 'Ngữ Pháp Trọng Tâm',
-                title: 'Cấu Trúc So Sánh Bằng & So Sánh Hơn',
-                formula: '\\text{as} + \\text{adj} + \\text{as} \\quad | \\quad \\text{adj-er} + \\text{than} \\quad | \\quad \\text{more} + \\text{adj} + \\text{than}',
-                description: 'Dùng so sánh tính chất giữa hai người hoặc hai vật.',
-                example: 'Ví dụ: Fast ➔ faster than; Beautiful ➔ more beautiful than.'
-            },
-
-            // LỊCH SỬ & ĐỊA LÝ 7
-            {
-                id: 'sd1',
-                subject: 'sudia',
-                topic: 'Lịch Sử Đại Việt',
-                title: 'Đại Việt Thời Lý - Trần (Thế kỷ XI - XIV)',
-                formula: '\\text{Chiến thắng Như Nguyệt (1077)} + \\text{3 Lần Đánh Thắng Quân Nguyên Mông}',
-                description: 'Thời kỳ củng cố chủ quyền dân tộc mạnh mẽ với chiến thuật "Vườn không nhà trống" nổi tiếng của Hưng Đạo Vương Trần Quốc Tuấn.',
-                example: 'Trận chiến kinh điển: Chiến thắng Bạch Đằng năm 1288.'
-            },
-            {
-                id: 'sd2',
-                subject: 'sudia',
-                topic: 'Địa Lý Các Châu Lục',
-                title: 'Đặc Điểm Địa Lý Châu Âu & Châu Á',
-                formula: '\\text{Châu Á: Diện tích lớn nhất} \\quad | \\quad \\text{Châu Âu: Khí hậu Ôn đới chủ đạo}',
-                description: 'Châu Á có địa hình nhiều dãy núi cao đồ sộ (Himalaya). Châu Âu có bờ biển bị cắt xẻ mạnh tạo nhiều bán đảo.',
-                example: 'Đỉnh núi Everest (8848.86m) nằm ở Châu Á là đỉnh núi cao nhất thế giới.'
-            }
-        ];
-
-        const VOCAB_DATA = [
-            { word: 'Hobby', type: 'n', phonetic: '/ˈhɒbi/', meaning: 'Sở thích, thú vui', unit: 'Unit 1: Hobbies', example: 'Collecting stamps is my favorite hobby.' },
-            { word: 'Community', type: 'n', phonetic: '/kəˈmjuːnəti/', meaning: 'Cộng đồng', unit: 'Unit 3: Community Service', example: 'We join hands to clean our local community.' },
-            { word: 'Donate', type: 'v', phonetic: '/dəʊˈneɪt/', meaning: 'Quyên góp, ủng hộ', unit: 'Unit 3: Community Service', example: 'They donate old books to poor children.' },
-            { word: 'Nutritious', type: 'adj', phonetic: '/njuːˈtrɪʃəs/', meaning: 'Bổ dưỡng', unit: 'Unit 2: Healthy Living', example: 'Vegetables are very nutritious food.' },
-            { word: 'Instrument', type: 'n', phonetic: '/ˈɪnstrəmənt/', meaning: 'Nhạc cụ', unit: 'Unit 4: Music and Arts', example: 'Can you play any musical instrument?' },
-            { word: 'Ingredient', type: 'n', phonetic: '/ɪnˈɡriːdiənt/', meaning: 'Thành phần, nguyên liệu', unit: 'Unit 5: Food and Drink', example: 'Flour is the main ingredient of bread.' },
-            { word: 'Volunteer', type: 'n/v', phonetic: '/ˌvɒlənˈtɪə(r)/', meaning: 'Tình nguyện viên / Tình nguyện', unit: 'Unit 3: Community Service', example: 'She works as a volunteer at the hospital.' },
-            { word: 'Traditional', type: 'adj', phonetic: '/trəˈdɪʃənl/', meaning: 'Truyền thống', unit: 'Unit 4: Music and Arts', example: 'Pho is a traditional Vietnamese dish.' },
-            { word: 'Calories', type: 'n', phonetic: '/ˈkæləriz/', meaning: 'Calo (năng lượng)', unit: 'Unit 2: Healthy Living', example: 'Cycling burns a lot of calories.' }
-        ];
-
-        const QUIZ_DATA = [
-            {
-                subject: 'toan',
-                question: 'Công thức tính tổng ba góc của một tam giác ABC là gì?',
-                options: ['A. Góc A + B + C = 90°', 'B. Góc A + B + C = 180°', 'C. Góc A + B + C = 360°', 'D. Góc A + B = C'],
-                answer: 1,
-                explanation: 'Theo định lý tổng ba góc trong một tam giác, tổng số đo ba góc của bất kỳ tam giác nào cũng bằng 180°.'
-            },
-            {
-                subject: 'khtn',
-                question: 'Một xe đạp đi được quãng đường 12 km trong thời gian 0.5 giờ. Tốc độ của xe đạp là bao nhiêu?',
-                options: ['A. 6 km/h', 'B. 24 km/h', 'C. 12 km/h', 'D. 18 km/h'],
-                answer: 1,
-                explanation: 'Áp dụng công thức v = s / t = 12 / 0.5 = 24 km/h.'
-            },
-            {
-                subject: 'tienganh',
-                question: 'Điền từ thích hợp: "She _____ (play) football with her friends every Sunday."',
-                options: ['A. is playing', 'B. played', 'C. plays', 'D. play'],
-                answer: 2,
-                explanation: 'Dấu hiệu "every Sunday" chỉ thói quen lặp đi lặp lại ➔ Dùng thì Hiện tại đơn với chủ ngữ "She" ➔ plays.'
-            },
-            {
-                subject: 'sudia',
-                question: 'Ai là người chỉ huy trận chiến thắng quân Nguyên Mông lần thứ 3 trên sông Bạch Đằng năm 1288?',
-                options: ['A. Lý Thường Kiệt', 'B. Trần Hưng Đạo', 'C. Lê Lợi', 'D. Quang Trung'],
-                answer: 1,
-                explanation: 'Hưng Đạo Vương Trần Quốc Tuấn là vị tướng tài năng đã lãnh đạo quân dân nhà Trần đánh tan quân Nguyên Mông năm 1288.'
-            }
-        ];
-
-        /* -------------------------------------------------------------
-         * 2. APP STATE MANAGEMENT
-         * ------------------------------------------------------------- */
-        let currentSubjectFilter = 'all';
-        let currentVocabMode = 'list';
-        let flashcardIndex = 0;
-        let isFlashcardFlipped = false;
-        let quizCurrentIndex = 0;
-        let quizScore = 0;
-        let selectedQuizSubject = 'all';
-        let plannerTasks = JSON.parse(localStorage.getItem('g7_planner_tasks')) || [
-            { id: 1, text: 'Học 5 công thức Toán 7 (Số hữu tỉ)', completed: true },
-            { id: 2, text: 'Làm bài tập KHTN 7 tính tốc độ v=s/t', completed: false },
-            { id: 3, text: 'Ôn 10 từ vựng Tiếng Anh Unit 1', completed: false }
-        ];
-
-        /* -------------------------------------------------------------
-         * 3. TAB SWITCHING LOGIC
-         * ------------------------------------------------------------- */
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            const activeTab = document.getElementById(`tab-${tabId}`);
-            if (activeTab) activeTab.classList.remove('hidden');
-
-            // Update Nav styles
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-sky-600', 'bg-sky-50', 'dark:bg-slate-700', 'dark:text-sky-400');
-                btn.classList.add('text-slate-600', 'dark:text-slate-300');
-            });
-            const activeNav = document.getElementById(`nav-${tabId}`);
-            if (activeNav && tabId !== 'ai-assistant') {
-                activeNav.classList.add('text-sky-600', 'bg-sky-50', 'dark:bg-slate-700', 'dark:text-sky-400');
-            }
-
-            // Close mobile menu if open
-            document.getElementById('mobile-menu').classList.add('hidden');
-        }
-
-        function filterSubjectAndSwitch(sub) {
-            setFormulaSubject(sub);
-            switchTab('formulas');
-        }
-
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        }
-
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-        }
-
-        /* -------------------------------------------------------------
-         * 4. FORMULAS & KNOWLEDGE RENDER
-         * ------------------------------------------------------------- */
-        function setFormulaSubject(sub) {
-            currentSubjectFilter = sub;
-            document.querySelectorAll('.formula-filter-btn').forEach(btn => {
-                if (btn.dataset.sub === sub) {
-                    btn.className = "formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-sky-600 text-white transition";
-                } else {
-                    btn.className = "formula-filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition";
-                }
-            });
-            renderFormulas();
-        }
-
-        function renderFormulas() {
-            const container = document.getElementById('formulas-list');
-            const searchKeyword = document.getElementById('formula-search-input').value.toLowerCase().trim();
-
-            const filtered = FORMULAS_DATA.filter(item => {
-                const matchSubject = currentSubjectFilter === 'all' || item.subject === currentSubjectFilter;
-                const matchSearch = item.title.toLowerCase().includes(searchKeyword) || 
-                                    item.topic.toLowerCase().includes(searchKeyword) || 
-                                    item.description.toLowerCase().includes(searchKeyword);
-                return matchSubject && matchSearch;
-            });
-
-            if (filtered.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full py-12 text-center text-slate-400 dark:text-slate-500">
-                        <i class="fa-solid fa-folder-open text-4xl mb-2"></i>
-                        <p class="text-sm">Không tìm thấy công thức nào phù hợp.</p>
-                    </div>`;
-                return;
-            }
-
-            container.innerHTML = filtered.map(item => `
-                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-3 hover:border-sky-300 transition">
-                    <div class="flex items-center justify-between">
-                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${getSubjectBadgeClass(item.subject)}">
-                            ${getSubjectName(item.subject)}
-                        </span>
-                        <span class="text-xs text-slate-400 font-medium">${item.topic}</span>
-                    </div>
-                    <h3 class="font-bold text-base text-slate-800 dark:text-slate-100">${item.title}</h3>
-                    <div class="p-3 bg-slate-50 dark:bg-slate-900/80 rounded-xl border border-slate-100 dark:border-slate-800 font-mono text-sm text-sky-700 dark:text-sky-300 font-semibold text-center overflow-x-auto">
-                        ${item.formula}
-                    </div>
-                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${item.description}</p>
-                    <div class="text-[11px] bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-300 p-2.5 rounded-lg border border-amber-100 dark:border-amber-900/40 italic">
-                        <i class="fa-solid fa-lightbulb mr-1.5 text-amber-500"></i>${item.example}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function getSubjectBadgeClass(sub) {
-            switch(sub) {
-                case 'toan': return 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300';
-                case 'khtn': return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300';
-                case 'tienganh': return 'bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300';
-                default: return 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300';
-            }
-        }
-
-        function getSubjectName(sub) {
-            switch(sub) {
-                case 'toan': return 'Toán 7';
-                case 'khtn': return 'KHTN 7';
-                case 'tienganh': return 'Tiếng Anh 7';
-                default: return 'Sử - Địa 7';
-            }
-        }
-
-        /* -------------------------------------------------------------
-         * 5. VOCABULARY & FLASHCARDS LOGIC
-         * ------------------------------------------------------------- */
-        function setVocabMode(mode) {
-            currentVocabMode = mode;
-            const listView = document.getElementById('vocab-list-view');
-            const cardView = document.getElementById('vocab-flashcard-view');
-            const listBtn = document.getElementById('vocab-mode-list-btn');
-            const cardBtn = document.getElementById('vocab-mode-card-btn');
-
-            if (mode === 'list') {
-                listView.classList.remove('hidden');
-                cardView.classList.add('hidden');
-                listBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-purple-600 text-white shadow-sm";
-                cardBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition";
-            } else {
-                listView.classList.add('hidden');
-                cardView.classList.remove('hidden');
-                cardBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-purple-600 text-white shadow-sm";
-                listBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 transition";
-                updateFlashcard();
-            }
-        }
-
-        function getFilteredVocab() {
-            const unit = document.getElementById('vocab-unit-filter').value;
-            if (unit === 'all') return VOCAB_DATA;
-            return VOCAB_DATA.filter(item => item.unit === unit);
-        }
-
-        function renderVocab() {
-            const list = getFilteredVocab();
-            const container = document.getElementById('vocab-list-view');
-
-            container.innerHTML = list.map(item => `
-                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col justify-between space-y-3">
-                    <div class="space-y-1">
-                        <div class="flex items-center justify-between">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">${item.unit}</span>
-                            <span class="text-xs font-semibold text-slate-400">${item.type}</span>
-                        </div>
-                        <div class="flex items-center justify-between pt-1">
-                            <h4 class="text-lg font-bold text-slate-800 dark:text-white">${item.word}</h4>
-                            <button onclick="speakWord('${item.word}')" class="p-1.5 rounded-lg text-purple-600 hover:bg-purple-50 dark:hover:bg-slate-700 transition">
-                                <i class="fa-solid fa-volume-high text-sm"></i>
-                            </button>
-                        </div>
-                        <p class="text-xs text-purple-600 dark:text-purple-400 font-medium">${item.phonetic}</p>
-                        <p class="text-sm font-semibold text-slate-700 dark:text-slate-200 pt-1">${item.meaning}</p>
-                    </div>
-                    <p class="text-xs text-slate-500 italic bg-slate-50 dark:bg-slate-900/50 p-2 rounded-lg">"${item.example}"</p>
-                </div>
-            `).join('');
-
-            flashcardIndex = 0;
-            if (currentVocabMode === 'flashcard') updateFlashcard();
-        }
-
-        function currentFlashcardWord() {
-            const list = getFilteredVocab();
-            return list[flashcardIndex] ? list[flashcardIndex].word : '';
-        }
-
-        function updateFlashcard() {
-            const list = getFilteredVocab();
-            if (list.length === 0) return;
-
-            if (flashcardIndex >= list.length) flashcardIndex = 0;
-            const item = list[flashcardIndex];
-
-            document.getElementById('fc-unit-badge').innerText = item.unit;
-            document.getElementById('fc-word').innerText = item.word;
-            document.getElementById('fc-phonetic').innerText = item.phonetic;
-            document.getElementById('fc-type').innerText = item.type;
-            document.getElementById('fc-meaning').innerText = item.meaning;
-            document.getElementById('fc-example').innerText = `"${item.example}"`;
-            document.getElementById('fc-index-indicator').innerText = `${flashcardIndex + 1} / ${list.length}`;
-
-            // Reset flip state
-            isFlashcardFlipped = false;
-            document.getElementById('flashcard-element').classList.remove('rotate-y-180');
-        }
-
-        function flipFlashcard() {
-            isFlashcardFlipped = !isFlashcardFlipped;
-            const card = document.getElementById('flashcard-element');
-            if (isFlashcardFlipped) card.classList.add('rotate-y-180');
-            else card.classList.remove('rotate-y-180');
-        }
-
-        function prevFlashcard() {
-            const list = getFilteredVocab();
-            if (flashcardIndex > 0) flashcardIndex--;
-            else flashcardIndex = list.length - 1;
-            updateFlashcard();
-        }
-
-        function nextFlashcard() {
-            const list = getFilteredVocab();
-            if (flashcardIndex < list.length - 1) flashcardIndex++;
-            else flashcardIndex = 0;
-            updateFlashcard();
-        }
-
-        function speakWord(text) {
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'en-US';
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        /* -------------------------------------------------------------
-         * 6. INTERACTIVE QUIZ SYSTEM
-         * ------------------------------------------------------------- */
-        function initQuiz() {
-            selectedQuizSubject = document.getElementById('quiz-subject-select').value;
-            quizCurrentIndex = 0;
-            quizScore = 0;
-            document.getElementById('quiz-result-container').classList.add('hidden');
-            document.getElementById('quiz-question-container').classList.remove('hidden');
-            renderQuizQuestion();
-        }
-
-        function getFilteredQuiz() {
-            if (selectedQuizSubject === 'all') return QUIZ_DATA;
-            return QUIZ_DATA.filter(q => q.subject === selectedQuizSubject);
-        }
-
-        function renderQuizQuestion() {
-            const questions = getFilteredQuiz();
-            const container = document.getElementById('quiz-question-container');
-            const progressBar = document.getElementById('quiz-progress-bar');
-
-            if (questions.length === 0 || quizCurrentIndex >= questions.length) {
-                showQuizResults();
-                return;
-            }
-
-            const q = questions[quizCurrentIndex];
-            const progressPercent = ((quizCurrentIndex) / questions.length) * 100;
-            progressBar.style.width = `${progressPercent}%`;
-
-            container.innerHTML = `
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between text-xs text-slate-400 font-semibold">
-                        <span>Câu hỏi ${quizCurrentIndex + 1} / ${questions.length}</span>
-                        <span class="uppercase tracking-wider px-2 py-0.5 rounded bg-sky-100 text-sky-700 dark:bg-sky-900/50 dark:text-sky-300">${getSubjectName(q.subject)}</span>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-800 dark:text-white leading-relaxed">${q.question}</h3>
-                    
-                    <div class="space-y-2.5 pt-2">
-                        ${q.options.map((opt, idx) => `
-                            <button onclick="checkQuizAnswer(${idx})" class="quiz-opt-btn w-full text-left p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 hover:bg-sky-50 hover:border-sky-300 dark:hover:bg-slate-700 text-sm font-medium transition">
-                                ${opt}
-                            </button>
-                        `).join('')}
-                    </div>
-
-                    <div id="quiz-explanation" class="hidden p-4 bg-blue-50 dark:bg-blue-950/40 rounded-xl border border-blue-200 dark:border-blue-800 text-xs text-blue-900 dark:text-blue-200 space-y-2">
-                        <p class="font-bold flex items-center"><i class="fa-solid fa-circle-info mr-1.5"></i> Lời giải chi tiết:</p>
-                        <p>${q.explanation}</p>
-                        <button onclick="nextQuizQuestion()" class="mt-2 px-4 py-1.5 bg-sky-600 text-white rounded-lg font-bold hover:bg-sky-700 transition">Câu tiếp theo <i class="fa-solid fa-arrow-right ml-1"></i></button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function checkQuizAnswer(selectedIdx) {
-            const questions = getFilteredQuiz();
-            const q = questions[quizCurrentIndex];
-            const optBtns = document.querySelectorAll('.quiz-opt-btn');
-
-            optBtns.forEach((btn, idx) => {
-                btn.disabled = true;
-                if (idx === q.answer) {
-                    btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-800', 'dark:bg-emerald-950/60', 'dark:text-emerald-300');
-                } else if (idx === selectedIdx) {
-                    btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-800', 'dark:bg-rose-950/60', 'dark:text-rose-300');
-                }
-            });
-
-            if (selectedIdx === q.answer) {
-                quizScore++;
-            }
-
-            document.getElementById('quiz-explanation').classList.remove('hidden');
-        }
-
-        function nextQuizQuestion() {
-            quizCurrentIndex++;
-            renderQuizQuestion();
-        }
-
-        function showQuizResults() {
-            const questions = getFilteredQuiz();
-            document.getElementById('quiz-question-container').classList.add('hidden');
-            document.getElementById('quiz-result-container').classList.remove('hidden');
-            document.getElementById('quiz-progress-bar').style.width = '100%';
-            document.getElementById('quiz-final-score').innerText = `Bạn đã đạt ${quizScore} / ${questions.length} điểm!`;
-        }
-
-        /* -------------------------------------------------------------
-         * 7. QUICK CALCULATOR TOOLS LOGIC
-         * ------------------------------------------------------------- */
-        function calculateSpeed() {
-            const s = parseFloat(document.getElementById('calc-s').value);
-            const t = parseFloat(document.getElementById('calc-t').value);
-            const resDiv = document.getElementById('calc-speed-result');
-
-            if (isNaN(s) || isNaN(t) || t <= 0) {
-                resDiv.classList.remove('hidden');
-                resDiv.innerText = 'Vui lòng nhập quãng đường s và thời gian t hợp lệ (t > 0).';
-                return;
-            }
-
-            const v = s / t;
-            resDiv.classList.remove('hidden');
-            resDiv.innerHTML = `Tốc độ v = ${s} / ${t} = <strong>${v.toFixed(2)}</strong> (m/s hoặc km/h).`;
-        }
-
-        function calculateProportions() {
-            const aVal = document.getElementById('prop-a').value.trim();
-            const bVal = document.getElementById('prop-b').value.trim();
-            const cVal = document.getElementById('prop-c').value.trim();
-            const dVal = document.getElementById('prop-d').value.trim();
-            const resDiv = document.getElementById('prop-result');
-
-            let a = parseFloat(aVal), b = parseFloat(bVal), c = parseFloat(cVal), d = parseFloat(dVal);
-            resDiv.classList.remove('hidden');
-
-            if (aVal.toLowerCase() === 'x') {
-                if (!isNaN(b) && !isNaN(c) && !isNaN(d) && d !== 0) {
-                    let x = (b * c) / d;
-                    resDiv.innerHTML = `Kết quả: <strong>x = (b × c) / d = (${b} × ${c}) / ${d} = ${x}</strong>`;
-                } else resDiv.innerText = 'Nhập đủ b, c, d hợp lệ để tìm x.';
-            } else if (dVal.toLowerCase() === 'x') {
-                if (!isNaN(a) && !isNaN(b) && !isNaN(c) && a !== 0) {
-                    let x = (b * c) / a;
-                    resDiv.innerHTML = `Kết quả: <strong>x = (b × c) / a = (${b} × ${c}) / ${a} = ${x}</strong>`;
-                } else resDiv.innerText = 'Nhập đủ a, b, c hợp lệ để tìm x.';
-            } else {
-                resDiv.innerText = 'Hãy đặt 1 ô là "x" (ví dụ ô a hoặc ô d) để ứng dụng tìm ẩn x.';
-            }
-        }
-
-        /* -------------------------------------------------------------
-         * 8. AI ASSISTANT INTEGRATION (GEMINI API)
-         * ------------------------------------------------------------- */
-        function quickAIQuery(queryText) {
-            document.getElementById('ai-chat-input').value = queryText;
-            sendAIMessage();
-        }
-
-        async function sendAIMessage() {
-            const inputEl = document.getElementById('ai-chat-input');
-            const message = inputEl.value.trim();
-            if (!message) return;
-
-            const chatLog = document.getElementById('ai-chat-log');
-
-            // Render User Message
-            chatLog.innerHTML += `
-                <div class="flex items-start justify-end space-x-3">
-                    <div class="bg-purple-600 text-white p-3 rounded-2xl rounded-tr-none text-sm max-w-lg shadow-sm">
-                        ${message}
-                    </div>
-                </div>
-            `;
-            inputEl.value = '';
-            chatLog.scrollTop = chatLog.scrollHeight;
-
-            // Render Loading Indicator
-            const loadingId = 'loading-' + Date.now();
-            chatLog.innerHTML += `
-                <div id="${loadingId}" class="flex items-start space-x-3">
-                    <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold shrink-0">AI</div>
-                    <div class="bg-white dark:bg-slate-800 p-3.5 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 text-xs text-slate-500 italic">
-                        <i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Thầy/Cô AI đang suy nghĩ câu trả lời...
-                    </div>
-                </div>
-            `;
-            chatLog.scrollTop = chatLog.scrollHeight;
-
-            try {
-                const systemPrompt = "Bạn là Gia Sư AI học tập chuyên về chương trình Lớp 7 (Toán, KHTN, Tiếng Anh, Sử Địa). Hãy trả lời ngắn gọn, sinh động, dễ hiểu đối với học sinh cấp 2. Nếu có công thức hãy viết thật rõ ràng.";
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: message }] }],
-                        systemInstruction: { parts: [{ text: systemPrompt }] }
-                    })
-                });
-
-                const data = await response.json();
-                document.getElementById(loadingId)?.remove();
-
-                let aiResponseText = "Xin lỗi, hiện tại hệ thống bận. Bạn hãy thử lại sau nhé!";
-                if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-                    aiResponseText = data.candidates[0].content.parts[0].text;
-                }
-
-                // Render AI Answer
-                chatLog.innerHTML += `
-                    <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold shrink-0">AI</div>
-                        <div class="bg-white dark:bg-slate-800 p-3.5 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-700 max-w-xl text-sm text-slate-800 dark:text-slate-100 shadow-sm leading-relaxed whitespace-pre-line">
-                            ${aiResponseText}
-                        </div>
-                    </div>
-                `;
-            } catch (err) {
-                document.getElementById(loadingId)?.remove();
-                chatLog.innerHTML += `
-                    <div class="flex items-start space-x-3">
-                        <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-xs font-bold shrink-0">AI</div>
-                        <div class="bg-rose-50 dark:bg-rose-950/40 p-3.5 rounded-2xl rounded-tl-none border border-rose-200 text-xs text-rose-700 dark:text-rose-300">
-                            Không thể kết nối với dịch vụ AI. Bạn hãy kiểm tra lại kết nối mạng.
-                        </div>
-                    </div>
-                `;
-            }
-
-            chatLog.scrollTop = chatLog.scrollHeight;
-        }
-
-        /* -------------------------------------------------------------
-         * 9. PLANNER & EXAM COUNTDOWN
-         * ------------------------------------------------------------- */
-        function renderPlannerTasks() {
-            const container = document.getElementById('planner-task-list');
-            container.innerHTML = plannerTasks.map(task => `
-                <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-900/50 p-2.5 rounded-xl border border-slate-100 dark:border-slate-700">
-                    <label class="flex items-center space-x-2.5 cursor-pointer text-xs font-medium ${task.completed ? 'line-through text-slate-400' : 'text-slate-700 dark:text-slate-200'}">
-                        <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${task.id})" class="rounded text-emerald-600 focus:ring-emerald-500 w-4 h-4">
-                        <span>${task.text}</span>
-                    </label>
-                    <button onclick="deleteTask(${task.id})" class="text-slate-400 hover:text-rose-500 text-xs px-1">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
-            `).join('');
-
-            const completedCount = plannerTasks.filter(t => t.completed).length;
-            document.getElementById('planner-progress-text').innerText = `${completedCount}/${plannerTasks.length} hoàn thành`;
-            localStorage.setItem('g7_planner_tasks', JSON.stringify(plannerTasks));
-        }
-
-        function addPlannerTask() {
-            const input = document.getElementById('new-task-input');
-            const text = input.value.trim();
-            if (!text) return;
-
-            plannerTasks.push({ id: Date.now(), text: text, completed: false });
-            input.value = '';
-            renderPlannerTasks();
-        }
-
-        function toggleTask(id) {
-            plannerTasks = plannerTasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
-            renderPlannerTasks();
-        }
-
-        function deleteTask(id) {
-            plannerTasks = plannerTasks.filter(t => t.id !== id);
-            renderPlannerTasks();
-        }
-
-        function startCountdownTimer() {
-            // Target date: end of semester exam
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 45); // 45 days from now
-
-            setInterval(() => {
-                const now = new Date().getTime();
-                const diff = targetDate - now;
-
-                if (diff <= 0) {
-                    document.getElementById('countdown-timer').innerText = "Đã tới kỳ thi!";
-                    return;
-                }
-
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById('countdown-timer').innerText = `${days} ngày ${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
-            }, 1000);
-        }
-
-        /* -------------------------------------------------------------
-         * INITIALIZATION ON WINDOW LOAD
-         * ------------------------------------------------------------- */
-        window.onload = function() {
-            renderFormulas();
-            renderVocab();
-            initQuiz();
-            renderPlannerTasks();
-            startCountdownTimer();
+            <h3 class="font-bold text-sm text-gray-900 dark:text-white mb-1">${item.title}</h3>
+            <p class="text-xs text-gray-600 dark:text-gray-300 mb-2 leading-relaxed">${item.desc}</p>
+
+            ${item.formula ? `
+              <div class="p-2.5 my-2 bg-gray-50 dark:bg-gray-700/50 rounded-xl font-mono text-xs text-sky-700 dark:text-sky-300 border-l-4 border-sky-500 whitespace-pre-wrap">
+                ${item.formula}
+              </div>
+            ` : ''}
+
+            ${item.example ? `
+              <div class="text-[11px] text-gray-500 dark:text-gray-400 italic bg-amber-50/50 dark:bg-amber-950/20 p-2 rounded-lg">
+                💡 <strong>Ví dụ:</strong> ${item.example}
+              </div>
+            ` : ''}
+          </div>
+        `;
+        container.innerHTML += cardHtml;
+      });
+    }
+
+    function filterSubjectTab(subject) {
+      document.querySelectorAll('.subject-chip').forEach(chip => {
+        chip.classList.remove('bg-sky-600', 'text-white', 'shadow-md');
+        chip.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+      });
+      event.target.classList.add('bg-sky-600', 'text-white', 'shadow-md');
+      renderKnowledgeList(subject);
+    }
+
+    function openSubjectKnowledge(subject) {
+      switchTab('tab-knowledge');
+      filterSubjectTab(subject);
+    }
+
+    function toggleBookmark(id) {
+      const idx = bookmarks.findIndex(b => b.id === id);
+      if(idx >= 0) {
+        bookmarks.splice(idx, 1);
+      } else {
+        const found = knowledgeData.find(k => k.id === id);
+        if(found) bookmarks.push(found);
+      }
+      localStorage.setItem('g7_bookmarks', JSON.stringify(bookmarks));
+      updateBookmarkBadge();
+      renderKnowledgeList();
+      renderNotebookItems();
+    }
+
+    function updateBookmarkBadge() {
+      const badge = document.getElementById('bookmark-badge');
+      const total = bookmarks.length + customNotes.length;
+      if(total > 0) {
+        badge.innerText = total;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    // ==========================================
+    // 4. CALCULATORS ENGINE
+    // ==========================================
+    function selectCalcTool(toolName) {
+      document.querySelectorAll('.calc-panel').forEach(p => p.classList.add('hidden'));
+      document.querySelectorAll('.calc-tab-btn').forEach(b => {
+        b.classList.remove('bg-white', 'dark:bg-gray-800', 'text-sky-600', 'dark:text-sky-400', 'shadow-sm', 'font-bold');
+        b.classList.add('text-gray-600', 'dark:text-gray-300', 'font-medium');
+      });
+
+      document.getElementById(`calc-tool-${toolName}`).classList.remove('hidden');
+      document.getElementById(`btn-calc-${toolName}`).classList.add('bg-white', 'dark:bg-gray-800', 'text-sky-600', 'dark:text-sky-400', 'shadow-sm', 'font-bold');
+    }
+
+    function calculateSpeed() {
+      const s = parseFloat(document.getElementById('speed-s').value);
+      const t = parseFloat(document.getElementById('speed-t').value);
+      const unitS = document.getElementById('speed-unit-s').value;
+      const unitT = document.getElementById('speed-unit-t').value;
+      const resDiv = document.getElementById('result-speed');
+
+      if(isNaN(s) || isNaN(t) || t <= 0) {
+        resDiv.classList.remove('hidden');
+        resDiv.innerText = " Vui lòng nhập số hợp lệ và thời gian t > 0!";
+        return;
+      }
+
+      const v = (s / t).toFixed(2);
+      let unitV = `${unitS}/${unitT}`;
+      resDiv.classList.remove('hidden');
+      resDiv.innerHTML = ` Kết quả Tốc độ v = <span class="text-base font-extrabold">${v} ${unitV}</span>`;
+    }
+
+    function calculateProportion() {
+      const a = parseFloat(document.getElementById('prop-a').value);
+      const b = parseFloat(document.getElementById('prop-b').value);
+      const c = parseFloat(document.getElementById('prop-c').value);
+      const resDiv = document.getElementById('result-proportion');
+
+      if(isNaN(a) || isNaN(b) || isNaN(c) || a === 0) {
+        resDiv.classList.remove('hidden');
+        resDiv.innerText = " Vui lòng nhập số hợp lệ và a ≠ 0!";
+        return;
+      }
+
+      const x = ((b * c) / a).toFixed(2);
+      resDiv.classList.remove('hidden');
+      resDiv.innerHTML = ` Kết quả x = <span class="text-base font-extrabold">${x}</span> (Vì ${a}/${b} = ${c}/${x})`;
+    }
+
+    function calculatePrismVolume() {
+      const baseArea = parseFloat(document.getElementById('prism-base-area').value);
+      const height = parseFloat(document.getElementById('prism-height').value);
+      const resDiv = document.getElementById('result-prism');
+
+      if(isNaN(baseArea) || isNaN(height) || baseArea <= 0 || height <= 0) {
+        resDiv.classList.remove('hidden');
+        resDiv.innerText = " Vui lòng nhập diện tích và chiều cao > 0!";
+        return;
+      }
+
+      const v = (baseArea * height).toFixed(2);
+      resDiv.classList.remove('hidden');
+      resDiv.innerHTML = ` Thể tích Lăng trụ V = <span class="text-base font-extrabold">${v} cm³</span>`;
+    }
+
+    function autoFillMolarMass() {
+      calculateMolarMass();
+    }
+
+    function calculateMolarMass() {
+      const preset = document.getElementById('molar-preset').value;
+      const resDiv = document.getElementById('result-molarmass');
+      resDiv.classList.remove('hidden');
+
+      let text = "";
+      if(preset === 'H2O') {
+        text = "• H₂O = 2 × 1 (H) + 16 (O) = <strong>18 amu</strong>";
+      } else if(preset === 'CO2') {
+        text = "• CO₂ = 12 (C) + 2 × 16 (O) = <strong>44 amu</strong>";
+      } else if(preset === 'NaCl') {
+        text = "• NaCl = 23 (Na) + 35.5 (Cl) = <strong>58.5 amu</strong>";
+      } else if(preset === 'O2') {
+        text = "• O₂ = 2 × 16 (O) = <strong>32 amu</strong>";
+      } else if(preset === 'CH4') {
+        text = "• CH₄ = 12 (C) + 4 × 1 (H) = <strong>16 amu</strong>";
+      }
+      resDiv.innerHTML = text;
+    }
+
+    // ==========================================
+    // 5. FLASHCARD 3D & SPEECH ENGINE
+    // ==========================================
+    function filterFlashcards(subject) {
+      document.querySelectorAll('.fc-filter').forEach(btn => {
+        btn.classList.remove('bg-purple-600', 'text-white', 'active');
+        btn.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
+      });
+      event.target.classList.add('bg-purple-600', 'text-white', 'active');
+
+      if(subject === 'all') {
+        filteredFlashcards = [...flashcardsData];
+      } else {
+        filteredFlashcards = flashcardsData.filter(card => card.subject === subject);
+      }
+      currentFlashcardIndex = 0;
+      isFlipped = false;
+      renderCurrentFlashcard();
+    }
+
+    function renderCurrentFlashcard() {
+      const cardContainer = document.getElementById('flashcard-card');
+      cardContainer.style.transform = 'rotateY(0deg)';
+      isFlipped = false;
+
+      if(filteredFlashcards.length === 0) {
+        document.getElementById('fc-front-title').innerText = "Không có thẻ nào";
+        document.getElementById('fc-back-desc').innerText = "Vui lòng chọn môn khác.";
+        return;
+      }
+
+      const card = filteredFlashcards[currentFlashcardIndex];
+      document.getElementById('flashcard-counter').innerText = `${currentFlashcardIndex + 1} / ${filteredFlashcards.length}`;
+      document.getElementById('fc-subject-badge').innerText = card.subjectLabel;
+      document.getElementById('fc-front-title').innerText = card.front;
+      document.getElementById('fc-front-subtitle').innerText = card.subtitle;
+      document.getElementById('fc-back-desc').innerText = card.back;
+      document.getElementById('fc-back-example').innerText = `Ví dụ: ${card.example}`;
+    }
+
+    function flipFlashcard() {
+      const cardContainer = document.getElementById('flashcard-card');
+      isFlipped = !isFlipped;
+      cardContainer.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+    }
+
+    function nextFlashcard() {
+      if(filteredFlashcards.length === 0) return;
+      currentFlashcardIndex = (currentFlashcardIndex + 1) % filteredFlashcards.length;
+      renderCurrentFlashcard();
+    }
+
+    function prevFlashcard() {
+      if(filteredFlashcards.length === 0) return;
+      currentFlashcardIndex = (currentFlashcardIndex - 1 + filteredFlashcards.length) % filteredFlashcards.length;
+      renderCurrentFlashcard();
+    }
+
+    function shuffleFlashcards() {
+      filteredFlashcards.sort(() => Math.random() - 0.5);
+      currentFlashcardIndex = 0;
+      renderCurrentFlashcard();
+    }
+
+    function speakFlashcardText(e) {
+      e.stopPropagation();
+      if(filteredFlashcards.length === 0) return;
+      const card = filteredFlashcards[currentFlashcardIndex];
+      
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(card.speechText || card.front);
+        utterance.lang = card.subject === 'tienganh' ? 'en-US' : 'vi-VN';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    // ==========================================
+    // 6. QUIZ PRACTICE ENGINE
+    // ==========================================
+    function loadQuizSubject(subject) {
+      currentQuizSubject = subject;
+      currentQuizIndex = 0;
+      quizScore = 0;
+      document.getElementById('quiz-score-badge').innerText = `Điểm: 0`;
+
+      document.querySelectorAll('.qz-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'dark:bg-gray-800', 'text-emerald-600', 'shadow-sm', 'font-bold');
+        btn.classList.add('text-gray-600', 'dark:text-gray-300', 'font-medium');
+      });
+
+      const activeBtn = document.getElementById(`qz-btn-${subject}`);
+      if(activeBtn) {
+        activeBtn.classList.add('bg-white', 'dark:bg-gray-800', 'text-emerald-600', 'shadow-sm', 'font-bold');
+      }
+
+      renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+      const questions = quizData[currentQuizSubject] || [];
+      const expBox = document.getElementById('quiz-explanation-box');
+      const nextBtn = document.getElementById('btn-next-quiz');
+      expBox.classList.add('hidden');
+      nextBtn.classList.add('hidden');
+
+      if(currentQuizIndex >= questions.length) {
+        document.getElementById('quiz-question-text').innerText = `🎉 Hoàn thành bài luyện tập ${currentQuizSubject.toUpperCase()}! Total Score: ${quizScore} điểm.`;
+        document.getElementById('quiz-options-container').innerHTML = `
+          <button onclick="loadQuizSubject('${currentQuizSubject}')" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl">
+            🔄 Thử lại môn này
+          </button>
+        `;
+        return;
+      }
+
+      const q = questions[currentQuizIndex];
+      document.getElementById('quiz-progress-text').innerText = `Câu hỏi ${currentQuizIndex + 1} / ${questions.length}`;
+      document.getElementById('quiz-subject-tag').innerText = currentQuizSubject.toUpperCase();
+      document.getElementById('quiz-question-text').innerText = q.q;
+
+      const optsContainer = document.getElementById('quiz-options-container');
+      optsContainer.innerHTML = '';
+
+      q.options.forEach((optText, index) => {
+        const btn = document.createElement('button');
+        btn.className = `w-full text-left px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 text-xs font-semibold text-gray-800 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-between`;
+        btn.innerHTML = `<span>${String.fromCharCode(65 + index)}. ${optText}</span> <i class="fa-regular fa-circle text-gray-400"></i>`;
+        btn.onclick = () => checkQuizAnswer(index, q.correct, btn);
+        optsContainer.appendChild(btn);
+      });
+    }
+
+    function checkQuizAnswer(selectedIndex, correctIndex, btnElement) {
+      const q = quizData[currentQuizSubject][currentQuizIndex];
+      const buttons = document.getElementById('quiz-options-container').querySelectorAll('button');
+      buttons.forEach(b => b.disabled = true);
+
+      if(selectedIndex === correctIndex) {
+        btnElement.classList.remove('bg-gray-50', 'dark:bg-gray-700/50');
+        btnElement.classList.add('bg-emerald-100', 'dark:bg-emerald-950', 'border-emerald-500', 'text-emerald-800', 'dark:text-emerald-200');
+        btnElement.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-600';
+        quizScore += 10;
+        document.getElementById('quiz-score-badge').innerText = `Điểm: ${quizScore}`;
+      } else {
+        btnElement.classList.remove('bg-gray-50', 'dark:bg-gray-700/50');
+        btnElement.classList.add('bg-red-100', 'dark:bg-red-950', 'border-red-500', 'text-red-800', 'dark:text-red-200');
+        btnElement.querySelector('i').className = 'fa-solid fa-circle-xmark text-red-600';
+
+        // Highlight correct option
+        buttons[correctIndex].classList.add('bg-emerald-50', 'dark:bg-emerald-950/40', 'border-emerald-400');
+      }
+
+      // Show explanation & Next button
+      document.getElementById('quiz-explanation-text').innerText = q.exp;
+      document.getElementById('quiz-explanation-box').classList.remove('hidden');
+      document.getElementById('btn-next-quiz').classList.remove('hidden');
+      document.getElementById('btn-next-quiz').classList.add('flex');
+    }
+
+    function nextQuizQuestion() {
+      currentQuizIndex++;
+      renderQuizQuestion();
+    }
+
+    // ==========================================
+    // 7. GEMINI AI ASSISTANT CHAT ENGINE
+    // ==========================================
+    let aiChatHistory = [
+      {
+        role: "user",
+        parts: [{ text: "Hãy đóng vai một gia sư sư phạm thân thiện chuyên hỗ trợ học sinh Lớp 7 (Toán 7, KHTN 7, Tiếng Anh 7, Sử Địa 7). Luôn trả lời ngắn gọn, dễ hiểu, có biểu tượng cảm xúc và ví dụ minh họa thích hợp." }]
+      },
+      {
+        role: "model",
+        parts: [{ text: "Chào em! Thầy/Cô gia sư Lớp 7 đã sẵn sàng đồng hành cùng em. Em cần hỗ trợ bài học nào hôm nay?" }]
+      }
+    ];
+
+    async function handleAskAI() {
+      const inputEl = document.getElementById('ai-user-input');
+      const userText = inputEl.value.trim();
+      if(!userText) return;
+
+      inputEl.value = '';
+      appendChatMessage('user', userText);
+
+      // Loading bubble
+      const loadingId = appendLoadingBubble();
+
+      try {
+        const apiKey = ""; // Canvas runtime API Key insertion point
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+        aiChatHistory.push({
+          role: "user",
+          parts: [{ text: userText }]
+        });
+
+        const payload = {
+          contents: aiChatHistory,
+          systemInstruction: {
+            parts: [{ text: "Bạn là trợ lý học tập cho học sinh Lớp 7 tại Việt Nam. Giải thích các khái niệm Toán 7, KHTN 7 (Lý, Hóa, Sinh), Tiếng Anh 7 ngắn gọn, súc tích, dễ nhớ." }]
+          }
         };
-    </script>
+
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+        removeLoadingBubble(loadingId);
+
+        if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
+          const aiResponse = result.candidates[0].content.parts[0].text;
+          aiChatHistory.push({
+            role: "model",
+            parts: [{ text: aiResponse }]
+          });
+          appendChatMessage('ai', aiResponse);
+        } else {
+          appendChatMessage('ai', 'Rất tiếc, thầy/cô chưa phản hồi kịp. Em thử hỏi lại lần nữa nhé!');
+        }
+
+      } catch (err) {
+        removeLoadingBubble(loadingId);
+        appendChatMessage('ai', 'Có lỗi kết nối mạng. Em hãy kiểm tra đường truyền và thử lại nhé!');
+      }
+    }
+
+    function sendQuickPrompt(promptText) {
+      document.getElementById('ai-user-input').value = promptText;
+      handleAskAI();
+    }
+
+    function appendChatMessage(sender, text) {
+      const container = document.getElementById('ai-chat-messages');
+      const isUser = sender === 'user';
+      
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `flex items-start gap-2 ${isUser ? 'justify-end' : 'max-w-[90%]'}`;
+
+      const avatar = isUser ? '' : `
+        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+          <i class="fa-solid fa-robot"></i>
+        </div>
+      `;
+
+      const bubbleClass = isUser 
+        ? 'bg-indigo-600 text-white rounded-2xl rounded-tr-none p-3 text-xs leading-relaxed shadow-sm max-w-[85%]'
+        : 'bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl rounded-tl-none p-3 text-xs text-gray-800 dark:text-gray-200 leading-relaxed shadow-sm';
+
+      msgDiv.innerHTML = `
+        ${avatar}
+        <div class="${bubbleClass}">
+          ${escapeHtml(text).replace(/\n/g, '<br>')}
+        </div>
+      `;
+
+      container.appendChild(msgDiv);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendLoadingBubble() {
+      const container = document.getElementById('ai-chat-messages');
+      const id = 'loading-' + Date.now();
+      const div = document.createElement('div');
+      div.id = id;
+      div.className = 'flex items-start gap-2 max-w-[88%]';
+      div.innerHTML = `
+        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+          <i class="fa-solid fa-robot"></i>
+        </div>
+        <div class="bg-indigo-50 dark:bg-indigo-950/60 p-3 rounded-2xl rounded-tl-none text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-notch animate-spin"></i> Gia sư đang suy nghĩ...
+        </div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+      return id;
+    }
+
+    function removeLoadingBubble(id) {
+      const el = document.getElementById(id);
+      if(el) el.remove();
+    }
+
+    function clearAIChat() {
+      aiChatHistory = aiChatHistory.slice(0, 2);
+      const container = document.getElementById('ai-chat-messages');
+      container.innerHTML = `
+        <div class="flex items-start gap-2 max-w-[88%]">
+          <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl rounded-tl-none p-3 text-xs text-gray-800 dark:text-gray-200 leading-relaxed shadow-sm">
+            Cuộc trò chuyện đã làm mới! Em muốn hỏi gì nào? 😊
+          </div>
+        </div>
+      `;
+    }
+
+    // Utility escape html
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // ==========================================
+    // 8. NOTEBOOK & SEARCH MODAL LOGIC
+    // ==========================================
+    function openNotebookDrawer() {
+      document.getElementById('notebook-drawer').classList.remove('hidden');
+      renderNotebookItems();
+    }
+
+    function closeNotebookDrawer() {
+      document.getElementById('notebook-drawer').classList.add('hidden');
+    }
+
+    function saveCustomNote() {
+      const title = document.getElementById('custom-note-title').value.trim();
+      const body = document.getElementById('custom-note-body').value.trim();
+      if(!title || !body) return;
+
+      customNotes.push({ id: 'note-' + Date.now(), title, body });
+      localStorage.setItem('g7_custom_notes', JSON.stringify(customNotes));
+      document.getElementById('custom-note-title').value = '';
+      document.getElementById('custom-note-body').value = '';
+      updateBookmarkBadge();
+      renderNotebookItems();
+    }
+
+    function deleteCustomNote(id) {
+      customNotes = customNotes.filter(n => n.id !== id);
+      localStorage.setItem('g7_custom_notes', JSON.stringify(customNotes));
+      updateBookmarkBadge();
+      renderNotebookItems();
+    }
+
+    function renderNotebookItems() {
+      const container = document.getElementById('notebook-items-container');
+      container.innerHTML = '';
+
+      if(bookmarks.length === 0 && customNotes.length === 0) {
+        container.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">Chưa có công thức hoặc ghi chú nào được lưu.</p>`;
+        return;
+      }
+
+      // Render bookmarked formulas
+      if(bookmarks.length > 0) {
+        container.innerHTML += `<h4 class="text-[11px] font-bold text-sky-600 uppercase tracking-wide">Công thức đã lưu (${bookmarks.length})</h4>`;
+        bookmarks.forEach(item => {
+          container.innerHTML += `
+            <div class="p-2.5 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl text-xs space-y-1">
+              <div class="flex justify-between font-bold text-gray-900 dark:text-white">
+                <span>${item.title}</span>
+                <button onclick="toggleBookmark('${item.id}')" class="text-red-500 hover:scale-110"><i class="fa-solid fa-trash text-[11px]"></i></button>
+              </div>
+              <p class="text-gray-500 dark:text-gray-300 text-[11px]">${item.desc}</p>
+            </div>
+          `;
+        });
+      }
+
+      // Render custom notes
+      if(customNotes.length > 0) {
+        container.innerHTML += `<h4 class="text-[11px] font-bold text-amber-600 uppercase tracking-wide mt-3">Ghi chú riêng (${customNotes.length})</h4>`;
+        customNotes.forEach(note => {
+          container.innerHTML += `
+            <div class="p-2.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-xl text-xs space-y-1">
+              <div class="flex justify-between font-bold text-amber-900 dark:text-amber-200">
+                <span>${note.title}</span>
+                <button onclick="deleteCustomNote('${note.id}')" class="text-red-500 hover:scale-110"><i class="fa-solid fa-trash text-[11px]"></i></button>
+              </div>
+              <p class="text-gray-700 dark:text-gray-300 text-[11px]">${note.body}</p>
+            </div>
+          `;
+        });
+      }
+    }
+
+    function toggleQuickSearchModal() {
+      const modal = document.getElementById('search-modal');
+      modal.classList.toggle('hidden');
+      if(!modal.classList.contains('hidden')) {
+        document.getElementById('quick-search-input').focus();
+      }
+    }
+
+    function filterQuickSearch() {
+      const query = document.getElementById('quick-search-input').value.toLowerCase().trim();
+      const container = document.getElementById('quick-search-results');
+
+      if(!query) {
+        container.innerHTML = `<p class="text-gray-400 text-center py-4">Nhập từ khóa tìm kiếm (Ví dụ: "Tỷ lệ thức", "Nguyên tử", "Quá khứ đơn"...)</p>`;
+        return;
+      }
+
+      const matches = knowledgeData.filter(k => 
+        k.title.toLowerCase().includes(query) || 
+        k.desc.toLowerCase().includes(query) ||
+        (k.formula && k.formula.toLowerCase().includes(query))
+      );
+
+      if(matches.length === 0) {
+        container.innerHTML = `<p class="text-gray-400 text-center py-4">Không tìm thấy công thức trùng khớp.</p>`;
+        return;
+      }
+
+      container.innerHTML = '';
+      matches.forEach(item => {
+        container.innerHTML += `
+          <div onclick="toggleQuickSearchModal(); openSubjectKnowledge('${item.subject}')" class="p-2.5 bg-gray-50 dark:bg-gray-700/50 hover:bg-sky-50 rounded-xl cursor-pointer">
+            <div class="text-[10px] font-bold text-sky-600 uppercase">${item.subjectName}</div>
+            <div class="font-bold text-gray-900 dark:text-white">${item.title}</div>
+            <div class="text-[11px] text-gray-500 dark:text-gray-300 line-clamp-1">${item.desc}</div>
+          </div>
+        `;
+      });
+    }
+
+    // MathJax Rendering Trigger if loaded
+    function triggerMathRender() {
+      if(window.MathJax) {
+        MathJax.typesetPromise();
+      }
+    }
+
+    // ==========================================
+    // 9. ON LOAD INITIALIZATION
+    // ==========================================
+    window.onload = function() {
+      initExamCountdown();
+      renderKnowledgeList('all');
+      renderCurrentFlashcard();
+      loadQuizSubject('toan');
+      updateBookmarkBadge();
+    };
+  </script>
+
+  <!-- MathJax CDN for dynamic math rendering -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </body>
 </html>
