@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sổ Tay Công Thức Lớp 7 - Tri Thức Trong Tầm Tay</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        },
+                        math: '#3b82f6',
+                        science: '#10b981',
+                        english: '#8b5cf6',
+                        literature: '#f59e0b',
+                        history: '#ef4444',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- MathJax for rendering pretty Math formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .dark .glass-effect {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .card-hover {
+            transition: all 0.25s ease-in-out;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.15);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-40 glass-effect border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showSubject('all')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+                        Sổ Tay Lớp 7
+                    </h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Tổng hợp công thức & kiến thức</p>
+                </div>
+            </div>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <input type="text" id="searchInput" oninput="handleSearch()" 
+                       placeholder="Tìm kiếm công thức, quy tắc, định lí..." 
+                       class="w-full pl-10 pr-10 py-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Right Utilities -->
+            <div class="flex items-center gap-2">
+                <!-- Bookmark View Toggle -->
+                <button onclick="toggleBookmarksView()" title="Xem đã lưu" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 relative transition">
+                    <i class="fa-solid fa-bookmark text-lg"></i>
+                    <span id="bookmarkCount" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+                </button>
+
+                <!-- Tools Modal Button -->
+                <button onclick="openToolsModal()" title="Công cụ tiện ích" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition">
+                    <i class="fa-solid fa-calculator text-lg"></i>
+                </button>
+
+                <!-- Dark / Light Toggle -->
+                <button onclick="toggleDarkMode()" id="themeToggle" title="Chuyển giao diện" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-amber-500 dark:text-amber-400 transition">
+                    <i class="fa-solid fa-sun text-lg dark:hidden"></i>
+                    <i class="fa-solid fa-moon text-lg hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Search Input -->
+        <div class="p-3 border-t border-slate-200 dark:border-slate-800 md:hidden bg-slate-50/50 dark:bg-slate-950/50">
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <input type="text" id="mobileSearchInput" oninput="handleMobileSearch()" 
+                       placeholder="Tìm công thức..." 
+                       class="w-full pl-10 pr-8 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-6">
+
+        <!-- Subject Selector Chips / Navigation -->
+        <section class="overflow-x-auto pb-2 scrollbar-none">
+            <div class="flex items-center gap-2 min-w-max" id="subjectChips">
+                <!-- Dynamic Chips populated by JS -->
+            </div>
+        </section>
+
+        <!-- Dynamic Header Info / Filter Banner -->
+        <div id="bannerContainer" class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-6 text-white shadow-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md text-xs font-semibold rounded-full mb-2">Chương trình Mới GDPT 2018</span>
+                <h2 id="bannerTitle" class="text-2xl font-bold">Tổng hợp công thức Lớp 7</h2>
+                <p id="bannerDesc" class="text-blue-100 text-sm mt-1 max-w-xl">Tra cứu nhanh chóng tất cả kiến thức trọng tâm, công thức toán, khoa học tự nhiên, từ vựng tiếng Anh và quy tắc Ngữ văn.</p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="switchTab('cards')" id="tabBtnCards" class="px-4 py-2 bg-white text-blue-700 font-medium rounded-xl text-sm shadow hover:bg-blue-50 transition">
+                    <i class="fa-solid fa-th-large mr-1.5"></i> Thẻ Bài Học
+                </button>
+                <button onclick="switchTab('flashcard')" id="tabBtnFlashcard" class="px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-medium rounded-xl text-sm transition">
+                    <i class="fa-solid fa-clone mr-1.5"></i> Ôn Flashcards
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area: Cards Grid -->
+        <section id="cardsView" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Formula Cards will be generated dynamically -->
+        </section>
+
+        <!-- Flashcards View (Hidden by Default) -->
+        <section id="flashcardView" class="hidden flex-col items-center justify-center py-10">
+            <div class="w-full max-w-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl text-center relative min-h-[320px] flex flex-col justify-between cursor-pointer transition-transform duration-500 transform hover:scale-[1.01]" id="flashcardElement" onclick="flipFlashcard()">
+                <div class="flex justify-between items-center text-xs text-slate-400">
+                    <span id="fcSubject" class="font-semibold uppercase tracking-wider text-blue-500">Môn Học</span>
+                    <span>Chạm để lật thẻ <i class="fa-solid fa-rotate text-blue-500 ml-1"></i></span>
+                </div>
+                
+                <div class="my-auto py-6">
+                    <h3 id="fcTitle" class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-3">Tên Khái Niệm</h3>
+                    <div id="fcContent" class="text-slate-600 dark:text-slate-300 text-base leading-relaxed">
+                        Mặt trước: Câu hỏi / Tên công thức
+                    </div>
+                </div>
+
+                <div class="text-xs text-slate-400">
+                    <span id="fcIndex">1 / 10</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4 mt-6">
+                <button onclick="prevFlashcard()" class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button onclick="randomFlashcard()" class="px-5 py-3 rounded-2xl bg-blue-600 text-white font-medium hover:bg-blue-700 shadow-md transition flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-shuffle"></i> Ngẫu nhiên
+                </button>
+                <button onclick="nextFlashcard()" class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 transition">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Empty State (When no search match) -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-slate-400 text-3xl">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-700 dark:text-slate-200">Không tìm thấy nội dung phù hợp</h3>
+            <p class="text-sm text-slate-500 mt-1">Thử đổi từ khóa khác hoặc xem tất cả các môn.</p>
+            <button onclick="clearSearch()" class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-blue-700 transition">
+                Xem tất cả kiến thức
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Interactive Tools Modal -->
+    <div id="toolsModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl w-full max-w-xl p-6 shadow-2xl relative overflow-hidden">
+            <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-800 pb-4 mb-4">
+                <div class="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                    <i class="fa-solid fa-calculator text-xl"></i>
+                    <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100">Tiện Ích Tính Nhanh Công Thức</h3>
+                </div>
+                <button onclick="closeToolsModal()" class="w-8 h-8 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Tool Selection Tabs -->
+            <div class="flex border-b border-slate-200 dark:border-slate-800 mb-4 gap-4 text-sm font-medium">
+                <button onclick="switchTool('speed')" id="toolTabSpeed" class="pb-2 border-b-2 border-blue-600 text-blue-600 dark:text-blue-400">Tính Tốc Độ (v = s/t)</button>
+                <button onclick="switchTool('ratio')" id="toolTabRatio" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200">Tỉ Lệ Thức (a/b = c/d)</button>
+                <button onclick="switchTool('density')" id="toolTabDensity" class="pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200">Mật Độ Dân Số</button>
+            </div>
+
+            <!-- Tool 1: Speed Calculator -->
+            <div id="toolSpeed" class="space-y-4">
+                <p class="text-xs text-slate-500">Tính Tốc độ \(v\), Quãng đường \(s\) hoặc Thời gian \(t\):</p>
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Quãng đường s (km)</label>
+                        <input type="number" id="calcS" placeholder="Ví dụ: 120" class="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Thời gian t (h)</label>
+                        <input type="number" id="calcT" placeholder="Ví dụ: 2" class="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Tốc độ v (km/h)</label>
+                        <input type="number" id="calcV" placeholder="Ví dụ: 60" class="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+                <button onclick="calculateSpeed()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-sm shadow transition">
+                    Tính Toán Kết Quả
+                </button>
+                <div id="resSpeed" class="p-3 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900 rounded-xl text-sm font-semibold text-blue-700 dark:text-blue-300 text-center">
+                    Nhập 2 trong 3 thông số để tính giá trị còn lại.
+                </div>
+            </div>
+
+            <!-- Tool 2: Ratio Calculator -->
+            <div id="toolRatio" class="space-y-4 hidden">
+                <p class="text-xs text-slate-500">Tìm x trong Tỉ lệ thức \(\frac{a}{b} = \frac{c}{x}\):</p>
+                <div class="grid grid-cols-3 gap-3 items-center text-center">
+                    <input type="number" id="ratioA" placeholder="a" class="p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm text-center">
+                    <span class="text-lg font-bold">/</span>
+                    <input type="number" id="ratioB" placeholder="b" class="p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm text-center">
+                </div>
+                <div class="text-center font-bold text-slate-400">=</div>
+                <div class="grid grid-cols-3 gap-3 items-center text-center">
+                    <input type="number" id="ratioC" placeholder="c" class="p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm text-center">
+                    <span class="text-lg font-bold">/</span>
+                    <input type="text" value="x (Cần tìm)" disabled class="p-2.5 bg-slate-200 dark:bg-slate-700 rounded-xl text-sm text-center font-semibold text-blue-600 dark:text-blue-300">
+                </div>
+                <button onclick="calculateRatio()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-sm shadow transition">
+                    Tìm x = (b × c) / a
+                </button>
+                <div id="resRatio" class="p-3 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900 rounded-xl text-sm font-semibold text-blue-700 dark:text-blue-300 text-center">
+                    Kết quả x sẽ hiển thị ở đây.
+                </div>
+            </div>
+
+            <!-- Tool 3: Population Density Calculator -->
+            <div id="toolDensity" class="space-y-4 hidden">
+                <p class="text-xs text-slate-500">Tính Mật độ dân số = Dân số (người) / Diện tích (km²)</p>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Dân số (người)</label>
+                        <input type="number" id="popVal" placeholder="Số dân..." class="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold mb-1">Diện tích (km²)</label>
+                        <input type="number" id="areaVal" placeholder="Diện tích..." class="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-xl text-sm">
+                    </div>
+                </div>
+                <button onclick="calculateDensity()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-sm shadow transition">
+                    Tính Mật Độ Dân Số
+                </button>
+                <div id="resDensity" class="p-3 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900 rounded-xl text-sm font-semibold text-blue-700 dark:text-blue-300 text-center">
+                    Kết quả (người/km²)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 border border-slate-700">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toastMsg" class="text-sm font-medium">Thông báo</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-slate-200 dark:border-slate-800 py-6 bg-white dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 dark:text-slate-400 space-y-2">
+            <p class="font-medium">© 2026 Sổ Tay Công Thức Lớp 7 - Biên soạn bám sát Chương trình GDPT 2018 (Kết nối tri thức, Cánh diều, Chân trời sáng tạo)</p>
+            <p>Thiết kế dành riêng cho học sinh THCS giúp tra cứu nhanh và ghi nhớ hiệu quả.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Data Structure for Grade 7 Subjects & Formulas
+        const subjectsData = [
+            { id: 'all', name: 'Tất Cả Môn', icon: 'fa-layer-group', color: 'bg-slate-600' },
+            { id: 'math', name: 'Toán Học', icon: 'fa-calculator', color: 'bg-blue-600', badgeClass: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300' },
+            { id: 'science', name: 'KHTN (Lý - Hóa - Sinh)', icon: 'fa-flask', color: 'bg-emerald-600', badgeClass: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300' },
+            { id: 'english', name: 'Tiếng Anh', icon: 'fa-language', color: 'bg-purple-600', badgeClass: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300' },
+            { id: 'literature', name: 'Ngữ Văn', icon: 'fa-book-open', color: 'bg-amber-600', badgeClass: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300' },
+            { id: 'history_geo', name: 'Lịch Sử & Địa Lí', icon: 'fa-earth-americas', color: 'bg-rose-600', badgeClass: 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300' }
+        ];
+
+        const formulasData = [
+            // --- TOÁN HỌC ---
+            {
+                id: 'm1',
+                subjectId: 'math',
+                category: 'Đại số - Chương 1',
+                title: 'Tập Hợp Số Hữu Tỉ (ℚ)',
+                description: 'Số hữu tỉ là số viết được dưới dạng phân số \\( \\frac{a}{b} \\) với \\( a, b \\in \\mathbb{Z}, b \\neq 0 \\).',
+                content: `
+                    <div class="space-y-2">
+                        <p><b>• Phép cộng, trừ:</b> \\( \\frac{a}{m} + \\frac{b}{m} = \\frac{a+b}{m} \\)</p>
+                        <p><b>• Phép nhân:</b> \\( \\frac{a}{b} \\cdot \\frac{c}{d} = \\frac{a \\cdot c}{b \\cdot d} \\)</p>
+                        <p><b>• Phép chia:</b> \\( \\frac{a}{b} : \\frac{c}{d} = \\frac{a}{b} \\cdot \\frac{d}{c} = \\frac{a \\cdot d}{b \\cdot c} \\) \\((c, d \\neq 0)\\)</p>
+                        <p><b>• Giá trị tuyệt đối:</b> \\( |x| = x \\) nếu \\( x \\ge 0 \\); \\( |x| = -x \\) nếu \\( x < 0 \\).</p>
+                    </div>
+                `,
+                keyPoints: ['\\( \\mathbb{N} \\subset \\mathbb{Z} \\subset \\mathbb{Q} \\)', '|x| luôn ≥ 0 với mọi x']
+            },
+            {
+                id: 'm2',
+                subjectId: 'math',
+                category: 'Đại số - Lũy Thừa',
+                title: 'Các Công Thức Lũy Thừa Với Số Mũ Tự Nhiên',
+                description: 'Tổng hợp quy tắc nhân, chia và lũy thừa của lũy thừa trên tập hợp số hữu tỉ.',
+                content: `
+                    <div class="space-y-2">
+                        <p><b>1. Nhân 2 lũy thừa cùng cơ số:</b> \\( x^m \\cdot x^n = x^{m+n} \\)</p>
+                        <p><b>2. Chia 2 lũy thừa cùng cơ số:</b> \\( x^m : x^n = x^{m-n} \\) \\((x \\neq 0, m \\ge n)\\)</p>
+                        <p><b>3. Lũy thừa của lũy thừa:</b> \\( (x^m)^n = x^{m \\cdot n} \\)</p>
+                        <p><b>4. Lũy thừa của một tích:</b> \\( (x \\cdot y)^n = x^n \\cdot y^n \\)</p>
+                        <p><b>5. Lũy thừa của một thương:</b> \\( \\left(\\frac{x}{y}\\right)^n = \\frac{x^n}{y^n} \\) \\((y \\neq 0)\\)</p>
+                        <p><b> Quy ước:</b> \\( x^0 = 1 \\) \\((x \\neq 0)\\); \\( x^1 = x \\)</p>
+                    </div>
+                `,
+                keyPoints: ['Lưu ý cơ số phải giống nhau', 'Quy ước x⁰ = 1']
+            },
+            {
+                id: 'm3',
+                subjectId: 'math',
+                category: 'Đại số - Tỉ Lệ Thức',
+                title: 'Tỉ Lệ Thức & Tính Chất Dãy Tỉ Số Bằng Nhau',
+                description: 'Công thức tỉ lệ thức và áp dụng giải bài toán chia tỉ lệ thuận, tỉ lệ nghịch.',
+                content: `
+                    <div class="space-y-2">
+                        <p><b>• Định nghĩa:</b> Tỉ lệ thức là đẳng thức của hai tỉ số \\( \\frac{a}{b} = \\frac{c}{d} \\)</p>
+                        <p><b>• Tính chất cơ bản:</b> Nếu \\( \\frac{a}{b} = \\frac{c}{d} \\) thì \\( a \\cdot d = b \\cdot c \\)</p>
+                        <p><b>• Dãy tỉ số bằng nhau:</b></p>
+                        <div class="bg-blue-50 dark:bg-blue-950/40 p-2.5 rounded-xl border border-blue-200 dark:border-blue-900 my-1">
+                            \\( \\frac{a}{b} = \\frac{c}{d} = \\frac{e}{f} = \\frac{a + c + e}{b + d + f} = \\frac{a - c + e}{b - d + f} \\)
+                        </div>
+                        <p class="text-xs text-slate-500">* Giả thiết các mẫu số đều khác 0 và có nghĩa.</p>
+                    </div>
+                `,
+                keyPoints: ['Tích ngoại tỉ = Tích trung tỉ', 'Áp dụng cho bài toán chia phần tỉ lệ']
+            },
+            {
+                id: 'm4',
+                subjectId: 'math',
+                category: 'Hình học - Chương 3',
+                title: 'Các Trường Hợp Bằng Nhau Của Tam Giác',
+                description: 'Quy tắc chứng minh hai tam giác thường và hai tam giác vuông bằng nhau.',
+                content: `
+                    <div class="space-y-2">
+                        <p><b>1. Tam giác thường (3 trường hợp):</b></p>
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            <li><b>c - c - c:</b> Cạnh - Cạnh - Cạnh</li>
+                            <li><b>c - g - c:</b> Cạnh - Góc - Cạnh (Góc xen giữa 2 cạnh)</li>
+                            <li><b>g - c - g:</b> Góc - Cạnh - Góc (Cạnh kề 2 góc)</li>
+                        </ul>
+                        <p><b>2. Tam giác vuông (Các trường hợp đặc biệt):</b></p>
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            <li>Cạnh huyền - góc nhọn</li>
+                            <li>Cạnh huyền - cạnh góc vuông</li>
+                            <li>Hai cạnh góc vuông (c-g-c)</li>
+                        </ul>
+                    </div>
+                `,
+                keyPoints: ['Góc phải nằm XEN GIỮA 2 cạnh', 'Cạnh phải nằm KỀ 2 góc']
+            },
+            {
+                id: 'm5',
+                subjectId: 'math',
+                category: 'Hình học - Đường Đồng Quy',
+                title: 'Các Đường Đồng Quy Trong Tam Giác',
+                description: 'Tính chất Trọng tâm, Trực tâm, Tâm đường tròn nội tiếp, ngoại tiếp.',
+                content: `
+                    <div class="space-y-2 text-sm">
+                        <p><b>1. Ba đường Trung tuyến:</b> Giao nhau tại <b>Trọng tâm (G)</b>. Trọng tâm cách đỉnh \\( \\frac{2}{3} \\) độ dài đường trung tuyến tương ứng.</p>
+                        <p><b>2. Ba đường Phân giác:</b> Giao nhau tại tâm đường tròn <b>Nội tiếp</b> (cách đều 3 cạnh).</p>
+                        <p><b>3. Ba đường Trung trực:</b> Giao nhau tại tâm đường tròn <b>Ngoại tiếp</b> (cách đều 3 đỉnh).</p>
+                        <p><b>4. Ba đường Cao:</b> Giao nhau tại <b>Trực tâm (H)</b>.</p>
+                    </div>
+                `,
+                keyPoints: ['Trọng tâm G = 2/3 đường trung tuyến', 'Trung trực cách đều 3 đỉnh']
+            },
+
+            // --- KHOA HỌC TỰ NHIÊN (KHTN 7) ---
+            {
+                id: 's1',
+                subjectId: 'science',
+                category: 'Vật lí - Tốc Độ & Chuyển Động',
+                title: 'Công Thức Tính Tốc Độ & Đồ Thị Chuyển Động',
+                description: 'Đơn vị và công thức tính tốc độ chuyển động trong KHTN 7.',
+                content: `
+                    <div class="space-y-2">
+                        <p><b>Công thức tính tốc độ:</b> \\( v = \\frac{s}{t} \\)</p>
+                        <div class="bg-emerald-50 dark:bg-emerald-950/40 p-2.5 rounded-xl border border-emerald-200 dark:border-emerald-800 text-sm">
+                            • <b>s:</b> Quãng đường đi được (m hoặc km)<br>
+                            • <b>t:</b> Thời gian đi hết quãng đường đó (s hoặc h)<br>
+                            • <b>v:</b> Tốc độ chuyển động (m/s hoặc km/h)
+                        </div>
+                        <p><b>Đổi đơn vị:</b></p>
+                        <p>\\( 1 \\text{ m/s} = 3{,}6 \\text{ km/h} \\) &nbsp;|&nbsp; \\( 1 \\text{ km/h} = \\frac{1}{3{,}6} \\text{ m/s} \\)</p>
+                    </div>
+                `,
+                keyPoints: ['1 m/s = 3.6 km/h', 'v = s / t']
+            },
+            {
+                id: 's2',
+                subjectId: 'science',
+                category: 'Vật lí - Âm Thanh',
+                title: 'Tần Số & Biên Độ Dao Động Âm',
+                description: 'Đặc trưng của âm thanh: Độ cao, độ to, phản xạ âm.',
+                content: `
+                    <div class="space-y-2 text-sm">
+                        <p><b>1. Tần số dao động:</b> Là số dao động trong 1 giây. Đơn vị Hertz (Hz).</p>
+                        <p>• Dao động càng nhanh \\(\\rightarrow\\) Tần số càng lớn \\(\\rightarrow\\) Âm càng <b>BỔNG (cao)</b>.</p>
+                        <p>• Dao động càng chậm \\(\\rightarrow\\) Tần số càng nhỏ \\(\\rightarrow\\) Âm càng <b>TRẦM (thấp)</b>.</p>
+                        <p><b>2. Biên độ dao động:</b></p>
+                        <p>• Biên độ dao động càng lớn \\(\\rightarrow\\) Âm phát ra càng <b>TO</b>.</p>
+                        <p><b>3. Vận tốc truyền âm:</b> \\( v_{rắn} > v_{lỏng} > v_{khí} \\). (Chân không không truyền được âm).</p>
+                    </div>
+                `,
+                keyPoints: ['Tần số quyết định ĐỘ CAO (trầm/bổng)', 'Biên độ quyết định ĐỘ TO']
+            },
+            {
+                id: 's3',
+                subjectId: 'science',
+                category: 'Hóa học - Nguyên Tử & Phân Tử',
+                title: 'Cấu Tạo Nguyên Tử & Công Thức Hóa Học',
+                description: 'Hạt electron, proton, neutron, tính hóa trị và khối lượng phân tử.',
+                content: `
+                    <div class="space-y-2 text-sm">
+                        <p><b>1. Cấu tạo nguyên tử:</b></p>
+                        <p>• Hạt nhân (ở tâm): gồm <b>Proton</b> (mang điện +) và <b>Neutron</b> (không mang điện).</p>
+                        <p>• Vỏ nguyên tử: gồm các <b>Electron</b> (mang điện -) chuyển động xung quanh.</p>
+                        <p>• Nguyên tử trung hòa về điện: <b>Số p = Số e</b>.</p>
+                        <p><b>2. Khối lượng nguyên tử (amu):</b> \\( m_{NT} \\approx m_p + m_n \\)</p>
+                        <p><b>3. Quy tắc Hóa trị:</b> Trong hợp chất \\( A_a^x B_b^y \\): \\( a \\cdot x = b \\cdot y \\)</p>
+                    </div>
+                `,
+                keyPoints: ['Số p = Số e', 'Quy tắc hóa trị: a · x = b · y']
+            },
+            {
+                id: 's4',
+                subjectId: 'science',
+                category: 'Sinh học - Trao Đổi Chất',
+                title: 'Quang Hợp & Hô Hấp Tế Bào',
+                description: 'Phương trình tổng quát của quá trình Quang hợp ở thực vật và Hô hấp ở tế bào.',
+                content: `
+                    <div class="space-y-3 text-sm">
+                        <div class="p-2.5 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-200 dark:border-emerald-800">
+                            <p class="font-bold text-emerald-800 dark:text-emerald-300">🌿 Quang hợp (Thực vật):</p>
+                            <p class="mt-1">Nước + Khí Carbon dioxide \\( \\xrightarrow[Diệp\\ thực]{Ánh\\ sáng} \\) Glucose + Khí Oxygen</p>
+                        </div>
+                        <div class="p-2.5 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-800">
+                            <p class="font-bold text-amber-800 dark:text-amber-300">🫁 Hô hấp tế bào (Sinh vật):</p>
+                            <p class="mt-1">Glucose + Khí Oxygen \\( \\rightarrow \\) Khí Carbon dioxide + Nước + Năng lượng (ATP)</p>
+                        </div>
+                        <p class="text-xs text-slate-500">* Hai quá trình này có mối quan hệ trái ngược và bổ sung cho nhau.</p>
+                    </div>
+                `,
+                keyPoints: ['Quang hợp tích lũy năng lượng', 'Hô hấp giải phóng năng lượng (ATP)']
+            },
+
+            // --- TIẾNG ANH ---
+            {
+                id: 'e1',
+                subjectId: 'english',
+                category: 'Grammar - Tenses',
+                title: 'Present Simple & Present Continuous',
+                description: 'Thì Hiện tại đơn & Hiện tại tiếp diễn (Cấu trúc, dấu hiệu nhận biết).',
+                content: `
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <p class="font-bold text-purple-600 dark:text-purple-400">1. Present Simple (Hiện tại đơn):</p>
+                            <p>• Form: <b>S + V(s/es)</b> | <b>S + do/does + not + V_bare</b></p>
+                            <p>• Signal: <i>always, usually, often, sometimes, everyday, every week...</i></p>
+                        </div>
+                        <hr class="border-slate-200 dark:border-slate-800">
+                        <div>
+                            <p class="font-bold text-purple-600 dark:text-purple-400">2. Present Continuous (Hiện tại tiếp diễn):</p>
+                            <p>• Form: <b>S + am/is/are + V-ing</b></p>
+                            <p>• Signal: <i>now, at the moment, right now, Look!, Listen!...</i></p>
+                        </div>
+                    </div>
+                `,
+                keyPoints: ['HTĐ: Thói quen / Sự thật', 'HTTD: Đang diễn ra lúc nói']
+            },
+            {
+                id: 'e2',
+                subjectId: 'english',
+                category: 'Grammar - Tenses',
+                title: 'Past Simple Tense (Thì Quá Khứ Đơn)',
+                description: 'Công thức thì Quá quá đơn với động từ To be và Động từ thường.',
+                content: `
+                    <div class="space-y-2 text-sm">
+                        <p><b>• Với To Be:</b> S + was/were + N/Adj</p>
+                        <p><b>• Với Động từ thường:</b></p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>(+) S + V2/ed</li>
+                            <li>(-) S + did not (didn't) + V_bare</li>
+                            <li>(?) Did + S + V_bare?</li>
+                        </ul>
+                        <p><b>• Dấu hiệu nhận biết:</b> <i>yesterday, last night/week/year, ... ago, in 2020.</i></p>
+                    </div>
+                `,
+                keyPoints: ['Was (I/he/she/it), Were (you/we/they)', 'Mượn trợ động từ DID ở phủ định/nghi vấn']
+            },
+            {
+                id: 'e3',
+                subjectId: 'english',
+                category: 'Grammar - Comparison',
+                title: 'Comparative & Superlative Adjectives',
+                description: 'Cấu trúc so sánh hơn và so sánh nhất của tính từ ngắn và tính từ dài.',
+                content: `
+                    <div class="space-y-3 text-sm">
+                        <div class="p-2 bg-purple-50 dark:bg-purple-950/40 rounded-xl">
+                            <p class="font-semibold text-purple-700 dark:text-purple-300">So Sánh Hơn (Comparative):</p>
+                            <p>• Tính từ ngắn: <b>S1 + V + Adj-er + than + S2</b> (<i>tall → taller than</i>)</p>
+                            <p>• Tính từ dài: <b>S1 + V + more + Adj + than + S2</b> (<i>beautiful → more beautiful than</i>)</p>
+                        </div>
+                        <div class="p-2 bg-purple-50 dark:bg-purple-950/40 rounded-xl">
+                            <p class="font-semibold text-purple-700 dark:text-purple-300">So Sánh Nhất (Superlative):</p>
+                            <p>• Tính từ ngắn: <b>S + V + the + Adj-est</b> (<i>the tallest</i>)</p>
+                            <p>• Tính từ dài: <b>S + V + the most + Adj</b> (<i>the most expensive</i>)</p>
+                        </div>
+                    </div>
+                `,
+                keyPoints: ['Good → better → the best', 'Bad → worse → the worst']
+            },
+
+            // --- NGỮ VĂN ---
+            {
+                id: 'l1',
+                subjectId: 'literature',
+                category: 'Tiếng Việt - Biện Pháp Tu Từ',
+                title: 'Các Biện Pháp Tu Từ Trọng Tâm Lớp 7',
+                description: 'Nhận biết và tác dụng của Điệp ngữ, Nói giảm nói tránh, Nói quá.',
+                content: `
+                    <div class="space-y-2 text-sm">
+                        <p><b>1. Điệp ngữ:</b> Nhắc đi nhắc lại một từ/cụm từ nhằm nhấn mạnh ý, tạo nhịp điệu, tăng sức gợi hình gợi cảm.</p>
+                        <p><b>2. Nói quá (Phóng đại):</b> Biện pháp phóng đại quy mô, tính chất của sự vật/hiện tượng nhằm gây ấn tượng mạnh, tăng sức biểu cảm.</p>
+                        <p><b>3. Nói giảm nói tránh:</b> Dùng cách diễn đạt tế nhị, uyển chuyển nhằm tránh gây cảm giác quá đau buồn, ghê sợ, nặng nề hoặc thiếu lịch sự.</p>
+                    </div>
+                `,
+                keyPoints: ['Nói quá ≠ Nói dối (Nói quá tăng biểu cảm)', 'Nói giảm nói tránh thể hiện sự tế nhị']
+            },
+            {
+                id: 'l2',
+                subjectId: 'literature',
+                category: 'Văn Bản & Thể Loại',
+                title: 'Thơ 4 Chữ, 5 Chữ & Thơ Lục Bát',
+                description: 'Đặc điểm vần, nhịp và thể thơ trong chương trình Ngữ văn 7.',
+                content: `
+                    <div class="space-y-2 text-sm">
+                        <p><b>• Thơ 4 chữ / 5 chữ:</b></p>
+                        <p>- Số tiếng trong mỗi dòng: 4 tiếng hoặc 5 tiếng.</p>
+                        <p>- Ngắt nhịp linh hoạt (nhịp 2/2, 2/3, 3/2).</p>
+                        <p>- Vần: Vần chân (cuối dòng), vần lưng, vần liền hoặc vần gián cách.</p>
+                        <p><b>• Thơ Lục Bát:</b> Các cặp câu 6 - 8 tiếng. Tiếng thứ 6 câu lục vần với tiếng 6 câu bát. Tiếng thứ 8 câu bát vần với tiếng 6 câu lục tiếp theo.</p>
+                    </div>
+                `,
+                keyPoints: ['Thơ 4-5 chữ thích hợp diễn tả cảm xúc nhịp nhàng', 'Chú ý cách ngắt nhịp và gieo vần']
+            },
+
+            // --- LỊCH SỬ VÀ ĐỊA LÍ ---
+            {
+                id: 'hg1',
+                subjectId: 'history_geo',
+                category: 'Địa Lí - Công Thức Tính',
+                title: 'Công Thức Tính Mật Độ Dân Số & Tỉ Lệ Dân Số',
+                description: 'Các công thức tính toán địa lí quan trọng nhất chương trình Lớp 7.',
+                content: `
+                    <div class="space-y-2 text-sm">
+                        <div class="p-2.5 bg-rose-50 dark:bg-rose-950/40 rounded-xl border border-rose-200 dark:border-rose-900">
+                            <p><b>1. Công thức Mật độ dân số:</b></p>
+                            <p class="text-center font-bold my-1 text-rose-700 dark:text-rose-300">
+                                \\( \\text{Mật độ dân số} = \\frac{\\text{Dân số (người)}}{\\text{Diện tích (km}^2\\text{)}} \\)
+                            </p>
+                            <p class="text-xs text-slate-500 text-center">(Đơn vị: người/km²)</p>
+                        </div>
+                        <p><b>2. Công thức Cơ cấu / Tỉ trọng (%):</b></p>
+                        <p>\\( \\text{Tỉ trọng thành phần} = \\frac{\\text{Giá trị thành phần}}{\\text{Tổng giá trị}} \\times 100\\% \\)</p>
+                    </div>
+                `,
+                keyPoints: ['Đơn vị Mật độ: người/km²', 'Tổng tỉ trọng các thành phần = 100%']
+            },
+            {
+                id: 'hg2',
+                subjectId: 'history_geo',
+                category: 'Lịch Sử - Mốc Tiêu Biểu',
+                title: 'Các Triều Đại Phong Kiến Độc Lập Việt Nam (Lý - Trần - Lê Sơ)',
+                description: 'Tóm tắt các mốc thời gian và chiến công hiển hách thế kỷ XI - XV.',
+                content: `
+                    <div class="space-y-2 text-sm">
+                        <p><b>• Nhà Lý (1009 - 1225):</b> Lý Công Uẩn dời đô về Thăng Long (1010). Lý Thường Kiệt đánh tan quân Tống trên sông Như Nguyệt (1077).</p>
+                        <p><b>• Nhà Trần (1226 - 1400):</b> Ba lần chiến thắng quân xâm lược Mông - Nguyên (1258, 1285, 1287-1288). Trận Bạch Đằng vĩ đại (1288).</p>
+                        <p><b>• Khởi nghĩa Lam Sơn & Nhà Lê Sơ (1418 - 1427):</b> Lê Lợi và Nguyễn Trãi lãnh đạo đánh đuổi quân Minh, lập ra nhà Lê Sơ.</p>
+                    </div>
+                `,
+                keyPoints: ['1010: Dời đô Thăng Long', '3 lần thắng Mông - Nguyên', '1427: Đại thắng quân Minh']
+            }
+        ];
+
+        // Global State
+        let currentSubject = 'all';
+        let currentSearchQuery = '';
+        let currentViewTab = 'cards'; // 'cards' or 'flashcard'
+        let bookmarks = JSON.parse(localStorage.getItem('g7_bookmarks') || '[]');
+        let currentFCIndex = 0;
+        let isFlipped = false;
+
+        // Initialize App
+        window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            renderSubjectChips();
+            renderCards();
+            updateBookmarkBadge();
+        });
+
+        // Theme Toggle Functionality
+        function initTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+
+        // Render Subject Selection Chips
+        function renderSubjectChips() {
+            const container = document.getElementById('subjectChips');
+            container.innerHTML = subjectsData.map(sub => {
+                const isActive = currentSubject === sub.id;
+                const activeClasses = isActive 
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' 
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800';
+                return `
+                    <button onclick="selectSubject('${sub.id}')" class="px-4 py-2 rounded-2xl text-sm font-semibold flex items-center gap-2 transition ${activeClasses}">
+                        <i class="fa-solid ${sub.icon}"></i>
+                        <span>${sub.name}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        // Select Subject Event
+        function selectSubject(subId) {
+            currentSubject = subId;
+            renderSubjectChips();
+            updateBanner();
+            renderCards();
+            if (currentViewTab === 'flashcard') {
+                initFlashcards();
+            }
+        }
+
+        function updateBanner() {
+            const bannerTitle = document.getElementById('bannerTitle');
+            const bannerDesc = document.getElementById('bannerDesc');
+            const subObj = subjectsData.find(s => s.id === currentSubject);
+
+            if (currentSubject === 'all') {
+                bannerTitle.textContent = 'Tổng hợp công thức Lớp 7';
+                bannerDesc.textContent = 'Tra cứu nhanh chóng tất cả kiến thức trọng tâm, công thức toán, khoa học tự nhiên, từ vựng tiếng Anh và quy tắc Ngữ văn.';
+            } else {
+                bannerTitle.textContent = `Công Thức & Kiến Thức: ${subObj.name}`;
+                bannerDesc.textContent = `Tổng hợp đầy đủ các định lý, công thức, quy tắc trọng tâm môn ${subObj.name} Lớp 7 bám sát sách giáo khoa.`;
+            }
+        }
+
+        // Render Formula Cards
+        function renderCards() {
+            const container = document.getElementById('cardsView');
+            const emptyState = document.getElementById('emptyState');
+
+            // Filter logic
+            let filtered = formulasData.filter(item => {
+                const matchesSubject = currentSubject === 'all' || item.subjectId === currentSubject;
+                const matchesSearch = currentSearchQuery === '' || 
+                    item.title.toLowerCase().includes(currentSearchQuery.toLowerCase()) ||
+                    item.category.toLowerCase().includes(currentSearchQuery.toLowerCase()) ||
+                    item.description.toLowerCase().includes(currentSearchQuery.toLowerCase());
+                return matchesSubject && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            container.innerHTML = filtered.map(item => {
+                const subObj = subjectsData.find(s => s.id === item.subjectId);
+                const isBookmarked = bookmarks.includes(item.id);
+
+                return `
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm card-hover flex flex-col justify-between relative overflow-hidden">
+                        <!-- Top Tag & Bookmark -->
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold tracking-wide ${subObj.badgeClass || 'bg-slate-100 text-slate-700'}">
+                                    ${item.category}
+                                </span>
+                                <button onclick="toggleBookmark('${item.id}')" title="Lưu công thức" class="text-slate-400 hover:text-amber-500 transition">
+                                    <i class="${isBookmarked ? 'fa-solid text-amber-500' : 'fa-regular'} fa-bookmark text-lg"></i>
+                                </button>
+                            </div>
+
+                            <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-1 leading-snug">
+                                ${item.title}
+                            </h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
+                                ${item.description}
+                            </p>
+
+                            <!-- Formula Box Content -->
+                            <div class="bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-4 text-slate-700 dark:text-slate-200 text-sm leading-relaxed mb-4">
+                                ${item.content}
+                            </div>
+                        </div>
+
+                        <!-- Footer Highlights -->
+                        <div class="pt-3 border-t border-slate-100 dark:border-slate-800/60 flex flex-wrap gap-1.5 items-center">
+                            <span class="text-[11px] font-semibold text-slate-400">Ghi nhớ:</span>
+                            ${item.keyPoints.map(pt => `
+                                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-md text-[11px]">
+                                    ${pt}
+                                </span>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Trigger MathJax re-render for formulas
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise();
+            }
+        }
+
+        // Handle Search Inputs
+        function handleSearch() {
+            const val = document.getElementById('searchInput').value.trim();
+            currentSearchQuery = val;
+            const clearBtn = document.getElementById('clearSearchBtn');
+            if (val.length > 0) clearBtn.classList.remove('hidden');
+            else clearBtn.classList.add('hidden');
+            renderCards();
+        }
+
+        function handleMobileSearch() {
+            currentSearchQuery = document.getElementById('mobileSearchInput').value.trim();
+            renderCards();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('mobileSearchInput').value = '';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            currentSearchQuery = '';
+            renderCards();
+        }
+
+        // Bookmark System
+        function toggleBookmark(id) {
+            if (bookmarks.includes(id)) {
+                bookmarks = bookmarks.filter(bId => bId !== id);
+                showToast('Đã xóa khỏi danh sách lưu');
+            } else {
+                bookmarks.push(id);
+                showToast('Đã lưu công thức thành công!');
+            }
+            localStorage.setItem('g7_bookmarks', JSON.stringify(bookmarks));
+            updateBookmarkBadge();
+            renderCards();
+        }
+
+        function updateBookmarkBadge() {
+            const badge = document.getElementById('bookmarkCount');
+            if (bookmarks.length > 0) {
+                badge.textContent = bookmarks.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function toggleBookmarksView() {
+            if (bookmarks.length === 0) {
+                showToast('Chưa có công thức nào được lưu!');
+                return;
+            }
+            // Filter to show bookmarked items
+            const filtered = formulasData.filter(i => bookmarks.includes(i.id));
+            document.getElementById('bannerTitle').textContent = 'Công Thức Đã Lưu';
+            document.getElementById('bannerDesc').textContent = 'Danh sách các định lí và công thức bạn đã đánh dấu yêu thích để ôn tập nhanh.';
+            
+            const container = document.getElementById('cardsView');
+            container.innerHTML = filtered.map(item => {
+                const subObj = subjectsData.find(s => s.id === item.subjectId);
+                return `
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm card-hover flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold ${subObj.badgeClass}">
+                                    ${item.category}
+                                </span>
+                                <button onclick="toggleBookmark('${item.id}')" title="Xóa lưu" class="text-amber-500 hover:text-slate-400 transition">
+                                    <i class="fa-solid fa-bookmark text-lg"></i>
+                                </button>
+                            </div>
+                            <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-1">${item.title}</h3>
+                            <div class="bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800 rounded-2xl p-4 text-slate-700 dark:text-slate-200 text-sm mb-4">
+                                ${item.content}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise();
+            }
+        }
+
+        // Switch View Tabs (Cards / Flashcard)
+        function switchTab(tab) {
+            currentViewTab = tab;
+            const btnCards = document.getElementById('tabBtnCards');
+            const btnFC = document.getElementById('tabBtnFlashcard');
+            const cardsView = document.getElementById('cardsView');
+            const fcView = document.getElementById('flashcardView');
+
+            if (tab === 'cards') {
+                btnCards.className = 'px-4 py-2 bg-white text-blue-700 font-medium rounded-xl text-sm shadow hover:bg-blue-50 transition';
+                btnFC.className = 'px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-medium rounded-xl text-sm transition';
+                cardsView.classList.remove('hidden');
+                fcView.classList.add('hidden');
+                renderCards();
+            } else {
+                btnFC.className = 'px-4 py-2 bg-white text-blue-700 font-medium rounded-xl text-sm shadow hover:bg-blue-50 transition';
+                btnCards.className = 'px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-medium rounded-xl text-sm transition';
+                cardsView.classList.add('hidden');
+                fcView.classList.remove('hidden');
+                initFlashcards();
+            }
+        }
+
+        // Flashcards Logic
+        function getActiveFlashcards() {
+            return formulasData.filter(item => currentSubject === 'all' || item.subjectId === currentSubject);
+        }
+
+        function initFlashcards() {
+            currentFCIndex = 0;
+            isFlipped = false;
+            updateFlashcardUI();
+        }
+
+        function flipFlashcard() {
+            isFlipped = !isFlipped;
+            updateFlashcardUI();
+        }
+
+        function updateFlashcardUI() {
+            const cards = getActiveFlashcards();
+            if (cards.length === 0) return;
+
+            const item = cards[currentFCIndex];
+            const fcSub = document.getElementById('fcSubject');
+            const fcTitle = document.getElementById('fcTitle');
+            const fcContent = document.getElementById('fcContent');
+            const fcIndex = document.getElementById('fcIndex');
+            const subObj = subjectsData.find(s => s.id === item.subjectId);
+
+            fcSub.textContent = `${subObj.name} • ${item.category}`;
+            fcIndex.textContent = `Thẻ ${currentFCIndex + 1} / ${cards.length}`;
+
+            if (!isFlipped) {
+                fcTitle.textContent = item.title;
+                fcContent.innerHTML = `<p class="italic text-slate-500 dark:text-slate-400">${item.description}</p><p class="mt-4 font-semibold text-blue-600 dark:text-blue-400 text-sm">Chạm vào đây để xem nội dung công thức ➔</p>`;
+            } else {
+                fcTitle.textContent = "Nội dung & Định lý:";
+                fcContent.innerHTML = item.content;
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise();
+                }
+            }
+        }
+
+        function nextFlashcard() {
+            const cards = getActiveFlashcards();
+            if (cards.length === 0) return;
+            currentFCIndex = (currentFCIndex + 1) % cards.length;
+            isFlipped = false;
+            updateFlashcardUI();
+        }
+
+        function prevFlashcard() {
+            const cards = getActiveFlashcards();
+            if (cards.length === 0) return;
+            currentFCIndex = (currentFCIndex - 1 + cards.length) % cards.length;
+            isFlipped = false;
+            updateFlashcardUI();
+        }
+
+        function randomFlashcard() {
+            const cards = getActiveFlashcards();
+            if (cards.length === 0) return;
+            currentFCIndex = Math.floor(Math.random() * cards.length);
+            isFlipped = false;
+            updateFlashcardUI();
+        }
+
+        // Tools Modal Functions & Calculations
+        function openToolsModal() {
+            document.getElementById('toolsModal').classList.remove('hidden');
+        }
+
+        function closeToolsModal() {
+            document.getElementById('toolsModal').classList.add('hidden');
+        }
+
+        function switchTool(tool) {
+            const tools = ['speed', 'ratio', 'density'];
+            tools.forEach(t => {
+                document.getElementById(`tool${t.charAt(0).toUpperCase() + t.slice(1)}`).classList.add('hidden');
+                document.getElementById(`toolTab${t.charAt(0).toUpperCase() + t.slice(1)}`).className = 'pb-2 border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200';
+            });
+
+            document.getElementById(`tool${tool.charAt(0).toUpperCase() + tool.slice(1)}`).classList.remove('hidden');
+            document.getElementById(`toolTab${tool.charAt(0).toUpperCase() + tool.slice(1)}`).className = 'pb-2 border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 font-bold';
+        }
+
+        function calculateSpeed() {
+            const s = parseFloat(document.getElementById('calcS').value);
+            const t = parseFloat(document.getElementById('calcT').value);
+            const v = parseFloat(document.getElementById('calcV').value);
+            const res = document.getElementById('resSpeed');
+
+            if (!isNaN(s) && !isNaN(t) && t > 0) {
+                const calculatedV = (s / t).toFixed(2);
+                res.textContent = `Tốc độ v = ${s} / ${t} = ${calculatedV} km/h (hoặc ${(calculatedV/3.6).toFixed(2)} m/s)`;
+            } else if (!isNaN(v) && !isNaN(t)) {
+                const calculatedS = (v * t).toFixed(2);
+                res.textContent = `Quãng đường s = ${v} × ${t} = ${calculatedS} km`;
+            } else if (!isNaN(s) && !isNaN(v) && v > 0) {
+                const calculatedT = (s / v).toFixed(2);
+                res.textContent = `Thời gian t = ${s} / ${v} = ${calculatedT} giờ`;
+            } else {
+                res.textContent = 'Vui lòng nhập hợp lệ 2 trong 3 ô trên!';
+            }
+        }
+
+        function calculateRatio() {
+            const a = parseFloat(document.getElementById('ratioA').value);
+            const b = parseFloat(document.getElementById('ratioB').value);
+            const c = parseFloat(document.getElementById('ratioC').value);
+            const res = document.getElementById('resRatio');
+
+            if (!isNaN(a) && !isNaN(b) && !isNaN(c) && a !== 0) {
+                const x = ((b * c) / a).toFixed(2);
+                res.textContent = `Giá trị x = (${b} × ${c}) / ${a} = ${x}`;
+            } else {
+                res.textContent = 'Vui lòng nhập đầy đủ a, b, c (với a ≠ 0)!';
+            }
+        }
+
+        function calculateDensity() {
+            const pop = parseFloat(document.getElementById('popVal').value);
+            const area = parseFloat(document.getElementById('areaVal').value);
+            const res = document.getElementById('resDensity');
+
+            if (!isNaN(pop) && !isNaN(area) && area > 0) {
+                const density = Math.round(pop / area);
+                res.textContent = `Mật độ dân số = ${pop.toLocaleString()} / ${area.toLocaleString()} = ${density.toLocaleString()} người/km²`;
+            } else {
+                res.textContent = 'Vui lòng nhập dân số và diện tích hợp lệ!';
+            }
+        }
+
+        // Toast Notification Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
