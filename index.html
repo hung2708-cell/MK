@@ -1,1573 +1,1303 @@
 <!DOCTYPE html>
-<html lang="vi" class="h-full">
+<html lang="vi" class="h-full bg-slate-950 text-slate-100">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Học Tốt Lớp 7 - Mobile Study Hub</title>
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#f0f9ff',
-              100: '#e0f2fe',
-              500: '#0284c7',
-              600: '#0284c7',
-              700: '#0369a1',
-              800: '#075985',
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RenoAI Studio - Tu Sửa Nhà Thông Minh & 3D Interactive</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                        },
+                        gold: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                        }
+                    }
+                }
             }
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-          }
         }
-      }
-    }
-  </script>
-  
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts: Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    /* Mobile-first touch enhancements & smooth scrolling */
-    * {
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-    }
-    input, textarea, [contenteditable="true"] {
-      user-select: text;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      touch-action: manipulation;
-    }
-    /* Hide scrollbars for clean mobile feel */
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+    </script>
     
-    /* 3D Flashcard Animation */
-    .perspective-1000 {
-      perspective: 1000px;
-    }
-    .transform-style-3d {
-      transform-style: preserve-3d;
-    }
-    .backface-hidden {
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-    .rotate-y-180 {
-      transform: rotateY(180deg);
-    }
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    /* Safe area padding for mobile notch/home indicator */
-    .pb-safe {
-      padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
-    }
-    .pt-safe {
-      padding-top: max(1rem, env(safe-area-inset-top, 0px));
-    }
-  </style>
+    <!-- Three.js and OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981;
+        }
+        
+        /* Before/After Slider Styling */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+        .img-before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .img-after-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 50%;
+            overflow: hidden;
+            border-right: 2px solid #10b981;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+        }
+        .img-after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        .slider-handle {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #10b981;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+            cursor: ew-resize;
+            z-index: 10;
+        }
+
+        /* Pulse animation for AI status */
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(0.98); }
+        }
+        .ai-glow {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
+        }
+    </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 h-full flex flex-col transition-colors duration-200">
+<body class="h-full flex flex-col bg-slate-950 text-slate-100 overflow-hidden">
 
-  <!-- TOP APP HEADER -->
-  <header class="sticky top-0 z-40 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 px-4 py-3 flex items-center justify-between shadow-sm pt-safe">
-    <div class="flex items-center gap-2">
-      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-md font-extrabold text-lg">
-        7
-      </div>
-      <div>
-        <h1 class="font-bold text-base leading-tight tracking-tight text-gray-900 dark:text-white">HỌC TỐT LỚP 7</h1>
-        <p class="text-[10px] font-medium text-sky-600 dark:text-sky-400">Chương trình GDPT mới 2018</p>
-      </div>
-    </div>
-    
-    <div class="flex items-center gap-2">
-      <!-- Search Trigger -->
-      <button onclick="toggleQuickSearchModal()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center active:scale-95 transition-transform" aria-label="Tìm kiếm">
-        <i class="fa-solid fa-magnifying-glass text-sm"></i>
-      </button>
-
-      <!-- Bookmark Drawer Toggle -->
-      <button onclick="openNotebookDrawer()" class="relative w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center active:scale-95 transition-transform" aria-label="Sổ tay cá nhân">
-        <i class="fa-solid fa-bookmark text-sm"></i>
-        <span id="bookmark-badge" class="hidden absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">0</span>
-      </button>
-
-      <!-- Dark Mode Toggle -->
-      <button id="theme-toggle" onclick="toggleDarkMode()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-700 text-amber-500 dark:text-amber-300 flex items-center justify-center active:scale-95 transition-transform" aria-label="Đổi giao diện">
-        <i class="fa-solid fa-sun dark:hidden text-sm"></i>
-        <i class="fa-solid fa-moon hidden dark:block text-sm"></i>
-      </button>
-    </div>
-  </header>
-
-  <!-- MAIN SCROLLABLE CONTENT AREA -->
-  <main class="flex-1 overflow-y-auto no-scrollbar pb-safe px-4 pt-3 max-w-md mx-auto w-full">
-    
-    <!-- TAB 1: TRANG CHỦ & DÁSHBOARD -->
-    <section id="tab-home" class="tab-content space-y-4">
-      
-      <!-- Greeting Banner -->
-      <div class="bg-gradient-to-r from-sky-600 via-indigo-600 to-purple-600 rounded-2xl p-4 text-white shadow-lg relative overflow-hidden">
-        <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
-        <div class="flex justify-between items-start">
-          <div>
-            <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-white/20 backdrop-blur-md mb-2">
-              <i class="fa-solid fa-fire mr-1 text-amber-300"></i> Mục tiêu hôm nay
-            </span>
-            <h2 class="text-xl font-bold">Xin chào, Lâm Minh Khang! 👋</h2>
-            <p class="text-xs text-sky-100 mt-1 opacity-90">Hãy ôn tập 10 phút để nắm chắc kiến thức hôm nay nhé.</p>
-          </div>
-        </div>
-
-        <!-- Exam Countdown Widget -->
-        <div class="mt-4 pt-3 border-t border-white/20 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-hourglass-half text-amber-300 text-base animate-pulse"></i>
-            <div>
-              <div class="text-[10px] text-sky-100 uppercase tracking-wider font-medium">Đếm ngược Thi HK2</div>
-              <div id="countdown-timer" class="text-sm font-extrabold font-mono text-white">-- Ngày -- Giờ</div>
-            </div>
-          </div>
-          <button onclick="switchTab('tab-quiz')" class="bg-white text-sky-700 hover:bg-sky-50 text-xs font-bold px-3 py-1.5 rounded-xl shadow-md active:scale-95 transition-all flex items-center gap-1">
-            <i class="fa-solid fa-play text-[10px]"></i> Luyện Quiz
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Subject Shortcut Grid -->
-      <div>
-        <div class="flex justify-between items-center mb-2">
-          <h3 class="text-sm font-bold text-gray-800 dark:text-gray-200">Môn Học Lớp 7</h3>
-          <span class="text-xs text-sky-600 dark:text-sky-400 font-medium">GDPT 2018</span>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <!-- Toán 7 -->
-          <button onclick="openSubjectKnowledge('toan')" class="bg-white dark:bg-gray-800 p-3.5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3 active:scale-95 transition-all text-left group">
-            <div class="w-11 h-11 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg font-bold group-hover:scale-105 transition-transform">
-              <i class="fa-solid fa-calculator"></i>
+    <!-- Header Navigation -->
+    <header class="h-16 border-b border-slate-800 bg-slate-900/80 backdrop-blur-md px-4 lg:px-6 flex items-center justify-between z-30 shrink-0">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-slate-950 shadow-lg shadow-brand-500/20">
+                <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-gray-900 dark:text-white">Toán 7</h4>
-              <p class="text-[11px] text-gray-500 dark:text-gray-400">Đại số & Hình học</p>
-            </div>
-          </button>
-
-          <!-- Khoa Học Tự Nhiên 7 -->
-          <button onclick="openSubjectKnowledge('khtn')" class="bg-white dark:bg-gray-800 p-3.5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3 active:scale-95 transition-all text-left group">
-            <div class="w-11 h-11 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg font-bold group-hover:scale-105 transition-transform">
-              <i class="fa-solid fa-atom"></i>
-            </div>
-            <div>
-              <h4 class="font-bold text-sm text-gray-900 dark:text-white">KHTN 7</h4>
-              <p class="text-[11px] text-gray-500 dark:text-gray-400">Hóa - Lý - Sinh</p>
-            </div>
-          </button>
-
-          <!-- Tiếng Anh 7 -->
-          <button onclick="openSubjectKnowledge('tienganh')" class="bg-white dark:bg-gray-800 p-3.5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3 active:scale-95 transition-all text-left group">
-            <div class="w-11 h-11 rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-lg font-bold group-hover:scale-105 transition-transform">
-              <i class="fa-solid fa-language"></i>
-            </div>
-            <div>
-              <h4 class="font-bold text-sm text-gray-900 dark:text-white">Tiếng Anh 7</h4>
-              <p class="text-[11px] text-gray-500 dark:text-gray-400">Grammar & Vocab</p>
-            </div>
-          </button>
-
-          <!-- Lịch Sử & Địa Lý 7 -->
-          <button onclick="openSubjectKnowledge('sudia')" class="bg-white dark:bg-gray-800 p-3.5 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center gap-3 active:scale-95 transition-all text-left group">
-            <div class="w-11 h-11 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg font-bold group-hover:scale-105 transition-transform">
-              <i class="fa-solid fa-earth-americas"></i>
-            </div>
-            <div>
-              <h4 class="font-bold text-sm text-gray-900 dark:text-white">Lịch Sử & Địa Lý</h4>
-              <p class="text-[11px] text-gray-500 dark:text-gray-400">Phát kiến & Châu lục</p>
-            </div>
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Utility Bar -->
-      <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm space-y-3">
-        <h3 class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
-          <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i> Công Cụ Tương Tác
-        </h3>
-        <div class="grid grid-cols-3 gap-2">
-          <button onclick="switchTab('tab-calc')" class="flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-sky-50 dark:hover:bg-gray-700 transition-colors">
-            <i class="fa-solid fa-square-root-variable text-sky-600 text-lg mb-1"></i>
-            <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Tính Công Thức</span>
-          </button>
-          <button onclick="switchTab('tab-flashcards')" class="flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-purple-50 dark:hover:bg-gray-700 transition-colors">
-            <i class="fa-solid fa-clone text-purple-600 text-lg mb-1"></i>
-            <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Flashcard 3D</span>
-          </button>
-          <button onclick="switchTab('tab-ai')" class="flex flex-col items-center justify-center p-3 rounded-xl bg-gray-50 dark:bg-gray-700/50 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors">
-            <i class="fa-solid fa-robot text-indigo-600 text-lg mb-1"></i>
-            <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Hỏi Trợ Lý AI</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Highlight Formula of the Day -->
-      <div class="bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 rounded-2xl p-4 text-amber-900 dark:text-amber-200">
-        <div class="flex items-center justify-between mb-1">
-          <span class="text-[11px] font-bold uppercase tracking-wide text-amber-700 dark:text-amber-400">💡 Công thức quan trọng hôm nay</span>
-          <span class="text-xs font-semibold bg-amber-200 dark:bg-amber-900 text-amber-800 dark:text-amber-200 px-2 py-0.5 rounded-md">Toán 7</span>
-        </div>
-        <h4 class="font-bold text-sm">Tính chất dãy tỉ số bằng nhau</h4>
-        <div class="my-2 p-2 bg-white/80 dark:bg-gray-800/80 rounded-xl text-center font-mono text-sm font-bold text-sky-700 dark:text-sky-300 shadow-inner">
-          \(\frac{a}{b} = \frac{c}{d} = \frac{a+c}{b+d} = \frac{a-c}{b-d}\)
-        </div>
-        <p class="text-xs text-amber-800 dark:text-amber-300 opacity-90">(với b ≠ d và b ≠ -d). Thường dùng trong các bài toán chia tỉ lệ và tìm x, y!</p>
-      </div>
-
-    </section>
-
-    <!-- TAB 2: HỆ THỐNG KẾT NỐI KIẾN THỨC THEO MÔN -->
-    <section id="tab-knowledge" class="tab-content hidden space-y-4">
-      
-      <!-- Subject Nav Chips -->
-      <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1 -mx-1 px-1">
-        <button onclick="filterSubjectTab('all')" class="subject-chip active text-xs font-bold px-3.5 py-2 rounded-full whitespace-nowrap transition-all bg-sky-600 text-white shadow-md">
-          Tất cả (Lớp 7)
-        </button>
-        <button onclick="filterSubjectTab('toan')" class="subject-chip text-xs font-medium px-3.5 py-2 rounded-full whitespace-nowrap transition-all bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-          Toán 7
-        </button>
-        <button onclick="filterSubjectTab('khtn')" class="subject-chip text-xs font-medium px-3.5 py-2 rounded-full whitespace-nowrap transition-all bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-          Khoa Học Tự Nhiên 7
-        </button>
-        <button onclick="filterSubjectTab('tienganh')" class="subject-chip text-xs font-medium px-3.5 py-2 rounded-full whitespace-nowrap transition-all bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-          Tiếng Anh 7
-        </button>
-        <button onclick="filterSubjectTab('sudia')" class="subject-chip text-xs font-medium px-3.5 py-2 rounded-full whitespace-nowrap transition-all bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-          Lịch Sử & Địa Lý 7
-        </button>
-      </div>
-
-      <!-- Knowledge List Accordion Container -->
-      <div id="knowledge-list-container" class="space-y-3">
-        <!-- Rendered dynamically via JavaScript -->
-      </div>
-    </section>
-
-    <!-- TAB 3: MÁY TÍNH CÔNG THỨC NHANH (INTERACTIVE CALCULATORS) -->
-    <section id="tab-calc" class="tab-content hidden space-y-4">
-      
-      <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
-        <h2 class="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-1">
-          <i class="fa-solid fa-calculator text-sky-600"></i> Máy Tính Công Thức Lớp 7
-        </h2>
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Nhập các tham số để tính toán nhanh kết quả bài tập.</p>
-
-        <!-- Tool Selector Tabs -->
-        <div class="grid grid-cols-2 gap-2 mb-4 bg-gray-100 dark:bg-gray-700/50 p-1 rounded-xl">
-          <button onclick="selectCalcTool('speed')" id="btn-calc-speed" class="calc-tab-btn py-1.5 text-xs font-bold rounded-lg bg-white dark:bg-gray-800 text-sky-600 dark:text-sky-400 shadow-sm">Tốc Độ (v = s / t)</button>
-          <button onclick="selectCalcTool('proportion')" id="btn-calc-proportion" class="calc-tab-btn py-1.5 text-xs font-medium rounded-lg text-gray-600 dark:text-gray-300">Tỉ Lệ Thức</button>
-          <button onclick="selectCalcTool('prism')" id="btn-calc-prism" class="calc-tab-btn py-1.5 text-xs font-medium rounded-lg text-gray-600 dark:text-gray-300">Hình Lăng Trụ Đứng</button>
-          <button onclick="selectCalcTool('molarmass')" id="btn-calc-molarmass" class="calc-tab-btn py-1.5 text-xs font-medium rounded-lg text-gray-600 dark:text-gray-300">Khối Lượng Phân Tử</button>
-        </div>
-
-        <!-- CALCULATOR 1: SPEED (KHTN 7 / Vật Lý) -->
-        <div id="calc-tool-speed" class="calc-panel space-y-3">
-          <div class="bg-sky-50 dark:bg-sky-950/40 p-3 rounded-xl text-xs text-sky-800 dark:text-sky-300 font-medium">
-            Công thức: \( v = \frac{s}{t} \) (Trong đó: \(v\) là tốc độ, \(s\) là quãng đường, \(t\) là thời gian).
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Quãng đường (s):</label>
-            <div class="flex gap-2">
-              <input type="number" id="speed-s" placeholder="Nhập quãng đường..." class="flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
-              <select id="speed-unit-s" class="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-xs font-bold rounded-xl px-2">
-                <option value="km">km</option>
-                <option value="m">m</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Thời gian (t):</label>
-            <div class="flex gap-2">
-              <input type="number" id="speed-t" placeholder="Nhập thời gian..." class="flex-1 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500">
-              <select id="speed-unit-t" class="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-xs font-bold rounded-xl px-2">
-                <option value="h">giờ (h)</option>
-                <option value="s">giây (s)</option>
-              </select>
-            </div>
-          </div>
-          <button onclick="calculateSpeed()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-xl shadow-md active:scale-95 transition-transform text-sm">
-            Tính Tốc Độ v
-          </button>
-          <div id="result-speed" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-center font-bold text-emerald-700 dark:text-emerald-300 text-sm">
-          </div>
-        </div>
-
-        <!-- CALCULATOR 2: PROPORTION (TOÁN 7) -->
-        <div id="calc-tool-proportion" class="calc-panel hidden space-y-3">
-          <div class="bg-sky-50 dark:bg-sky-950/40 p-3 rounded-xl text-xs text-sky-800 dark:text-sky-300 font-medium">
-            Tỉ lệ thức: Tìm \(x\) trong đẳng thức \(\frac{a}{b} = \frac{c}{x} \implies x = \frac{b \cdot c}{a}\)
-          </div>
-          <div class="grid grid-cols-2 gap-3 items-center">
-            <div class="space-y-2">
-              <div>
-                <label class="text-[11px] font-semibold text-gray-600 dark:text-gray-400">Giá trị a:</label>
-                <input type="number" id="prop-a" value="2" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm">
-              </div>
-              <div>
-                <label class="text-[11px] font-semibold text-gray-600 dark:text-gray-400">Giá trị b:</label>
-                <input type="number" id="prop-b" value="5" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm">
-              </div>
-            </div>
-            <div class="space-y-2">
-              <div>
-                <label class="text-[11px] font-semibold text-gray-600 dark:text-gray-400">Giá trị c:</label>
-                <input type="number" id="prop-c" value="6" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm">
-              </div>
-              <div>
-                <label class="text-[11px] font-semibold text-sky-600 dark:text-sky-400 font-bold">Cần tìm x:</label>
-                <div class="w-full bg-sky-100 dark:bg-sky-900/50 border border-sky-300 dark:border-sky-700 text-sky-800 dark:text-sky-200 font-bold rounded-xl px-3 py-2 text-sm flex items-center justify-center">
-                  ? (x)
+                <div class="flex items-center space-x-2">
+                    <h1 class="font-bold text-lg text-white tracking-wide">RenoAI <span class="text-brand-500">Studio</span></h1>
+                    <span class="px-2 py-0.5 text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/30 rounded-full">v3.5 AI 3D</span>
                 </div>
-              </div>
+                <p class="text-xs text-slate-400 hidden sm:block">Kiến tạo không gian sống với AI Generative & 3D Tương tác</p>
             </div>
-          </div>
-          <button onclick="calculateProportion()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-xl shadow-md active:scale-95 transition-transform text-sm">
-            Tính Tìm X
-          </button>
-          <div id="result-proportion" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-center font-bold text-emerald-700 dark:text-emerald-300 text-sm">
-          </div>
         </div>
 
-        <!-- CALCULATOR 3: 3D PRISM GEOMETRY (TOÁN 7) -->
-        <div id="calc-tool-prism" class="calc-panel hidden space-y-3">
-          <div class="bg-sky-50 dark:bg-sky-950/40 p-3 rounded-xl text-xs text-sky-800 dark:text-sky-300 font-medium">
-            Hình hộp chữ nhật: Thể tích \(V = a \cdot b \cdot h\), Thể tích Lăng trụ đứng \(V = S_{đáy} \cdot h\)
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Diện tích đáy (\(S_{đáy}\)) [cm²]:</label>
-            <input type="number" id="prism-base-area" placeholder="VD: 15" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Chiều cao lăng trụ (\(h\)) [cm]:</label>
-            <input type="number" id="prism-height" placeholder="VD: 10" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm">
-          </div>
-          <button onclick="calculatePrismVolume()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-xl shadow-md active:scale-95 transition-transform text-sm">
-            Tính Thể Tích (V)
-          </button>
-          <div id="result-prism" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-center font-bold text-emerald-700 dark:text-emerald-300 text-sm">
-          </div>
-        </div>
-
-        <!-- CALCULATOR 4: MOLAR MASS (KHTN 7 / HÓA HỌC) -->
-        <div id="calc-tool-molarmass" class="calc-panel hidden space-y-3">
-          <div class="bg-sky-50 dark:bg-sky-950/40 p-3 rounded-xl text-xs text-sky-800 dark:text-sky-300 font-medium">
-            Khối lượng phân tử (amu): Chọn hoặc nhập công thức phân tử đơn giản.
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Chọn chất hóa học thường gặp Lớp 7:</label>
-            <select id="molar-preset" onchange="autoFillMolarMass()" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl px-3 py-2 text-sm mb-2">
-              <option value="H2O">Nước (H₂O) - [2H + 1O]</option>
-              <option value="CO2">Khí Cacbonic (CO₂) - [1C + 2O]</option>
-              <option value="NaCl">Muối ăn (NaCl) - [1Na + 1Cl]</option>
-              <option value="O2">Khí Oxi (O₂) - [2O]</option>
-              <option value="CH4">Khí Mêtan (CH₄) - [1C + 4H]</option>
-            </select>
-          </div>
-          <button onclick="calculateMolarMass()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-2.5 rounded-xl shadow-md active:scale-95 transition-transform text-sm">
-            Tính Khối Lượng Phân Tử
-          </button>
-          <div id="result-molarmass" class="hidden p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl font-bold text-emerald-700 dark:text-emerald-300 text-sm space-y-1 text-left">
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- TAB 4: FLASHCARD ÔN TẬP (3D FLIP & AUDIO PRONUNCIATION) -->
-    <section id="tab-flashcards" class="tab-content hidden space-y-4">
-      
-      <!-- Top Filters -->
-      <div class="flex justify-between items-center">
-        <h2 class="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
-          <i class="fa-solid fa-clone text-purple-600"></i> Thẻ Ghi Nhớ Flashcard 3D
-        </h2>
-        <span id="flashcard-counter" class="text-xs font-bold px-2.5 py-1 bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 rounded-full">
-          1 / 10
-        </span>
-      </div>
-
-      <!-- Category Filter -->
-      <div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
-        <button onclick="filterFlashcards('all')" class="fc-filter active px-3 py-1 text-xs font-bold rounded-full bg-purple-600 text-white">Tất cả</button>
-        <button onclick="filterFlashcards('english')" class="fc-filter px-3 py-1 text-xs font-medium rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Tiếng Anh 7</button>
-        <button onclick="filterFlashcards('khtn')" class="fc-filter px-3 py-1 text-xs font-medium rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Khoa Học Tự Nhiên</button>
-        <button onclick="filterFlashcards('toan')" class="fc-filter px-3 py-1 text-xs font-medium rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Toán 7</button>
-      </div>
-
-      <!-- 3D FLIP CONTAINER -->
-      <div class="perspective-1000 w-full h-72">
-        <div id="flashcard-card" onclick="flipFlashcard()" class="transform-style-3d w-full h-full duration-500 cursor-pointer relative rounded-3xl shadow-xl transition-transform">
-          
-          <!-- FRONT FACE -->
-          <div class="backface-hidden absolute inset-0 bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-gray-900 border-2 border-purple-200 dark:border-purple-800/50 rounded-3xl p-6 flex flex-col justify-between items-center text-center">
-            <div class="w-full flex justify-between items-center">
-              <span id="fc-subject-badge" class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 rounded-full">
-                MÔN HỌC
-              </span>
-              <button onclick="speakFlashcardText(event)" class="w-9 h-9 rounded-full bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300 flex items-center justify-center hover:scale-110 active:scale-95 transition-transform" title="Phát âm">
-                <i class="fa-solid fa-volume-high text-sm"></i>
-              </button>
+        <div class="flex items-center space-x-3">
+            <div class="hidden md:flex items-center px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 space-x-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Gemini Engine: <strong class="text-emerald-400 font-medium">Sẵn sàng</strong></span>
             </div>
-
-            <div class="my-auto px-2">
-              <h3 id="fc-front-title" class="text-xl font-extrabold text-gray-900 dark:text-white mb-2">
-                Khái niệm / Từ vựng
-              </h3>
-              <p id="fc-front-subtitle" class="text-xs text-purple-600 dark:text-purple-400 font-medium">
-                (Chạm vào thẻ để xem đáp án/định nghĩa 🔄)
-              </p>
-            </div>
-
-            <div class="text-[11px] text-gray-400 flex items-center gap-1">
-              <i class="fa-solid fa-hand-pointer"></i> Nhấp thẻ để lật 3D
-            </div>
-          </div>
-
-          <!-- BACK FACE -->
-          <div class="rotate-y-180 backface-hidden absolute inset-0 bg-gradient-to-br from-purple-700 to-indigo-800 text-white rounded-3xl p-6 flex flex-col justify-between items-center text-center shadow-2xl">
-            <div class="w-full flex justify-between items-center opacity-80 text-xs">
-              <span>ĐÁP ÁN & ĐỊNH NGHĨA</span>
-              <i class="fa-solid fa-check-circle"></i>
-            </div>
-
-            <div class="my-auto px-2">
-              <p id="fc-back-desc" class="text-base font-semibold leading-relaxed">
-                Nội dung chi tiết giải thích cho flashcard...
-              </p>
-              <div id="fc-back-example" class="mt-3 text-xs bg-white/10 p-2.5 rounded-xl backdrop-blur-sm text-purple-100 font-mono">
-                Ví dụ...
-              </div>
-            </div>
-
-            <div class="text-[11px] text-purple-200 opacity-80">
-              Nhấp để quay lại mặt trước 🔄
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Flashcard Controls -->
-      <div class="flex items-center justify-between gap-3 pt-2">
-        <button onclick="prevFlashcard()" class="flex-1 py-3 rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 font-bold text-xs flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-all">
-          <i class="fa-solid fa-chevron-left"></i> Thẻ Trước
-        </button>
-        <button onclick="shuffleFlashcards()" class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 font-bold text-sm flex items-center justify-center active:scale-95 transition-all" title="Trộn thẻ">
-          <i class="fa-solid fa-shuffle"></i>
-        </button>
-        <button onclick="nextFlashcard()" class="flex-1 py-3 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all">
-          Thẻ Tiếp <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </div>
-
-    </section>
-
-    <!-- TAB 5: TRẮC NGHIỆM QUIZ TỰ LUYỆN -->
-    <section id="tab-quiz" class="tab-content hidden space-y-4">
-      
-      <!-- Quiz Header Card -->
-      <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
-        <div class="flex justify-between items-center mb-3">
-          <h2 class="text-base font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <i class="fa-solid fa-circle-question text-emerald-500"></i> Ôn Trắc Nghiệm Lớp 7
-          </h2>
-          <div id="quiz-score-badge" class="text-xs font-bold px-2.5 py-1 bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 rounded-full">
-            Điểm: 0
-          </div>
-        </div>
-
-        <!-- Subject Quiz Selector -->
-        <div class="grid grid-cols-4 gap-1.5 mb-4 bg-gray-100 dark:bg-gray-700/50 p-1 rounded-xl">
-          <button onclick="loadQuizSubject('toan')" id="qz-btn-toan" class="qz-tab-btn py-1 text-[11px] font-bold rounded-lg bg-white dark:bg-gray-800 text-emerald-600 shadow-sm">Toán</button>
-          <button onclick="loadQuizSubject('khtn')" id="qz-btn-khtn" class="qz-tab-btn py-1 text-[11px] font-medium rounded-lg text-gray-600 dark:text-gray-300">KHTN</button>
-          <button onclick="loadQuizSubject('tienganh')" id="qz-btn-tienganh" class="qz-tab-btn py-1 text-[11px] font-medium rounded-lg text-gray-600 dark:text-gray-300">Anh 7</button>
-          <button onclick="loadQuizSubject('sudia')" id="qz-btn-sudia" class="qz-tab-btn py-1 text-[11px] font-medium rounded-lg text-gray-600 dark:text-gray-300">Sử Địa</button>
-        </div>
-
-        <!-- Question Box -->
-        <div id="quiz-box" class="space-y-4">
-          <div class="flex justify-between text-xs text-gray-500 font-semibold">
-            <span id="quiz-progress-text">Câu hỏi 1 / 5</span>
-            <span id="quiz-subject-tag" class="text-emerald-600 dark:text-emerald-400 font-bold uppercase">TOÁN 7</span>
-          </div>
-
-          <h3 id="quiz-question-text" class="text-sm font-bold text-gray-900 dark:text-white leading-snug">
-            Nội dung câu hỏi trắc nghiệm sẽ xuất hiện ở đây...
-          </h3>
-
-          <!-- Options Grid -->
-          <div id="quiz-options-container" class="space-y-2">
-            <!-- Dynamic Buttons -->
-          </div>
-
-          <!-- Answer Explanation Box -->
-          <div id="quiz-explanation-box" class="hidden p-3 rounded-xl bg-sky-50 dark:bg-sky-950/50 border border-sky-200 dark:border-sky-800 text-xs space-y-1">
-            <div class="font-bold text-sky-800 dark:text-sky-300 flex items-center gap-1">
-              <i class="fa-solid fa-lightbulb"></i> Giải thích chi tiết:
-            </div>
-            <p id="quiz-explanation-text" class="text-gray-700 dark:text-gray-300 leading-relaxed"></p>
-          </div>
-
-          <div class="pt-2 flex justify-end">
-            <button id="btn-next-quiz" onclick="nextQuizQuestion()" class="hidden bg-emerald-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md active:scale-95 transition-all items-center gap-1">
-              Câu kế tiếp <i class="fa-solid fa-arrow-right"></i>
+            
+            <button id="btnExportReport" onclick="exportDesignReport()" class="px-3.5 py-2 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg flex items-center space-x-2 transition-all">
+                <i class="fa-solid fa-file-arrow-down text-brand-400"></i>
+                <span class="hidden sm:inline">Xuất Báo Cáo / Tải Ảnh</span>
             </button>
-          </div>
+
+            <button onclick="resetAll()" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors" title="Làm mới">
+                <i class="fa-solid fa-rotate-right"></i>
+            </button>
         </div>
+    </header>
 
-      </div>
+    <!-- Main Workspace Grid -->
+    <div class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+        
+        <!-- Sidebar Controls Left -->
+        <aside class="w-full lg:w-96 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto z-20">
+            <div class="p-4 lg:p-5 space-y-5">
+                
+                <!-- Section 1: Upload Photo & Quick Presets -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-camera text-brand-500"></i> Ảnh Hiện Trạng Ngôi Nhà
+                        </label>
+                        <span class="text-[10px] text-slate-400">JPG, PNG (Tối đa 10MB)</span>
+                    </div>
 
-    </section>
+                    <!-- Dropzone -->
+                    <div id="dropzone" onclick="document.getElementById('fileInput').click()" 
+                         class="border-2 border-dashed border-slate-700 hover:border-brand-500/60 bg-slate-950/50 hover:bg-slate-950/80 rounded-xl p-4 text-center cursor-pointer transition-all duration-200 group relative overflow-hidden">
+                        <input type="file" id="fileInput" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
+                        
+                        <div id="uploadPlaceholder" class="py-3 flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-full bg-slate-800 group-hover:bg-brand-500/20 text-slate-400 group-hover:text-brand-400 flex items-center justify-center mb-2 transition-colors">
+                                <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+                            </div>
+                            <p class="text-xs font-medium text-slate-300 mb-1">Kéo thả ảnh vào đây hoặc <span class="text-brand-400 underline">Tải lên</span></p>
+                            <p class="text-[11px] text-slate-500">Chụp rõ phòng khách, bếp, phòng ngủ hoặc mặt tiền</p>
+                        </div>
 
-    <!-- TAB 6: TRỢ LÝ AI HỎI ĐÁP (GEMINI API INTEGRATION) -->
-    <section id="tab-ai" class="tab-content hidden space-y-3 flex flex-col h-[78vh]">
-      
-      <!-- AI Header -->
-      <div class="bg-gradient-to-r from-indigo-600 to-sky-600 rounded-2xl p-3.5 text-white flex items-center justify-between shadow-md">
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-amber-300 text-lg">
-            <i class="fa-solid fa-robot"></i>
-          </div>
-          <div>
-            <h2 class="font-bold text-sm">Gia Sư AI Lớp 7</h2>
-            <p class="text-[10px] text-sky-100 opacity-90">Hỏi bài tập Toán, Lý, Hóa, Anh Lớp 7 tức thì</p>
-          </div>
-        </div>
-        <button onclick="clearAIChat()" class="text-xs bg-white/20 hover:bg-white/30 px-2.5 py-1 rounded-lg backdrop-blur-md font-medium transition-colors">
-          Xóa chat
-        </button>
-      </div>
+                        <!-- Preview Image inside Upload Container -->
+                        <div id="uploadPreview" class="hidden relative aspect-video w-full rounded-lg overflow-hidden border border-slate-700 group">
+                            <img id="previewImg" src="" alt="Hiện trạng" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                <span class="px-3 py-1 bg-brand-600 text-white rounded-md text-xs font-medium"><i class="fa-solid fa-pen text-xs"></i> Đổi ảnh khác</span>
+                            </div>
+                        </div>
+                    </div>
 
-      <!-- Quick Prompt Suggestions Chips -->
-      <div class="flex gap-1.5 overflow-x-auto no-scrollbar py-1">
-        <button onclick="sendQuickPrompt('Giải thích đơn giản về cấu tạo nguyên tử trong môn KHTN 7?')" class="text-[11px] whitespace-nowrap bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-1.5 rounded-full text-gray-700 dark:text-gray-300 font-medium">
-          ⚛️ Cấu tạo nguyên tử?
-        </button>
-        <button onclick="sendQuickPrompt('Cách chứng minh 2 tam giác bằng nhau (c-c-c, c-g-c, g-c-g)?')" class="text-[11px] whitespace-nowrap bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-1.5 rounded-full text-gray-700 dark:text-gray-300 font-medium">
-          📐 Chứng minh Tam Giác?
-        </button>
-        <button onclick="sendQuickPrompt('Phân biệt Thì Quá khứ đơn (Past Simple) và Hiện tại đơn?')" class="text-[11px] whitespace-nowrap bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-3 py-1.5 rounded-full text-gray-700 dark:text-gray-300 font-medium">
-          🇬🇧 Ngữ pháp Tiếng Anh 7?
-        </button>
-      </div>
+                    <!-- Quick Demo Sample Selector -->
+                    <div class="mt-3">
+                        <p class="text-[11px] font-medium text-slate-400 mb-2 flex items-center justify-between">
+                            <span>Chưa có ảnh? Thử ngay ảnh mẫu:</span>
+                        </p>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="loadSampleImage('living')" class="group relative rounded-lg overflow-hidden border border-slate-700/80 hover:border-brand-500 text-left transition-all aspect-video bg-slate-800">
+                                <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80 group-hover:opacity-100">
+                                <span class="absolute bottom-1 left-1 right-1 px-1.5 py-0.5 bg-slate-950/80 backdrop-blur-sm text-[10px] font-medium text-slate-200 rounded text-center truncate">Phòng khách cũ</span>
+                            </button>
+                            <button onclick="loadSampleImage('bedroom')" class="group relative rounded-lg overflow-hidden border border-slate-700/80 hover:border-brand-500 text-left transition-all aspect-video bg-slate-800">
+                                <img src="https://images.unsplash.com/photo-1540518614846-7ede433c5172?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80 group-hover:opacity-100">
+                                <span class="absolute bottom-1 left-1 right-1 px-1.5 py-0.5 bg-slate-950/80 backdrop-blur-sm text-[10px] font-medium text-slate-200 rounded text-center truncate">Phòng ngủ nhỏ</span>
+                            </button>
+                            <button onclick="loadSampleImage('facade')" class="group relative rounded-lg overflow-hidden border border-slate-700/80 hover:border-brand-500 text-left transition-all aspect-video bg-slate-800">
+                                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80 group-hover:opacity-100">
+                                <span class="absolute bottom-1 left-1 right-1 px-1.5 py-0.5 bg-slate-950/80 backdrop-blur-sm text-[10px] font-medium text-slate-200 rounded text-center truncate">Mặt tiền cũ</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-      <!-- Chat Stream Window -->
-      <div id="ai-chat-messages" class="flex-1 overflow-y-auto no-scrollbar bg-white dark:bg-gray-800/80 border border-gray-100 dark:border-gray-700/80 rounded-2xl p-3 space-y-3">
-        <!-- Initial Welcome Message -->
-        <div class="flex items-start gap-2 max-w-[88%]">
-          <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
-            <i class="fa-solid fa-robot"></i>
-          </div>
-          <div class="bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl rounded-tl-none p-3 text-xs text-gray-800 dark:text-gray-200 leading-relaxed shadow-sm">
-            Chào em! Thầy/Cô AI Lớp 7 đây. Em đang gặp khó khăn ở bài tập Toán, Khoa học Tự nhiên hay Ngữ pháp Tiếng Anh nào? Cứ gõ câu hỏi cho thầy/cô nhé! 😊
-          </div>
-        </div>
-      </div>
+                <!-- Section 2: Room Type Selector -->
+                <div>
+                    <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 block">
+                        Loại Không Gian
+                    </label>
+                    <div class="grid grid-cols-2 gap-2" id="spaceTypeGrid">
+                        <button type="button" onclick="selectSpaceType('living')" data-space="living" class="space-btn active px-3 py-2 rounded-lg border border-brand-500 bg-brand-500/10 text-brand-300 text-xs font-medium flex items-center gap-2 transition-all">
+                            <i class="fa-solid fa-couch text-brand-400"></i> Phòng Khách
+                        </button>
+                        <button type="button" onclick="selectSpaceType('bedroom')" data-space="bedroom" class="space-btn px-3 py-2 rounded-lg border border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 text-xs font-medium flex items-center gap-2 transition-all">
+                            <i class="fa-solid fa-bed text-slate-400"></i> Phòng Ngủ
+                        </button>
+                        <button type="button" onclick="selectSpaceType('kitchen')" data-space="kitchen" class="space-btn px-3 py-2 rounded-lg border border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 text-xs font-medium flex items-center gap-2 transition-all">
+                            <i class="fa-solid fa-utensils text-slate-400"></i> Bếp & Ăn
+                        </button>
+                        <button type="button" onclick="selectSpaceType('facade')" data-space="facade" class="space-btn px-3 py-2 rounded-lg border border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 text-xs font-medium flex items-center gap-2 transition-all">
+                            <i class="fa-solid fa-house-chimney text-slate-400"></i> Mặt Tiền Nhà
+                        </button>
+                    </div>
+                </div>
 
-      <!-- Mobile Chat Input Bar -->
-      <div class="flex items-center gap-2 pt-1">
-        <input type="text" id="ai-user-input" placeholder="Nhập câu hỏi Lớp 7 của em..." onkeydown="if(event.key === 'Enter') handleAskAI()" class="flex-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-2xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
-        <button onclick="handleAskAI()" id="btn-send-ai" class="w-11 h-11 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl flex items-center justify-center shadow-md active:scale-95 transition-transform shrink-0">
-          <i class="fa-solid fa-paper-plane text-sm"></i>
-        </button>
-      </div>
+                <!-- Section 3: Design Style Picker -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
+                            Phong Cách Thiết Kế
+                        </label>
+                        <span id="selectedStyleLabel" class="text-xs text-brand-400 font-semibold">Hiện Đại (Modern)</span>
+                    </div>
 
-    </section>
+                    <div class="grid grid-cols-2 gap-2" id="styleGrid">
+                        <button type="button" onclick="selectStyle('Modern', 'Hiện Đại')" data-style="Modern" class="style-card active border border-brand-500 bg-brand-500/10 p-2.5 rounded-xl text-left transition-all">
+                            <div class="text-xs font-semibold text-white">Hiện Đại</div>
+                            <div class="text-[10px] text-slate-400">Sang trọng, đường nét gọn gàng, tối ưu công năng</div>
+                        </button>
 
-  </main>
+                        <button type="button" onclick="selectStyle('Minimalist', 'Tối Giản')" data-style="Minimalist" class="style-card border border-slate-800 bg-slate-950 p-2.5 rounded-xl text-left hover:border-slate-700 transition-all">
+                            <div class="text-xs font-semibold text-white">Tối Giản (Minimal)</div>
+                            <div class="text-[10px] text-slate-400">Ít chi tiết, gam màu trung tính, thoáng đãng</div>
+                        </button>
 
-  <!-- MOBILE BOTTOM NAVIGATION BAR -->
-  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-lg border-t border-gray-200 dark:border-gray-700 px-2 py-1 shadow-lg">
-    <div class="max-w-md mx-auto grid grid-cols-5 gap-1 text-center">
-      
-      <!-- Nav 1: Trang chủ -->
-      <button onclick="switchTab('tab-home')" id="nav-btn-tab-home" class="nav-item active flex flex-col items-center py-1.5 px-1 text-sky-600 dark:text-sky-400">
-        <i class="fa-solid fa-house text-lg mb-0.5"></i>
-        <span class="text-[10px] font-bold">Trang chủ</span>
-      </button>
+                        <button type="button" onclick="selectStyle('Scandinavian', 'Bắc Âu')" data-style="Scandinavian" class="style-card border border-slate-800 bg-slate-950 p-2.5 rounded-xl text-left hover:border-slate-700 transition-all">
+                            <div class="text-xs font-semibold text-white">Bắc Âu (Scandi)</div>
+                            <div class="text-[10px] text-slate-400">Gỗ mộc ấm áp, tone màu sáng, ánh sáng tự nhiên</div>
+                        </button>
 
-      <!-- Nav 2: Kiến thức -->
-      <button onclick="switchTab('tab-knowledge')" id="nav-btn-tab-knowledge" class="nav-item flex flex-col items-center py-1.5 px-1 text-gray-400 hover:text-sky-600 dark:hover:text-sky-400">
-        <i class="fa-solid fa-book-open text-lg mb-0.5"></i>
-        <span class="text-[10px] font-semibold">Bài học</span>
-      </button>
+                        <button type="button" onclick="selectStyle('Indochine', 'Đông Dương')" data-style="Indochine" class="style-card border border-slate-800 bg-slate-950 p-2.5 rounded-xl text-left hover:border-slate-700 transition-all">
+                            <div class="text-xs font-semibold text-white">Đông Dương</div>
+                            <div class="text-[10px] text-slate-400">Hoài cổ Á Đông, hoa văn gạch bông, gỗ trầm</div>
+                        </button>
 
-      <!-- Nav 3: Công cụ -->
-      <button onclick="switchTab('tab-calc')" id="nav-btn-tab-calc" class="nav-item flex flex-col items-center py-1.5 px-1 text-gray-400 hover:text-sky-600 dark:hover:text-sky-400">
-        <i class="fa-solid fa-calculator text-lg mb-0.5"></i>
-        <span class="text-[10px] font-semibold">Công cụ</span>
-      </button>
+                        <button type="button" onclick="selectStyle('Neoclassical', 'Tân Cổ Điển')" data-style="Neoclassical" class="style-card border border-slate-800 bg-slate-950 p-2.5 rounded-xl text-left hover:border-slate-700 transition-all col-span-2">
+                            <div class="text-xs font-semibold text-white">Tân Cổ Điển (Neoclassical)</div>
+                            <div class="text-[10px] text-slate-400">Pha chỉ tinh tế, màu kem/vàng đồng xa hoa</div>
+                        </button>
+                    </div>
+                </div>
 
-      <!-- Nav 4: Flashcard & Quiz -->
-      <button onclick="switchTab('tab-flashcards')" id="nav-btn-tab-flashcards" class="nav-item flex flex-col items-center py-1.5 px-1 text-gray-400 hover:text-sky-600 dark:hover:text-sky-400">
-        <i class="fa-solid fa-clone text-lg mb-0.5"></i>
-        <span class="text-[10px] font-semibold">Ghi nhớ</span>
-      </button>
+                <!-- Section 4: Specific Custom Requirements -->
+                <div>
+                    <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5 block">
+                        Ghi Chú Yêu Cầu Cải Tạo Với AI
+                    </label>
+                    <textarea id="customNote" rows="3" 
+                        class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 rounded-xl p-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-all resize-none"
+                        placeholder="Ví dụ: Giữ lại cửa sổ nhôm kính, sơn tường tone trắng kem ấm, thêm sàn gỗ xương cá, đèn hắt trần thạch cao và tủ kệ tivi kịch trần..."></textarea>
+                </div>
 
-      <!-- Nav 5: Hỏi AI -->
-      <button onclick="switchTab('tab-ai')" id="nav-btn-tab-ai" class="nav-item flex flex-col items-center py-1.5 px-1 text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 relative">
-        <span class="absolute -top-1 right-2 w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-        <i class="fa-solid fa-robot text-lg mb-0.5"></i>
-        <span class="text-[10px] font-semibold">Hỏi AI</span>
-      </button>
+                <!-- Submit Generate Button -->
+                <button id="btnGenerate" onclick="processAITransformation()" 
+                    class="w-full py-3.5 px-4 bg-gradient-to-r from-brand-600 via-emerald-500 to-teal-500 hover:from-brand-500 hover:to-emerald-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-brand-500/25 flex items-center justify-center space-x-2 transition-all transform active:scale-[0.98]">
+                    <i class="fa-solid fa-microchip text-base"></i>
+                    <span class="text-sm tracking-wide">Phân Tích & Thiết Kế 3D Với AI</span>
+                </button>
 
-    </div>
-  </nav>
-
-  <!-- MODAL 1: SEARCH MODAL -->
-  <div id="search-modal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-16 px-4">
-    <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700">
-      <div class="p-3 border-b border-gray-100 dark:border-gray-700 flex items-center gap-2">
-        <i class="fa-solid fa-magnifying-glass text-gray-400 pl-2"></i>
-        <input type="text" id="quick-search-input" onkeyup="filterQuickSearch()" placeholder="Tìm công thức, khái niệm Toán, KHTN..." class="w-full bg-transparent text-sm text-gray-900 dark:text-white focus:outline-none">
-        <button onclick="toggleQuickSearchModal()" class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2.5 py-1 rounded-lg">Đóng</button>
-      </div>
-      <div id="quick-search-results" class="max-h-80 overflow-y-auto p-3 space-y-2 text-xs">
-        <p class="text-gray-400 text-center py-4">Nhập từ khóa tìm kiếm (Ví dụ: "Tỷ lệ thức", "Nguyên tử", "Quá khứ đơn"...)</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- DRAWER: SỔ TAY CÁ NHÂN & BOOKMARKS -->
-  <div id="notebook-drawer" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-end">
-    <div class="bg-white dark:bg-gray-800 w-4/5 max-w-sm h-full p-4 flex flex-col shadow-2xl">
-      <div class="flex justify-between items-center pb-3 border-b border-gray-200 dark:border-gray-700 mb-3">
-        <h3 class="font-bold text-base text-gray-900 dark:text-white flex items-center gap-2">
-          <i class="fa-solid fa-bookmark text-sky-600"></i> Sổ Tay Cá Nhân
-        </h3>
-        <button onclick="closeNotebookDrawer()" class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center">
-          <i class="fa-solid fa-xmark text-sm"></i>
-        </button>
-      </div>
-
-      <!-- Custom Note Add Form -->
-      <div class="mb-4 space-y-2">
-        <input type="text" id="custom-note-title" placeholder="Tiêu đề ghi chú..." class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-xs px-3 py-2 rounded-xl text-gray-900 dark:text-white">
-        <textarea id="custom-note-body" placeholder="Nội dung cần nhớ..." rows="2" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-xs px-3 py-2 rounded-xl text-gray-900 dark:text-white"></textarea>
-        <button onclick="saveCustomNote()" class="w-full bg-sky-600 text-white font-bold text-xs py-2 rounded-xl active:scale-95 transition-transform">
-          + Thêm Ghi Chú Mới
-        </button>
-      </div>
-
-      <div class="flex-1 overflow-y-auto no-scrollbar space-y-2" id="notebook-items-container">
-        <!-- Rendered items -->
-      </div>
-    </div>
-  </div>
-
-  <!-- JAVASCRIPT LOGIC DATA & INTERACTION ENGINE -->
-  <script>
-    // ==========================================
-    // 1. DATA BANK FOR GRADE 7 (LỚP 7)
-    // ==========================================
-    const knowledgeData = [
-      // TOÁN 7
-      {
-        id: "toan-1",
-        subject: "toan",
-        subjectName: "Toán 7 - Đại Số",
-        title: "Tỉ lệ thức & Tính chất Dãy tỉ số bằng nhau",
-        desc: "Định nghĩa: Tỉ lệ thức là đẳng thức của hai tỉ số \\(\\frac{a}{b} = \\frac{c}{d}\\).",
-        formula: "\\frac{a}{b} = \\frac{c}{d} \\implies a \\cdot d = b \\cdot c \\quad \\text{và} \\quad \\frac{a}{b} = \\frac{c}{d} = \\frac{a+c}{b+d} = \\frac{a-c}{b-d}",
-        example: "Cho \\(\\frac{x}{3} = \\frac{y}{5}\\) và \\(x + y = 16\\). Ta có: \\(\\frac{x}{3} = \\frac{y}{5} = \\frac{x+y}{3+5} = \\frac{16}{8} = 2 \\implies x = 6, y = 10\\)."
-      },
-      {
-        id: "toan-2",
-        subject: "toan",
-        subjectName: "Toán 7 - Hình Học",
-        title: "Các trường hợp bằng nhau của Hai Tam Giác",
-        desc: "Hai tam giác bằng nhau khi các cạnh tương ứng bằng nhau và các góc tương ứng bằng nhau.",
-        formula: "1. Cạnh - Cạnh - Cạnh (c-c-c)\n2. Cạnh - Góc - Cạnh (c-g-c)\n3. Góc - Cạnh - Góc (g-c-g)",
-        example: "Tam giác vuông bằng nhau: Cạnh huyền - Cạnh góc vuông hoặc Cạnh huyền - Góc nhọn."
-      },
-      {
-        id: "toan-3",
-        subject: "toan",
-        subjectName: "Toán 7 - Hình Học 3D",
-        title: "Hình Lăng Trụ Đứng Tam Giác & Tứ Giác",
-        desc: "Hình lăng trụ đứng có các mặt bên là hình chữ nhật, hai đáy song song và bằng nhau.",
-        formula: "S_{XungQuan} = C_{đáy} \\cdot h \\quad | \\quad V = S_{đáy} \\cdot h",
-        example: "Hình hộp chữ nhật dài 4cm, rộng 3cm, cao 5cm \\(\\implies V = 4 \\cdot 3 \\cdot 5 = 60\\text{ cm}^3\\)."
-      },
-
-      // KHOA HỌC TỰ NHIÊN 7
-      {
-        id: "khtn-1",
-        subject: "khtn",
-        subjectName: "KHTN 7 - Hóa Học",
-        title: "Nguyên tử, Nguyên tố Hóa học & Bảng tuần hoàn",
-        desc: "Nguyên tử gồm hạt nhân mang điện tích dương (Proton + Neutron) và vỏ nguyên tử gồm các Electron mang điện tích âm.",
-        formula: "\\text{Khối lượng nguyên tử} \\approx m_p + m_n \\quad (m_e \\text{ rất nhỏ không đáng kể})",
-        example: "Số Proton = Số Electron (Nguyên tử luôn trung hòa về điện)."
-      },
-      {
-        id: "khtn-2",
-        subject: "khtn",
-        subjectName: "KHTN 7 - Vật Lý",
-        title: "Tốc độ di chuyển & Đồ thị Quãng đường - Thời gian",
-        desc: "Tốc độ cho biết mức độ nhanh hay chậm của chuyển động.",
-        formula: "v = \\frac{s}{t} \\quad \\implies s = v \\cdot t \\quad \\text{và} \\quad t = \\frac{s}{v}",
-        example: "Đơn vị hợp pháp: m/s hoặc km/h. Đổi đơn vị: \\(1\\text{ m/s} = 3.6\\text{ km/h}\\)."
-      },
-      {
-        id: "khtn-3",
-        subject: "khtn",
-        subjectName: "KHTN 7 - Sinh Học",
-        title: "Trao đổi chất và Chuyển hóa năng lượng ở sinh vật",
-        desc: "Quang hợp ở cây xanh tổng hợp chất hữu cơ từ CO₂ và H₂O dưới ánh sáng mặt trời.",
-        formula: "\\text{Nước} + \\text{Khí cacbonic} \\xrightarrow{\\text{Ánh sáng, Diệp lục}} \\text{Glucose} + \\text{Khí Oxi}",
-        example: "Lá cây là cơ quan quang hợp chủ yếu nhờ chứa tế bào diệp lục."
-      },
-
-      // TIẾNG ANH 7
-      {
-        id: "eng-1",
-        subject: "tienganh",
-        subjectName: "Tiếng Anh 7 - Grammar",
-        title: "Past Simple Tense (Thì Quá khứ đơn)",
-        desc: "Diễn tả hành động đã xảy ra và kết thúc hoàn toàn trong quá khứ.",
-        formula: "(+) S + V2/ed \n(-) S + did not (didn't) + V-bare \n(?) Did + S + V-bare?",
-        example: "Yesterday, I visited my grandparents. / She didn't go to school last Monday."
-      },
-      {
-        id: "eng-2",
-        subject: "tienganh",
-        subjectName: "Tiếng Anh 7 - Grammar",
-        title: "Comparative & Superlative Adjectives (So sánh hơn & So sánh nhất)",
-        desc: "Dùng để so sánh tính chất giữa 2 hoặc nhiều đối tượng.",
-        formula: "\\text{Short Adj: } S_1 + V + adj\\text{-er} + \\text{than } S_2 \n\\text{Long Adj: } S_1 + V + \\text{more } + adj + \\text{than } S_2",
-        example: "Ha Long Bay is more famous than my town. / English is easier than French."
-      },
-
-      // LỊCH SỬ & ĐỊA LÝ 7
-      {
-        id: "sudia-1",
-        subject: "sudia",
-        subjectName: "Lịch Sử & Địa Lý 7",
-        title: "Các cuộc Phát kiến Địa lý thế kỷ XV - XVI",
-        desc: "Các nhà hàng hải tiêu biểu: C.Cô-lôm-bô (tìm ra Châu Mỹ), Ma-gen-lăng (đi vòng quanh thế giới).",
-        formula: "\\text{Ý nghĩa: Mở rộng thương mại thế giới & tìm ra các châu lục mới.}",
-        example: "Năm 1492, C.Columbus phát hiện ra Tân Thế Giới (Châu Mỹ)."
-      }
-    ];
-
-    // FLASHCARD DATA BANK
-    const flashcardsData = [
-      {
-        subject: "tienganh",
-        subjectLabel: "Tiếng Anh 7",
-        front: "Hobby (n)",
-        subtitle: "Unit 1: Hobbies",
-        back: "Sở thích, hoạt động yêu thích lúc rảnh rỗi.",
-        example: "My favorite hobby is collecting stamp coins.",
-        speechText: "Hobby"
-      },
-      {
-        subject: "khtn",
-        subjectLabel: "KHTN 7 - Hóa",
-        front: "Electron (e)",
-        subtitle: "Vỏ nguyên tử",
-        back: "Hạt mang điện tích âm (-), chuyển động rất nhanh xung quanh hạt nhân.",
-        example: "Ký hiệu: e, Điện tích: -1",
-        speechText: "Electron"
-      },
-      {
-        subject: "toan",
-        subjectLabel: "Toán 7 - Hình Học",
-        front: "Hai góc đối đỉnh",
-        subtitle: "Chương góc & đường thẳng",
-        back: "Là hai góc mà mỗi cạnh của góc này là tia đối của một cạnh của góc kia. Hai góc đối đỉnh thì BẰNG NHAU.",
-        example: " Góc O1 = Góc O3",
-        speechText: "Hai góc đối đỉnh thì bằng nhau"
-      },
-      {
-        subject: "tienganh",
-        subjectLabel: "Tiếng Anh 7",
-        front: "Healthy (adj)",
-        subtitle: "Unit 2: Healthy Living",
-        back: "Lành mạnh, tốt cho sức khỏe.",
-        example: "Eating vegetables is very healthy.",
-        speechText: "Healthy"
-      },
-      {
-        subject: "sudia",
-        subjectLabel: "Lịch Sử 7",
-        front: "Phong trào Văn hóa Phục hưng",
-        subtitle: "Lịch sử Tây Âu",
-        back: "Khôi phục lại tinh hoa văn hóa cổ đại Hy Lạp - La Mã, đề cao giá trị con người.",
-        example: "Thế kỷ XIV - XVII ở Châu Âu",
-        speechText: "Phong trào văn hóa phục hưng"
-      }
-    ];
-
-    // QUIZ QUESTIONS BANK
-    const quizData = {
-      toan: [
-        {
-          q: "Nếu \\(\\frac{x}{4} = \\frac{3}{2}\\), giá trị của x là bao nhiêu?",
-          options: ["x = 5", "x = 6", "x = 8", "x = 12"],
-          correct: 1,
-          exp: "\\(x = \\frac{4 \\cdot 3}{2} = \\frac{12}{2} = 6\\)."
-        },
-        {
-          q: "Tổng số đo ba góc trong một tam giác bằng bao nhiêu độ?",
-          options: ["90°", "180°", "360°", "270°"],
-          correct: 1,
-          exp: "Theo định lý tổng ba góc của một tam giác luôn bằng 180°."
-        }
-      ],
-      khtn: [
-        {
-          q: "Hạt nào sau đây mang điện tích dương trong hạt nhân nguyên tử?",
-          options: ["Electron", "Neutron", "Proton", "Phân tử"],
-          correct: 2,
-          exp: "Proton mang điện tích dương (+), Neutron không mang điện, Electron mang điện âm (-)."
-        },
-        {
-          q: "Công thức tính tốc độ chuyển động là gì?",
-          options: ["v = s . t", "v = s / t", "v = t / s", "v = s + t"],
-          correct: 1,
-          exp: "Tốc độ v bằng quãng đường s chia cho thời gian t (v = s/t)."
-        }
-      ],
-      tienganh: [
-        {
-          q: "Choose the correct past form of 'GO':",
-          options: ["goed", "went", "gone", "going"],
-          correct: 1,
-          exp: "Động từ bất quy tắc: Go -> Went -> Gone."
-        }
-      ],
-      sudia: [
-        {
-          q: "Nhà hàng hải C.Cô-lôm-bô đã phát hiện ra châu lục nào vào năm 1492?",
-          options: ["Châu Á", "Châu Phi", "Châu Mỹ", "Châu Úc"],
-          correct: 2,
-          exp: "Năm 1492, Christopher Columbus đã dẫn đầu đoàn tàu tìm ra Châu Mỹ (Tân thế giới)."
-        }
-      ]
-    };
-
-    // ==========================================
-    // 2. STATE MANAGEMENT & SYSTEM LOGIC
-    // ==========================================
-    let currentTab = 'tab-home';
-    let currentFlashcardIndex = 0;
-    let isFlipped = false;
-    let filteredFlashcards = [...flashcardsData];
-    
-    let currentQuizSubject = 'toan';
-    let currentQuizIndex = 0;
-    let quizScore = 0;
-    
-    let bookmarks = JSON.parse(localStorage.getItem('g7_bookmarks') || '[]');
-    let customNotes = JSON.parse(localStorage.getItem('g7_custom_notes') || '[]');
-
-    // Countdown Timer logic for Grade 7 Exams
-    function initExamCountdown() {
-      // Set target date to May 20 (End of term 2 exam)
-      const targetDate = new Date();
-      targetDate.setMonth(targetDate.getMonth() + 2);
-
-      function update() {
-        const now = new Date();
-        const diff = targetDate - now;
-        if(diff <= 0) {
-          document.getElementById('countdown-timer').innerText = "Đã đến kỳ thi!";
-          return;
-        }
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        document.getElementById('countdown-timer').innerText = `${days} Ngày ${hours} Giờ`;
-      }
-      update();
-      setInterval(update, 60000);
-    }
-
-    // Tab Switching
-    function switchTab(tabId) {
-      currentTab = tabId;
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      const activeContent = document.getElementById(tabId);
-      if(activeContent) activeContent.classList.remove('hidden');
-
-      // Update Nav buttons styling
-      document.querySelectorAll('.nav-item').forEach(btn => {
-        btn.classList.remove('text-sky-600', 'dark:text-sky-400');
-        btn.classList.add('text-gray-400');
-        btn.querySelector('span').classList.remove('font-bold');
-      });
-
-      const activeNavBtn = document.getElementById(`nav-btn-${tabId}`);
-      if(activeNavBtn) {
-        activeNavBtn.classList.remove('text-gray-400');
-        activeNavBtn.classList.add('text-sky-600', 'dark:text-sky-400');
-        activeNavBtn.querySelector('span').classList.add('font-bold');
-      }
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Dark mode toggle
-    function toggleDarkMode() {
-      document.documentElement.classList.toggle('dark');
-      const isDark = document.documentElement.classList.contains('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    }
-
-    // Initialize Theme
-    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-
-    // ==========================================
-    // 3. KNOWLEDGE TAB RENDERER & BOOKMARKS
-    // ==========================================
-    function renderKnowledgeList(filterSubject = 'all') {
-      const container = document.getElementById('knowledge-list-container');
-      container.innerHTML = '';
-
-      const items = filterSubject === 'all' 
-        ? knowledgeData 
-        : knowledgeData.filter(item => item.subject === filterSubject);
-
-      if(items.length === 0) {
-        container.innerHTML = `<p class="text-center text-xs text-gray-400 py-6">Chưa có bài học cho môn này.</p>`;
-        return;
-      }
-
-      items.forEach(item => {
-        const isSaved = bookmarks.some(b => b.id === item.id);
-        const cardHtml = `
-          <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm transition-all hover:shadow-md">
-            <div class="flex justify-between items-start mb-2">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300 uppercase">
-                ${item.subjectName}
-              </span>
-              <button onclick="toggleBookmark('${item.id}')" class="text-sm ${isSaved ? 'text-amber-500' : 'text-gray-300 dark:text-gray-600'} hover:scale-110 active:scale-95 transition-all">
-                <i class="fa-solid fa-bookmark"></i>
-              </button>
             </div>
-            <h3 class="font-bold text-sm text-gray-900 dark:text-white mb-1">${item.title}</h3>
-            <p class="text-xs text-gray-600 dark:text-gray-300 mb-2 leading-relaxed">${item.desc}</p>
+        </aside>
 
-            ${item.formula ? `
-              <div class="p-2.5 my-2 bg-gray-50 dark:bg-gray-700/50 rounded-xl font-mono text-xs text-sky-700 dark:text-sky-300 border-l-4 border-sky-500 whitespace-pre-wrap">
-                ${item.formula}
-              </div>
-            ` : ''}
+        <!-- Main Display Studio Right/Center -->
+        <main class="flex-1 flex flex-col bg-slate-950 overflow-hidden relative">
+            
+            <!-- View Tabs Bar -->
+            <div class="h-12 bg-slate-900/90 border-b border-slate-800 px-4 flex items-center justify-between shrink-0 z-20">
+                <div class="flex items-center space-x-1 sm:space-x-2">
+                    <button onclick="switchTab('beforeAfter')" id="tabBtn-beforeAfter" class="tab-btn active px-3 py-1.5 rounded-lg text-xs font-medium text-brand-400 bg-brand-500/10 border border-brand-500/30 flex items-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-sliders text-xs"></i>
+                        <span>So Sánh Trước / Sau</span>
+                    </button>
+                    <button onclick="switchTab('studio3d')" id="tabBtn-studio3d" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-cube text-xs"></i>
+                        <span>Không Gian 3D Tương Tác</span>
+                    </button>
+                    <button onclick="switchTab('report')" id="tabBtn-report" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-clipboard-list text-xs"></i>
+                        <span>Tư Vấn & Báo Giá</span>
+                    </button>
+                </div>
 
-            ${item.example ? `
-              <div class="text-[11px] text-gray-500 dark:text-gray-400 italic bg-amber-50/50 dark:bg-amber-950/20 p-2 rounded-lg">
-                💡 <strong>Ví dụ:</strong> ${item.example}
-              </div>
-            ` : ''}
-          </div>
-        `;
-        container.innerHTML += cardHtml;
-      });
-    }
+                <div class="text-[11px] text-slate-400 hidden lg:flex items-center gap-2">
+                    <i class="fa-regular fa-lightbulb text-gold-400"></i>
+                    <span id="tabTip">Kéo thanh trượt để so sánh phối cảnh cải tạo AI</span>
+                </div>
+            </div>
 
-    function filterSubjectTab(subject) {
-      document.querySelectorAll('.subject-chip').forEach(chip => {
-        chip.classList.remove('bg-sky-600', 'text-white', 'shadow-md');
-        chip.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
-      });
-      event.target.classList.add('bg-sky-600', 'text-white', 'shadow-md');
-      renderKnowledgeList(subject);
-    }
+            <!-- Loading Overlay -->
+            <div id="aiLoadingOverlay" class="hidden absolute inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex flex-col items-center justify-center p-6 text-center">
+                <div class="relative w-20 h-20 mb-6">
+                    <div class="absolute inset-0 rounded-full border-4 border-brand-500/20 border-t-brand-500 animate-spin"></div>
+                    <div class="absolute inset-2 rounded-full border-4 border-emerald-400/20 border-b-emerald-400 animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-brand-400">
+                        <i class="fa-solid fa-brain text-2xl animate-pulse"></i>
+                    </div>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2" id="loadingTitle">Gemini AI Đang Phân Tích Không Gian...</h3>
+                <p class="text-xs text-slate-400 max-w-md leading-relaxed mb-4" id="loadingSubtitle">
+                    Đang quét bố cục kiến trúc, bóc tách ánh sáng & tạo mô hình phối cảnh 3D...
+                </p>
+                <div class="w-64 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div id="loadingProgress" class="h-full bg-gradient-to-r from-brand-500 to-emerald-400 w-1/4 transition-all duration-500"></div>
+                </div>
+            </div>
 
-    function openSubjectKnowledge(subject) {
-      switchTab('tab-knowledge');
-      filterSubjectTab(subject);
-    }
+            <!-- TAB 1: BEFORE / AFTER SLIDER -->
+            <div id="tabContent-beforeAfter" class="tab-content flex-1 flex flex-col p-4 overflow-hidden relative">
+                <div class="flex-1 w-full h-full rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden relative flex items-center justify-center shadow-2xl">
+                    
+                    <div id="sliderWrapper" class="slider-container w-full h-full max-h-full">
+                        <!-- Background: Renovation (After) -->
+                        <img id="imgAfter" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80" alt="Sau khi cải tạo" class="img-before">
+                        
+                        <!-- Overlay: Original (Before) -->
+                        <div id="afterWrapper" class="img-after-wrapper">
+                            <img id="imgBefore" src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1600&q=80" alt="Hiện trạng ban đầu" class="img-after">
+                        </div>
 
-    function toggleBookmark(id) {
-      const idx = bookmarks.findIndex(b => b.id === id);
-      if(idx >= 0) {
-        bookmarks.splice(idx, 1);
-      } else {
-        const found = knowledgeData.find(k => k.id === id);
-        if(found) bookmarks.push(found);
-      }
-      localStorage.setItem('g7_bookmarks', JSON.stringify(bookmarks));
-      updateBookmarkBadge();
-      renderKnowledgeList();
-      renderNotebookItems();
-    }
+                        <!-- Draggable Slider Handle -->
+                        <div id="sliderHandle" class="slider-handle">
+                            <i class="fa-solid fa-arrows-left-right text-xs"></i>
+                        </div>
 
-    function updateBookmarkBadge() {
-      const badge = document.getElementById('bookmark-badge');
-      const total = bookmarks.length + customNotes.length;
-      if(total > 0) {
-        badge.innerText = total;
-        badge.classList.remove('hidden');
-      } else {
-        badge.classList.add('hidden');
-      }
-    }
+                        <!-- Labels -->
+                        <div class="absolute top-4 left-4 px-3 py-1 bg-slate-950/80 backdrop-blur-md rounded-lg text-xs font-semibold text-slate-300 border border-slate-700/60 pointer-events-none">
+                            <i class="fa-solid fa-clock-rotate-left text-brand-400 mr-1"></i> Gốc Hiện Trạng
+                        </div>
+                        <div class="absolute top-4 right-4 px-3 py-1 bg-brand-900/80 backdrop-blur-md rounded-lg text-xs font-semibold text-brand-300 border border-brand-500/40 pointer-events-none flex items-center gap-1.5">
+                            <i class="fa-solid fa-wand-magic-sparkles text-gold-400"></i> Cải Tạo AI Phối Cảnh
+                        </div>
+                    </div>
 
-    // ==========================================
-    // 4. CALCULATORS ENGINE
-    // ==========================================
-    function selectCalcTool(toolName) {
-      document.querySelectorAll('.calc-panel').forEach(p => p.classList.add('hidden'));
-      document.querySelectorAll('.calc-tab-btn').forEach(b => {
-        b.classList.remove('bg-white', 'dark:bg-gray-800', 'text-sky-600', 'dark:text-sky-400', 'shadow-sm', 'font-bold');
-        b.classList.add('text-gray-600', 'dark:text-gray-300', 'font-medium');
-      });
+                </div>
+            </div>
 
-      document.getElementById(`calc-tool-${toolName}`).classList.remove('hidden');
-      document.getElementById(`btn-calc-${toolName}`).classList.add('bg-white', 'dark:bg-gray-800', 'text-sky-600', 'dark:text-sky-400', 'shadow-sm', 'font-bold');
-    }
+            <!-- TAB 2: INTERACTIVE 3D STUDIO (THREE.JS) -->
+            <div id="tabContent-studio3d" class="tab-content hidden flex-1 flex flex-col relative overflow-hidden">
+                
+                <!-- 3D Toolbar floating top -->
+                <div class="absolute top-3 left-3 right-3 z-10 flex flex-wrap items-center justify-between gap-2 p-2 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-800 shadow-xl">
+                    
+                    <!-- Camera View Presets -->
+                    <div class="flex items-center space-x-1">
+                        <span class="text-[11px] font-semibold text-slate-400 px-2 uppercase">Góc Nhìn:</span>
+                        <button onclick="set3DCameraView('isometric')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg transition-colors">
+                            Isometric (Góc nghiêng)
+                        </button>
+                        <button onclick="set3DCameraView('top')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg transition-colors">
+                            Mặt Bằng (Top)
+                        </button>
+                        <button onclick="set3DCameraView('eye')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg transition-colors">
+                            Tầm Mắt Người (Eye)
+                        </button>
+                    </div>
 
-    function calculateSpeed() {
-      const s = parseFloat(document.getElementById('speed-s').value);
-      const t = parseFloat(document.getElementById('speed-t').value);
-      const unitS = document.getElementById('speed-unit-s').value;
-      const unitT = document.getElementById('speed-unit-t').value;
-      const resDiv = document.getElementById('result-speed');
+                    <!-- Material & Wall Controls -->
+                    <div class="flex items-center space-x-3">
+                        <!-- Wall Color Picker -->
+                        <div class="flex items-center space-x-1.5">
+                            <label class="text-xs text-slate-300">Sơn Tường:</label>
+                            <input type="color" id="wallColorPicker" value="#f1f5f9" onchange="updateWallColor(this.value)" class="w-6 h-6 rounded cursor-pointer bg-transparent border-0">
+                        </div>
 
-      if(isNaN(s) || isNaN(t) || t <= 0) {
-        resDiv.classList.remove('hidden');
-        resDiv.innerText = " Vui lòng nhập số hợp lệ và thời gian t > 0!";
-        return;
-      }
+                        <!-- Floor Type Switcher -->
+                        <div class="flex items-center space-x-1.5">
+                            <label class="text-xs text-slate-300">Sàn:</label>
+                            <select id="floorTypeSelect" onchange="updateFloorType(this.value)" class="bg-slate-800 text-xs text-slate-200 border border-slate-700 rounded-md px-2 py-1 focus:outline-none">
+                                <option value="wood">Sàn Gỗ Ấm</option>
+                                <option value="tile">Gạch Men Trắng</option>
+                                <option value="concrete">Bê Tông Xi Măng</option>
+                            </select>
+                        </div>
 
-      const v = (s / t).toFixed(2);
-      let unitV = `${unitS}/${unitT}`;
-      resDiv.classList.remove('hidden');
-      resDiv.innerHTML = ` Kết quả Tốc độ v = <span class="text-base font-extrabold">${v} ${unitV}</span>`;
-    }
+                        <!-- Light Toggle -->
+                        <button onclick="toggle3DLighting()" id="btnLightToggle" class="px-2.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-medium rounded-lg flex items-center gap-1">
+                            <i class="fa-solid fa-sun text-xs"></i> Ban Ngày
+                        </button>
+                    </div>
 
-    function calculateProportion() {
-      const a = parseFloat(document.getElementById('prop-a').value);
-      const b = parseFloat(document.getElementById('prop-b').value);
-      const c = parseFloat(document.getElementById('prop-c').value);
-      const resDiv = document.getElementById('result-proportion');
+                </div>
 
-      if(isNaN(a) || isNaN(b) || isNaN(c) || a === 0) {
-        resDiv.classList.remove('hidden');
-        resDiv.innerText = " Vui lòng nhập số hợp lệ và a ≠ 0!";
-        return;
-      }
+                <!-- Three.js Canvas Container -->
+                <div id="canvas3dContainer" class="w-full h-full bg-slate-950 flex-1 relative cursor-grab">
+                    <!-- Canvas inserted here by JS -->
+                </div>
 
-      const x = ((b * c) / a).toFixed(2);
-      resDiv.classList.remove('hidden');
-      resDiv.innerHTML = ` Kết quả x = <span class="text-base font-extrabold">${x}</span> (Vì ${a}/${b} = ${c}/${x})`;
-    }
+                <!-- 3D Interactive Helper Footer -->
+                <div class="absolute bottom-3 left-3 z-10 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-800 text-[11px] text-slate-400 flex items-center space-x-3">
+                    <span><i class="fa-solid fa-computer-mouse text-brand-400 mr-1"></i> Xoay: Chuột trái</span>
+                    <span><i class="fa-solid fa-arrows-up-down-left-right text-brand-400 mr-1"></i> Di chuyển: Chuột phải</span>
+                    <span><i class="fa-solid fa-magnifying-glass-plus text-brand-400 mr-1"></i> Zoom: Cuộn chuột</span>
+                </div>
 
-    function calculatePrismVolume() {
-      const baseArea = parseFloat(document.getElementById('prism-base-area').value);
-      const height = parseFloat(document.getElementById('prism-height').value);
-      const resDiv = document.getElementById('result-prism');
+            </div>
 
-      if(isNaN(baseArea) || isNaN(height) || baseArea <= 0 || height <= 0) {
-        resDiv.classList.remove('hidden');
-        resDiv.innerText = " Vui lòng nhập diện tích và chiều cao > 0!";
-        return;
-      }
+            <!-- TAB 3: ADVICE & COST ESTIMATION -->
+            <div id="tabContent-report" class="tab-content hidden flex-1 p-4 lg:p-6 overflow-y-auto">
+                <div class="max-w-4xl mx-auto space-y-6">
+                    
+                    <!-- Renovation Executive Summary -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 lg:p-6 shadow-xl">
+                        <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
+                                    <i class="fa-solid fa-compass-drafting text-lg"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-base font-bold text-white" id="reportTitle">Phương Án Cải Tạo Không Gian</h2>
+                                    <p class="text-xs text-slate-400" id="reportSubtitle">Được phân tích bởi AI Gemini Architecture Core</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold border border-brand-500/20" id="reportStyleBadge">
+                                Phong Cách: Hiện Đại
+                            </span>
+                        </div>
 
-      const v = (baseArea * height).toFixed(2);
-      resDiv.classList.remove('hidden');
-      resDiv.innerHTML = ` Thể tích Lăng trụ V = <span class="text-base font-extrabold">${v} cm³</span>`;
-    }
+                        <div class="text-xs text-slate-300 leading-relaxed mb-6 space-y-2" id="reportOverview">
+                            <p>Đang chờ phân tích từ AI...</p>
+                        </div>
 
-    function autoFillMolarMass() {
-      calculateMolarMass();
-    }
+                        <!-- Recommendations grid -->
+                        <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Giải Pháp Cải Tạo Trọng Tâm:</h3>
+                        <div id="reportRecommendations" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
 
-    function calculateMolarMass() {
-      const preset = document.getElementById('molar-preset').value;
-      const resDiv = document.getElementById('result-molarmass');
-      resDiv.classList.remove('hidden');
+                    <!-- Color Swatches & Material Palette -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- Color Palette -->
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+                            <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 flex items-center justify-between">
+                                <span>Bảng Màu Đề Xuất Phối Cảnh</span>
+                                <i class="fa-solid fa-palette text-brand-400"></i>
+                            </h3>
+                            <div id="colorSwatches" class="space-y-3">
+                                <!-- Swatches populated dynamically -->
+                            </div>
+                        </div>
 
-      let text = "";
-      if(preset === 'H2O') {
-        text = "• H₂O = 2 × 1 (H) + 16 (O) = <strong>18 amu</strong>";
-      } else if(preset === 'CO2') {
-        text = "• CO₂ = 12 (C) + 2 × 16 (O) = <strong>44 amu</strong>";
-      } else if(preset === 'NaCl') {
-        text = "• NaCl = 23 (Na) + 35.5 (Cl) = <strong>58.5 amu</strong>";
-      } else if(preset === 'O2') {
-        text = "• O₂ = 2 × 16 (O) = <strong>32 amu</strong>";
-      } else if(preset === 'CH4') {
-        text = "• CH₄ = 12 (C) + 4 × 1 (H) = <strong>16 amu</strong>";
-      }
-      resDiv.innerHTML = text;
-    }
+                        <!-- Key Materials -->
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+                            <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 flex items-center justify-between">
+                                <span>Vật Liệu Khuyên Dùng</span>
+                                <i class="fa-solid fa-cubes text-brand-400"></i>
+                            </h3>
+                            <div id="materialList" class="space-y-2.5">
+                                <!-- Materials populated dynamically -->
+                            </div>
+                        </div>
 
-    // ==========================================
-    // 5. FLASHCARD 3D & SPEECH ENGINE
-    // ==========================================
-    function filterFlashcards(subject) {
-      document.querySelectorAll('.fc-filter').forEach(btn => {
-        btn.classList.remove('bg-purple-600', 'text-white', 'active');
-        btn.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-300');
-      });
-      event.target.classList.add('bg-purple-600', 'text-white', 'active');
+                    </div>
 
-      if(subject === 'all') {
-        filteredFlashcards = [...flashcardsData];
-      } else {
-        filteredFlashcards = flashcardsData.filter(card => card.subject === subject);
-      }
-      currentFlashcardIndex = 0;
-      isFlipped = false;
-      renderCurrentFlashcard();
-    }
+                    <!-- Cost Estimation Table (VNĐ) -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 lg:p-6 shadow-xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="text-sm font-bold text-white">Dự Toán Chi Phí Tu Sửa Tham Khảo</h3>
+                                <p class="text-xs text-slate-400">Ước tính theo mặt bằng trung bình thị trường Việt Nam</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 block">Tổng dự toán:</span>
+                                <span id="totalCostTag" class="text-base font-extrabold text-brand-400">0 VNĐ</span>
+                            </div>
+                        </div>
 
-    function renderCurrentFlashcard() {
-      const cardContainer = document.getElementById('flashcard-card');
-      cardContainer.style.transform = 'rotateY(0deg)';
-      isFlipped = false;
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs text-slate-300">
+                                <thead class="bg-slate-950 text-slate-400 uppercase font-semibold border-b border-slate-800">
+                                    <tr>
+                                        <th class="py-2.5 px-3">Hạng Mục</th>
+                                        <th class="py-2.5 px-3">Chi Tiết Vật Tư / Nhân Công</th>
+                                        <th class="py-2.5 px-3 text-center">Đơn Vị</th>
+                                        <th class="py-2.5 px-3 text-right">Đơn Giá (VNĐ)</th>
+                                        <th class="py-2.5 px-3 text-right">Thành Tiền (VNĐ)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="costTableBody" class="divide-y divide-slate-800/60">
+                                    <!-- Table Rows populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-      if(filteredFlashcards.length === 0) {
-        document.getElementById('fc-front-title').innerText = "Không có thẻ nào";
-        document.getElementById('fc-back-desc').innerText = "Vui lòng chọn môn khác.";
-        return;
-      }
+                </div>
+            </div>
 
-      const card = filteredFlashcards[currentFlashcardIndex];
-      document.getElementById('flashcard-counter').innerText = `${currentFlashcardIndex + 1} / ${filteredFlashcards.length}`;
-      document.getElementById('fc-subject-badge').innerText = card.subjectLabel;
-      document.getElementById('fc-front-title').innerText = card.front;
-      document.getElementById('fc-front-subtitle').innerText = card.subtitle;
-      document.getElementById('fc-back-desc').innerText = card.back;
-      document.getElementById('fc-back-example').innerText = `Ví dụ: ${card.example}`;
-    }
+        </main>
+    </div>
 
-    function flipFlashcard() {
-      const cardContainer = document.getElementById('flashcard-card');
-      isFlipped = !isFlipped;
-      cardContainer.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
-    }
-
-    function nextFlashcard() {
-      if(filteredFlashcards.length === 0) return;
-      currentFlashcardIndex = (currentFlashcardIndex + 1) % filteredFlashcards.length;
-      renderCurrentFlashcard();
-    }
-
-    function prevFlashcard() {
-      if(filteredFlashcards.length === 0) return;
-      currentFlashcardIndex = (currentFlashcardIndex - 1 + filteredFlashcards.length) % filteredFlashcards.length;
-      renderCurrentFlashcard();
-    }
-
-    function shuffleFlashcards() {
-      filteredFlashcards.sort(() => Math.random() - 0.5);
-      currentFlashcardIndex = 0;
-      renderCurrentFlashcard();
-    }
-
-    function speakFlashcardText(e) {
-      e.stopPropagation();
-      if(filteredFlashcards.length === 0) return;
-      const card = filteredFlashcards[currentFlashcardIndex];
-      
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(card.speechText || card.front);
-        utterance.lang = card.subject === 'tienganh' ? 'en-US' : 'vi-VN';
-        utterance.rate = 0.9;
-        window.speechSynthesis.speak(utterance);
-      }
-    }
-
-    // ==========================================
-    // 6. QUIZ PRACTICE ENGINE
-    // ==========================================
-    function loadQuizSubject(subject) {
-      currentQuizSubject = subject;
-      currentQuizIndex = 0;
-      quizScore = 0;
-      document.getElementById('quiz-score-badge').innerText = `Điểm: 0`;
-
-      document.querySelectorAll('.qz-tab-btn').forEach(btn => {
-        btn.classList.remove('bg-white', 'dark:bg-gray-800', 'text-emerald-600', 'shadow-sm', 'font-bold');
-        btn.classList.add('text-gray-600', 'dark:text-gray-300', 'font-medium');
-      });
-
-      const activeBtn = document.getElementById(`qz-btn-${subject}`);
-      if(activeBtn) {
-        activeBtn.classList.add('bg-white', 'dark:bg-gray-800', 'text-emerald-600', 'shadow-sm', 'font-bold');
-      }
-
-      renderQuizQuestion();
-    }
-
-    function renderQuizQuestion() {
-      const questions = quizData[currentQuizSubject] || [];
-      const expBox = document.getElementById('quiz-explanation-box');
-      const nextBtn = document.getElementById('btn-next-quiz');
-      expBox.classList.add('hidden');
-      nextBtn.classList.add('hidden');
-
-      if(currentQuizIndex >= questions.length) {
-        document.getElementById('quiz-question-text').innerText = `🎉 Hoàn thành bài luyện tập ${currentQuizSubject.toUpperCase()}! Total Score: ${quizScore} điểm.`;
-        document.getElementById('quiz-options-container').innerHTML = `
-          <button onclick="loadQuizSubject('${currentQuizSubject}')" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl">
-            🔄 Thử lại môn này
-          </button>
-        `;
-        return;
-      }
-
-      const q = questions[currentQuizIndex];
-      document.getElementById('quiz-progress-text').innerText = `Câu hỏi ${currentQuizIndex + 1} / ${questions.length}`;
-      document.getElementById('quiz-subject-tag').innerText = currentQuizSubject.toUpperCase();
-      document.getElementById('quiz-question-text').innerText = q.q;
-
-      const optsContainer = document.getElementById('quiz-options-container');
-      optsContainer.innerHTML = '';
-
-      q.options.forEach((optText, index) => {
-        const btn = document.createElement('button');
-        btn.className = `w-full text-left px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 text-xs font-semibold text-gray-800 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-between`;
-        btn.innerHTML = `<span>${String.fromCharCode(65 + index)}. ${optText}</span> <i class="fa-regular fa-circle text-gray-400"></i>`;
-        btn.onclick = () => checkQuizAnswer(index, q.correct, btn);
-        optsContainer.appendChild(btn);
-      });
-    }
-
-    function checkQuizAnswer(selectedIndex, correctIndex, btnElement) {
-      const q = quizData[currentQuizSubject][currentQuizIndex];
-      const buttons = document.getElementById('quiz-options-container').querySelectorAll('button');
-      buttons.forEach(b => b.disabled = true);
-
-      if(selectedIndex === correctIndex) {
-        btnElement.classList.remove('bg-gray-50', 'dark:bg-gray-700/50');
-        btnElement.classList.add('bg-emerald-100', 'dark:bg-emerald-950', 'border-emerald-500', 'text-emerald-800', 'dark:text-emerald-200');
-        btnElement.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-600';
-        quizScore += 10;
-        document.getElementById('quiz-score-badge').innerText = `Điểm: ${quizScore}`;
-      } else {
-        btnElement.classList.remove('bg-gray-50', 'dark:bg-gray-700/50');
-        btnElement.classList.add('bg-red-100', 'dark:bg-red-950', 'border-red-500', 'text-red-800', 'dark:text-red-200');
-        btnElement.querySelector('i').className = 'fa-solid fa-circle-xmark text-red-600';
-
-        // Highlight correct option
-        buttons[correctIndex].classList.add('bg-emerald-50', 'dark:bg-emerald-950/40', 'border-emerald-400');
-      }
-
-      // Show explanation & Next button
-      document.getElementById('quiz-explanation-text').innerText = q.exp;
-      document.getElementById('quiz-explanation-box').classList.remove('hidden');
-      document.getElementById('btn-next-quiz').classList.remove('hidden');
-      document.getElementById('btn-next-quiz').classList.add('flex');
-    }
-
-    function nextQuizQuestion() {
-      currentQuizIndex++;
-      renderQuizQuestion();
-    }
-
-    // ==========================================
-    // 7. GEMINI AI ASSISTANT CHAT ENGINE
-    // ==========================================
-    let aiChatHistory = [
-      {
-        role: "user",
-        parts: [{ text: "Hãy đóng vai một gia sư sư phạm thân thiện chuyên hỗ trợ học sinh Lớp 7 (Toán 7, KHTN 7, Tiếng Anh 7, Sử Địa 7). Luôn trả lời ngắn gọn, dễ hiểu, có biểu tượng cảm xúc và ví dụ minh họa thích hợp." }]
-      },
-      {
-        role: "model",
-        parts: [{ text: "Chào em! Thầy/Cô gia sư Lớp 7 đã sẵn sàng đồng hành cùng em. Em cần hỗ trợ bài học nào hôm nay?" }]
-      }
-    ];
-
-    async function handleAskAI() {
-      const inputEl = document.getElementById('ai-user-input');
-      const userText = inputEl.value.trim();
-      if(!userText) return;
-
-      inputEl.value = '';
-      appendChatMessage('user', userText);
-
-      // Loading bubble
-      const loadingId = appendLoadingBubble();
-
-      try {
-        const apiKey = ""; // Canvas runtime API Key insertion point
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-        aiChatHistory.push({
-          role: "user",
-          parts: [{ text: userText }]
-        });
-
-        const payload = {
-          contents: aiChatHistory,
-          systemInstruction: {
-            parts: [{ text: "Bạn là trợ lý học tập cho học sinh Lớp 7 tại Việt Nam. Giải thích các khái niệm Toán 7, KHTN 7 (Lý, Hóa, Sinh), Tiếng Anh 7 ngắn gọn, súc tích, dễ nhớ." }]
-          }
+    <!-- JAVASCRIPT LOGIC CORE -->
+    <script>
+        // Global Application State
+        const state = {
+            spaceType: 'living',
+            style: 'Modern',
+            styleNameVi: 'Hiện Đại',
+            customNote: '',
+            base64Image: null,
+            renovatedImageUrl: null,
+            aiData: null,
+            activeTab: 'beforeAfter',
+            lightingDay: true,
+            wallColor: '#f1f5f9',
+            floorType: 'wood'
         };
 
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+        // Sample Base64 / Default Fallbacks
+        const sampleImages = {
+            living: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=80',
+            bedroom: 'https://images.unsplash.com/photo-1540518614846-7ede433c5172?auto=format&fit=crop&w=1200&q=80',
+            facade: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80'
+        };
+
+        const sampleAfterImages = {
+            Modern: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
+            Minimalist: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80',
+            Scandinavian: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80',
+            Indochine: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80',
+            Neoclassical: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80'
+        };
+
+        // Initialize App on DOM Load
+        window.addEventListener('DOMContentLoaded', () => {
+            initBeforeAfterSlider();
+            initThreeJS();
+            loadSampleImage('living');
         });
 
-        const result = await response.json();
-        removeLoadingBubble(loadingId);
+        // --- SECTION 1: SELECTION CONTROLS ---
 
-        if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
-          const aiResponse = result.candidates[0].content.parts[0].text;
-          aiChatHistory.push({
-            role: "model",
-            parts: [{ text: aiResponse }]
-          });
-          appendChatMessage('ai', aiResponse);
-        } else {
-          appendChatMessage('ai', 'Rất tiếc, thầy/cô chưa phản hồi kịp. Em thử hỏi lại lần nữa nhé!');
+        function selectSpaceType(type) {
+            state.spaceType = type;
+            document.querySelectorAll('.space-btn').forEach(btn => {
+                if (btn.dataset.space === type) {
+                    btn.classList.add('active', 'border-brand-500', 'bg-brand-500/10', 'text-brand-300');
+                    btn.classList.remove('border-slate-800', 'bg-slate-950', 'text-slate-300');
+                } else {
+                    btn.classList.remove('active', 'border-brand-500', 'bg-brand-500/10', 'text-brand-300');
+                    btn.classList.add('border-slate-800', 'bg-slate-950', 'text-slate-300');
+                }
+            });
         }
 
-      } catch (err) {
-        removeLoadingBubble(loadingId);
-        appendChatMessage('ai', 'Có lỗi kết nối mạng. Em hãy kiểm tra đường truyền và thử lại nhé!');
-      }
-    }
+        function selectStyle(styleKey, styleNameVi) {
+            state.style = styleKey;
+            state.styleNameVi = styleNameVi;
+            document.getElementById('selectedStyleLabel').innerText = `${styleNameVi} (${styleKey})`;
 
-    function sendQuickPrompt(promptText) {
-      document.getElementById('ai-user-input').value = promptText;
-      handleAskAI();
-    }
+            document.querySelectorAll('.style-card').forEach(card => {
+                if (card.dataset.style === styleKey) {
+                    card.classList.add('active', 'border-brand-500', 'bg-brand-500/10');
+                    card.classList.remove('border-slate-800', 'bg-slate-950');
+                } else {
+                    card.classList.remove('active', 'border-brand-500', 'bg-brand-500/10');
+                    card.classList.add('border-slate-800', 'bg-slate-950');
+                }
+            });
+        }
 
-    function appendChatMessage(sender, text) {
-      const container = document.getElementById('ai-chat-messages');
-      const isUser = sender === 'user';
-      
-      const msgDiv = document.createElement('div');
-      msgDiv.className = `flex items-start gap-2 ${isUser ? 'justify-end' : 'max-w-[90%]'}`;
+        function loadSampleImage(key) {
+            const url = sampleImages[key] || sampleImages.living;
+            document.getElementById('previewImg').src = url;
+            document.getElementById('imgBefore').src = url;
+            document.getElementById('uploadPlaceholder').classList.add('hidden');
+            document.getElementById('uploadPreview').classList.remove('hidden');
 
-      const avatar = isUser ? '' : `
-        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
-          <i class="fa-solid fa-robot"></i>
-        </div>
-      `;
+            // Convert URL to base64 for API usage
+            convertUrlToBase64(url, (b64) => {
+                state.base64Image = b64;
+            });
+            selectSpaceType(key === 'facade' ? 'facade' : key);
+        }
 
-      const bubbleClass = isUser 
-        ? 'bg-indigo-600 text-white rounded-2xl rounded-tr-none p-3 text-xs leading-relaxed shadow-sm max-w-[85%]'
-        : 'bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl rounded-tl-none p-3 text-xs text-gray-800 dark:text-gray-200 leading-relaxed shadow-sm';
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
 
-      msgDiv.innerHTML = `
-        ${avatar}
-        <div class="${bubbleClass}">
-          ${escapeHtml(text).replace(/\n/g, '<br>')}
-        </div>
-      `;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const b64 = e.target.result;
+                state.base64Image = b64;
+                document.getElementById('previewImg').src = b64;
+                document.getElementById('imgBefore').src = b64;
+                document.getElementById('uploadPlaceholder').classList.add('hidden');
+                document.getElementById('uploadPreview').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
 
-      container.appendChild(msgDiv);
-      container.scrollTop = container.scrollHeight;
-    }
+        function convertUrlToBase64(url, callback) {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                callback(canvas.toDataURL('image/jpeg'));
+            };
+            img.src = url;
+        }
 
-    function appendLoadingBubble() {
-      const container = document.getElementById('ai-chat-messages');
-      const id = 'loading-' + Date.now();
-      const div = document.createElement('div');
-      div.id = id;
-      div.className = 'flex items-start gap-2 max-w-[88%]';
-      div.innerHTML = `
-        <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
-          <i class="fa-solid fa-robot"></i>
-        </div>
-        <div class="bg-indigo-50 dark:bg-indigo-950/60 p-3 rounded-2xl rounded-tl-none text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
-          <i class="fa-solid fa-circle-notch animate-spin"></i> Gia sư đang suy nghĩ...
-        </div>
-      `;
-      container.appendChild(div);
-      container.scrollTop = container.scrollHeight;
-      return id;
-    }
+        // --- SECTION 2: BEFORE / AFTER SLIDER LOGIC ---
 
-    function removeLoadingBubble(id) {
-      const el = document.getElementById(id);
-      if(el) el.remove();
-    }
+        function initBeforeAfterSlider() {
+            const wrapper = document.getElementById('sliderWrapper');
+            const handle = document.getElementById('sliderHandle');
+            const afterWrapper = document.getElementById('afterWrapper');
 
-    function clearAIChat() {
-      aiChatHistory = aiChatHistory.slice(0, 2);
-      const container = document.getElementById('ai-chat-messages');
-      container.innerHTML = `
-        <div class="flex items-start gap-2 max-w-[88%]">
-          <div class="w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs shrink-0 mt-0.5">
-            <i class="fa-solid fa-robot"></i>
-          </div>
-          <div class="bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900/50 rounded-2xl rounded-tl-none p-3 text-xs text-gray-800 dark:text-gray-200 leading-relaxed shadow-sm">
-            Cuộc trò chuyện đã làm mới! Em muốn hỏi gì nào? 😊
-          </div>
-        </div>
-      `;
-    }
+            let isDragging = false;
 
-    // Utility escape html
-    function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
+            function setPosition(x) {
+                const rect = wrapper.getBoundingClientRect();
+                let pos = (x - rect.left) / rect.width;
+                if (pos < 0) pos = 0;
+                if (pos > 1) pos = 1;
 
-    // ==========================================
-    // 8. NOTEBOOK & SEARCH MODAL LOGIC
-    // ==========================================
-    function openNotebookDrawer() {
-      document.getElementById('notebook-drawer').classList.remove('hidden');
-      renderNotebookItems();
-    }
+                const percentage = pos * 100;
+                afterWrapper.style.width = `${percentage}%`;
+                handle.style.left = `${percentage}%`;
+            }
 
-    function closeNotebookDrawer() {
-      document.getElementById('notebook-drawer').classList.add('hidden');
-    }
+            // Mouse Events
+            handle.addEventListener('mousedown', () => isDragging = true);
+            window.addEventListener('mouseup', () => isDragging = false);
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                setPosition(e.clientX);
+            });
 
-    function saveCustomNote() {
-      const title = document.getElementById('custom-note-title').value.trim();
-      const body = document.getElementById('custom-note-body').value.trim();
-      if(!title || !body) return;
+            // Touch Events
+            handle.addEventListener('touchstart', () => isDragging = true);
+            window.addEventListener('touchend', () => isDragging = false);
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging || !e.touches[0]) return;
+                setPosition(e.touches[0].clientX);
+            });
+        }
 
-      customNotes.push({ id: 'note-' + Date.now(), title, body });
-      localStorage.setItem('g7_custom_notes', JSON.stringify(customNotes));
-      document.getElementById('custom-note-title').value = '';
-      document.getElementById('custom-note-body').value = '';
-      updateBookmarkBadge();
-      renderNotebookItems();
-    }
+        function switchTab(tabId) {
+            state.activeTab = tabId;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-brand-400', 'bg-brand-500/10', 'border', 'border-brand-500/30');
+                btn.classList.add('text-slate-400');
+            });
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
 
-    function deleteCustomNote(id) {
-      customNotes = customNotes.filter(n => n.id !== id);
-      localStorage.setItem('g7_custom_notes', JSON.stringify(customNotes));
-      updateBookmarkBadge();
-      renderNotebookItems();
-    }
+            const currentBtn = document.getElementById(`tabBtn-${tabId}`);
+            currentBtn.classList.add('active', 'text-brand-400', 'bg-brand-500/10', 'border', 'border-brand-500/30');
+            currentBtn.classList.remove('text-slate-400');
 
-    function renderNotebookItems() {
-      const container = document.getElementById('notebook-items-container');
-      container.innerHTML = '';
+            document.getElementById(`tabContent-${tabId}`).classList.remove('hidden');
 
-      if(bookmarks.length === 0 && customNotes.length === 0) {
-        container.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">Chưa có công thức hoặc ghi chú nào được lưu.</p>`;
-        return;
-      }
+            // Tips header text
+            const tips = {
+                beforeAfter: 'Kéo thanh trượt để so sánh phối cảnh cải tạo AI',
+                studio3d: 'Xoay 360°, đổi màu tường và chất liệu sàn trực tiếp trong 3D',
+                report: 'Xem chi tiết giải pháp kiến trúc, bảng màu và bảng giá bóc tách'
+            };
+            document.getElementById('tabTip').innerText = tips[tabId];
 
-      // Render bookmarked formulas
-      if(bookmarks.length > 0) {
-        container.innerHTML += `<h4 class="text-[11px] font-bold text-sky-600 uppercase tracking-wide">Công thức đã lưu (${bookmarks.length})</h4>`;
-        bookmarks.forEach(item => {
-          container.innerHTML += `
-            <div class="p-2.5 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-xl text-xs space-y-1">
-              <div class="flex justify-between font-bold text-gray-900 dark:text-white">
-                <span>${item.title}</span>
-                <button onclick="toggleBookmark('${item.id}')" class="text-red-500 hover:scale-110"><i class="fa-solid fa-trash text-[11px]"></i></button>
-              </div>
-              <p class="text-gray-500 dark:text-gray-300 text-[11px]">${item.desc}</p>
-            </div>
-          `;
-        });
-      }
+            if (tabId === 'studio3d' && renderer3d && camera3d) {
+                setTimeout(() => {
+                    onWindowResize3D();
+                }, 100);
+            }
+        }
 
-      // Render custom notes
-      if(customNotes.length > 0) {
-        container.innerHTML += `<h4 class="text-[11px] font-bold text-amber-600 uppercase tracking-wide mt-3">Ghi chú riêng (${customNotes.length})</h4>`;
-        customNotes.forEach(note => {
-          container.innerHTML += `
-            <div class="p-2.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 rounded-xl text-xs space-y-1">
-              <div class="flex justify-between font-bold text-amber-900 dark:text-amber-200">
-                <span>${note.title}</span>
-                <button onclick="deleteCustomNote('${note.id}')" class="text-red-500 hover:scale-110"><i class="fa-solid fa-trash text-[11px]"></i></button>
-              </div>
-              <p class="text-gray-700 dark:text-gray-300 text-[11px]">${note.body}</p>
-            </div>
-          `;
-        });
-      }
-    }
+        // --- SECTION 3: GEMINI AI API INTEGRATION ---
 
-    function toggleQuickSearchModal() {
-      const modal = document.getElementById('search-modal');
-      modal.classList.toggle('hidden');
-      if(!modal.classList.contains('hidden')) {
-        document.getElementById('quick-search-input').focus();
-      }
-    }
+        async function processAITransformation() {
+            state.customNote = document.getElementById('customNote').value.trim();
 
-    function filterQuickSearch() {
-      const query = document.getElementById('quick-search-input').value.toLowerCase().trim();
-      const container = document.getElementById('quick-search-results');
+            showLoading(true, "AI Gemini Đang Phân Tích Không Gian...", "Đang khởi tạo thuật toán thị giác máy tính...");
 
-      if(!query) {
-        container.innerHTML = `<p class="text-gray-400 text-center py-4">Nhập từ khóa tìm kiếm (Ví dụ: "Tỷ lệ thức", "Nguyên tử", "Quá khứ đơn"...)</p>`;
-        return;
-      }
+            try {
+                // Step 1: Call Gemini Vision for Structured JSON Advice & Costing
+                updateProgress(25, "Gemini Vision: Bóc tách bố cục & Lập dự toán...");
+                const analysisResult = await callGeminiAnalysisAPI();
 
-      const matches = knowledgeData.filter(k => 
-        k.title.toLowerCase().includes(query) || 
-        k.desc.toLowerCase().includes(query) ||
-        (k.formula && k.formula.toLowerCase().includes(query))
-      );
+                // Step 2: Call Gemini Image Generation for Renovation Rendering
+                updateProgress(65, "Gemini Image Core: Đang tạo ảnh phối cảnh 3D...");
+                const renovatedImageUrl = await callGeminiImageGenAPI();
 
-      if(matches.length === 0) {
-        container.innerHTML = `<p class="text-gray-400 text-center py-4">Không tìm thấy công thức trùng khớp.</p>`;
-        return;
-      }
+                // Step 3: Apply Results to UI
+                updateProgress(90, "Đang dựng Mô hình 3D & Tổng hợp báo cáo...");
+                
+                state.aiData = analysisResult;
+                state.renovatedImageUrl = renovatedImageUrl;
 
-      container.innerHTML = '';
-      matches.forEach(item => {
-        container.innerHTML += `
-          <div onclick="toggleQuickSearchModal(); openSubjectKnowledge('${item.subject}')" class="p-2.5 bg-gray-50 dark:bg-gray-700/50 hover:bg-sky-50 rounded-xl cursor-pointer">
-            <div class="text-[10px] font-bold text-sky-600 uppercase">${item.subjectName}</div>
-            <div class="font-bold text-gray-900 dark:text-white">${item.title}</div>
-            <div class="text-[11px] text-gray-500 dark:text-gray-300 line-clamp-1">${item.desc}</div>
-          </div>
-        `;
-      });
-    }
+                // Update Images
+                document.getElementById('imgAfter').src = renovatedImageUrl;
 
-    // MathJax Rendering Trigger if loaded
-    function triggerMathRender() {
-      if(window.MathJax) {
-        MathJax.typesetPromise();
-      }
-    }
+                // Update Report
+                renderReportData(analysisResult);
 
-    // ==========================================
-    // 9. ON LOAD INITIALIZATION
-    // ==========================================
-    window.onload = function() {
-      initExamCountdown();
-      renderKnowledgeList('all');
-      renderCurrentFlashcard();
-      loadQuizSubject('toan');
-      updateBookmarkBadge();
-    };
-  </script>
+                // Rebuild 3D Scene based on AI layout
+                build3DRoomFromAI(analysisResult.room3d);
 
-  <!-- MathJax CDN for dynamic math rendering -->
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+                updateProgress(100, "Hoàn tất!");
+                setTimeout(() => {
+                    showLoading(false);
+                    switchTab('beforeAfter');
+                }, 500);
 
+            } catch (err) {
+                console.warn("API Call fallback activated:", err);
+                // Graceful fallback to rich mock data if network/API limits occur
+                fallbackDemoData();
+            }
+        }
+
+        function showLoading(show, title = "", sub = "") {
+            const overlay = document.getElementById('aiLoadingOverlay');
+            if (show) {
+                if (title) document.getElementById('loadingTitle').innerText = title;
+                if (sub) document.getElementById('loadingSubtitle').innerText = sub;
+                overlay.classList.remove('hidden');
+            } else {
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function updateProgress(percent, sub = "") {
+            document.getElementById('loadingProgress').style.width = `${percent}%`;
+            if (sub) document.getElementById('loadingSubtitle').innerText = sub;
+        }
+
+        // --- 3.1 Gemini Vision Text & JSON Structured Analysis Call ---
+        async function callGeminiAnalysisAPI() {
+            const apiKey = ""; // Canvas runtime injected or fallback
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const systemPrompt = `Bạn là Kiến trúc sư Trưởng & Chuyên gia Cải Tạo Nhà Cao Cấp tại Việt Nam.
+Hãy phân tích ảnh hiện trạng và yêu cầu cải tạo của người dùng để đưa ra giải pháp tu sửa chi tiết theo dạng JSON.
+Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được yêu cầu:
+- overview: Đánh giá hiện trạng và định hướng cải tạo (văn bản tiếng Việt)
+- recommendations: Mảng 4 giải pháp trọng tâm (title, desc)
+- colors: Mảng 3-4 màu đề xuất (name, hex, usage)
+- materials: Mảng 4 vật liệu khuyên dùng (name, description, estPrice)
+- budget: Mảng các hạng mục chi phí (category, item, unit, qty, unitPrice) - tính theo VNĐ
+- room3d: Cấu hình phòng 3D (wallColor, floorColor, floorType, furniture: danh sách vật thể bao gồm type: 'sofa'|'table'|'bed'|'tv'|'plant'|'lamp', x, y, z)`;
+
+            const userPrompt = `Cải tạo không gian: ${state.spaceType}, Phong cách: ${state.style} (${state.styleNameVi}). Ghi chú riêng: ${state.customNote || "Tối ưu ánh sáng và mở rộng không gian"}`;
+
+            const parts = [{ text: userPrompt }];
+            if (state.base64Image && state.base64Image.startsWith('data:image')) {
+                const base64Data = state.base64Image.split(',')[1];
+                parts.push({
+                    inlineData: {
+                        mimeType: 'image/jpeg',
+                        data: base64Data
+                    }
+                });
+            }
+
+            const payload = {
+                contents: [{ role: 'user', parts: parts }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                    responseMimeType: "application/json"
+                }
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error("Gemini Vision API Failed");
+
+            const result = await response.json();
+            const textJson = result.candidates?.[0]?.content?.parts?.[0]?.text;
+            return JSON.parse(textJson);
+        }
+
+        // --- 3.2 Gemini Image Generation Call ---
+        async function callGeminiImageGenAPI() {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${apiKey}`;
+
+            const promptText = `A professional photorealistic architectural interior photograph of a renovated ${state.spaceType} in ${state.style} style. Warm ambient LED lighting, high quality materials, modern Vietnamese home design, 8k resolution, clean and neat. ${state.customNote}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: promptText }]
+                }],
+                generationConfig: {
+                    responseModalities: ['IMAGE'],
+                    imageConfig: { aspectRatio: "16:9" }
+                }
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error("Gemini Image API Failed");
+
+            const result = await response.json();
+            const part = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+            if (part && part.inlineData) {
+                return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+            }
+
+            return sampleAfterImages[state.style] || sampleAfterImages.Modern;
+        }
+
+        // --- 3.3 Rich Fallback Demo Generator ---
+        function fallbackDemoData() {
+            const afterUrl = sampleAfterImages[state.style] || sampleAfterImages.Modern;
+            document.getElementById('imgAfter').src = afterUrl;
+
+            const mockResult = {
+                overview: `Căn phòng đã được tái thiết kế theo phong cách ${state.styleNameVi}, xử lý triệt để khuyết điểm thiếu sáng và chật chội của không gian cũ. Bố cục mới ưu tiên luồng giao thông thoáng đạt, tích hợp hệ thống tủ kệ âm tường và ánh sáng gián tiếp hiện đại.`,
+                recommendations: [
+                    { title: "Tối ưu hóa Ánh Sáng Natural", desc: "Mở rộng góc cửa sổ và sử dụng rèm cầu phồng 2 lớp màu kem để điều tiết ánh sáng mềm mại." },
+                    { title: "Bề Mặt & Vật Liệu Sang Trọng", desc: "Ốp sàn gỗ công nghiệp chống nước màu sồi ấm áp kết hợp tường sơn hiệu ứng bê tông mỏng." },
+                    { title: "Nội Thất Thông Minh Tối Giản", desc: "Sử dụng sofa dạng mô-đun kết hợp bàn trà chân kim loại thanh thoát tạo cảm giác rộng rãi." },
+                    { title: "Hệ Đèn Chiếu Sáng Kịch Bản", desc: "Đèn LED ray âm trần chiếu điểm kết hợp đèn ngủ đứng tạo điểm nhấn không gian ấm cúng." }
+                ],
+                colors: [
+                    { name: "Trắng Kem Ấm (Warm Cream)", hex: "#f5f2eb", usage: "Sơn tường chính (70%)" },
+                    { name: "Gỗ Sồi Tự Nhiên (Oak Wood)", hex: "#c49a6c", usage: "Sàn nhà & Hệ tủ đồ (20%)" },
+                    { name: "Xám Than Điểm Nhấn (Charcoal)", hex: "#333a42", usage: "Khung cửa & Kim loại (10%)" }
+                ],
+                materials: [
+                    { name: "Sàn Gỗ Xương Cá An Cường", description: "Chống xước hDF cao cấp, vân sồi tự nhiên", estPrice: "480.000 VNĐ/m²" },
+                    { name: "Sơn Lau Chùi Dulux EasyClean", description: "Bề mặt mờ mịn, kháng khuẩn, chống bám bẩn", estPrice: "95.000 VNĐ/m²" },
+                    { name: "Đèn LED Âm Trần Rạng Đông", description: "Đổi 3 màu ánh sáng, công suất 9W tiết kiệm điện", estPrice: "120.000 VNĐ/cái" },
+                    { name: "Vải Đệm Sofa Kháng Nước", description: "Chất liệu nỉ bố cao cấp nhập khẩu Hàn Quốc", estPrice: "1.200.000 VNĐ/m" }
+                ],
+                budget: [
+                    { category: "Phá dỡ & Xử lý thô", item: "Đục gạch cũ, dọn vệ sinh mặt bằng", unit: "Gói", qty: 1, unitPrice: 3500000 },
+                    { category: "Sơn & Trát hoàn thiện", item: "SơnDulux 1 lớp lót 2 lớp phủ", unit: "m²", qty: 65, unitPrice: 95000 },
+                    { category: "Lát sàn", item: "Lắp đặt sàn gỗ công nghiệp 12mm", unit: "m²", qty: 28, unitPrice: 450000 },
+                    { category: "Hệ thống điện & Đèn", item: "Đi lại dây điện âm tường + Lắp đèn LED", unit: "Gói", qty: 1, unitPrice: 6800000 },
+                    { category: "Nội thất chính", item: "Bộ Sofa văng + Bàn trà + Kệ Tivi", unit: "Bộ", qty: 1, unitPrice: 18500000 }
+                ],
+                room3d: {
+                    wallColor: "#f1f5f9",
+                    floorColor: "#c49a6c",
+                    floorType: "wood",
+                    furniture: [
+                        { type: 'sofa', x: 0, y: 0.4, z: -1.5 },
+                        { type: 'table', x: 0, y: 0.25, z: -0.3 },
+                        { type: 'tv', x: 0, y: 0.8, z: 2.2 },
+                        { type: 'plant', x: -2.2, y: 0.6, z: -1.8 },
+                        { type: 'lamp', x: 2.2, y: 0.9, z: -1.8 }
+                    ]
+                }
+            };
+
+            renderReportData(mockResult);
+            build3DRoomFromAI(mockResult.room3d);
+
+            showLoading(false);
+            switchTab('beforeAfter');
+        }
+
+        // Render report HTML table & cards
+        function renderReportData(data) {
+            document.getElementById('reportStyleBadge').innerText = `Phong Cách: ${state.styleNameVi}`;
+            document.getElementById('reportOverview').innerHTML = `<p>${data.overview}</p>`;
+
+            // Recommendations
+            const recContainer = document.getElementById('reportRecommendations');
+            recContainer.innerHTML = (data.recommendations || []).map(r => `
+                <div class="p-3 bg-slate-950/60 border border-slate-800 rounded-xl">
+                    <div class="font-semibold text-xs text-brand-400 mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-check-circle text-xs"></i> ${r.title}
+                    </div>
+                    <div class="text-[11px] text-slate-300">${r.desc}</div>
+                </div>
+            `).join('');
+
+            // Colors
+            const colorContainer = document.getElementById('colorSwatches');
+            colorContainer.innerHTML = (data.colors || []).map(c => `
+                <div class="flex items-center space-x-3 p-2 rounded-xl bg-slate-950/40 border border-slate-800">
+                    <div class="w-8 h-8 rounded-lg shadow border border-slate-700 shrink-0" style="background-color: ${c.hex}"></div>
+                    <div class="flex-1 min-w-0">
+                        <div class="text-xs font-semibold text-slate-200 truncate">${c.name} <span class="text-[10px] text-slate-400">(${c.hex})</span></div>
+                        <div class="text-[10px] text-slate-400 truncate">${c.usage}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Materials
+            const matContainer = document.getElementById('materialList');
+            matContainer.innerHTML = (data.materials || []).map(m => `
+                <div class="p-2.5 bg-slate-950/40 border border-slate-800 rounded-xl flex items-center justify-between">
+                    <div>
+                        <div class="text-xs font-semibold text-slate-200">${m.name}</div>
+                        <div class="text-[10px] text-slate-400">${m.description}</div>
+                    </div>
+                    <span class="text-xs font-bold text-brand-400 shrink-0 ml-2">${m.estPrice}</span>
+                </div>
+            `).join('');
+
+            // Budget Table
+            let total = 0;
+            const tableBody = document.getElementById('costTableBody');
+            tableBody.innerHTML = (data.budget || []).map(b => {
+                const subTotal = (b.qty || 1) * (b.unitPrice || 0);
+                total += subTotal;
+                return `
+                    <tr class="hover:bg-slate-800/40 transition-colors">
+                        <td class="py-2.5 px-3 font-medium text-slate-200">${b.category}</td>
+                        <td class="py-2.5 px-3 text-slate-300">${b.item}</td>
+                        <td class="py-2.5 px-3 text-center text-slate-400">${b.unit}</td>
+                        <td class="py-2.5 px-3 text-right text-slate-300">${(b.unitPrice || 0).toLocaleString('vi-VN')}</td>
+                        <td class="py-2.5 px-3 text-right font-semibold text-emerald-400">${subTotal.toLocaleString('vi-VN')}đ</td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('totalCostTag').innerText = `${total.toLocaleString('vi-VN')} VNĐ`;
+        }
+
+        // --- SECTION 4: THREE.JS 3D INTERACTIVE STUDIO ---
+
+        let scene3d, camera3d, renderer3d, controls3d;
+        let roomGroup3d;
+        let wallMaterial3d, floorMaterial3d, dirLight3d, ambLight3d;
+
+        function initThreeJS() {
+            const container = document.getElementById('canvas3dContainer');
+            const width = container.clientWidth || 800;
+            const height = container.clientHeight || 500;
+
+            // Scene
+            scene3d = new THREE.Scene();
+            scene3d.background = new THREE.Color(0x090d16);
+
+            // Camera
+            camera3d = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+            camera3d.position.set(6, 5, 7);
+
+            // Renderer
+            renderer3d = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer3d.setSize(width, height);
+            renderer3d.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer3d.shadowMap.enabled = true;
+            renderer3d.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer3d.domElement);
+
+            // Controls
+            controls3d = new THREE.OrbitControls(camera3d, renderer3d.domElement);
+            controls3d.enableDamping = true;
+            controls3d.dampingFactor = 0.05;
+            controls3d.maxPolarAngle = Math.PI / 2 - 0.02; // Don't go below floor
+
+            // Lights
+            ambLight3d = new THREE.AmbientLight(0xffffff, 0.6);
+            scene3d.add(ambLight3d);
+
+            dirLight3d = new THREE.DirectionalLight(0xfff5ea, 0.9);
+            dirLight3d.position.set(5, 8, 4);
+            dirLight3d.castShadow = true;
+            dirLight3d.shadow.mapSize.width = 1024;
+            dirLight3d.shadow.mapSize.height = 1024;
+            scene3d.add(dirLight3d);
+
+            // Initial Default Room
+            build3DRoomFromAI();
+
+            // Window Resize Listener
+            window.addEventListener('resize', onWindowResize3D);
+
+            // Animation Loop
+            function animate() {
+                requestAnimationFrame(animate);
+                controls3d.update();
+                renderer3d.render(scene3d, camera3d);
+            }
+            animate();
+        }
+
+        function onWindowResize3D() {
+            const container = document.getElementById('canvas3dContainer');
+            if (!container || !renderer3d || !camera3d) return;
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            camera3d.aspect = width / height;
+            camera3d.updateProjectionMatrix();
+            renderer3d.setSize(width, height);
+        }
+
+        // Construct Room Enclosure and Furniture
+        function build3DRoomFromAI(roomConfig) {
+            if (roomGroup3d) scene3d.remove(roomGroup3d);
+            roomGroup3d = new THREE.Group();
+
+            const wallColorHex = roomConfig?.wallColor || state.wallColor || "#f1f5f9";
+            const floorColorHex = roomConfig?.floorColor || "#c49a6c";
+
+            // Materials
+            wallMaterial3d = new THREE.MeshStandardMaterial({
+                color: new THREE.Color(wallColorHex),
+                roughness: 0.85
+            });
+
+            floorMaterial3d = new THREE.MeshStandardMaterial({
+                color: new THREE.Color(floorColorHex),
+                roughness: 0.4,
+                metalness: 0.1
+            });
+
+            // Dimensions: 6m x 5m x 3m
+            const W = 6, L = 5, H = 3;
+
+            // Floor
+            const floorGeo = new THREE.PlaneGeometry(W, L);
+            const floor = new THREE.Mesh(floorGeo, floorMaterial3d);
+            floor.rotation.x = -Math.PI / 2;
+            floor.receiveShadow = true;
+            roomGroup3d.add(floor);
+
+            // Back Wall
+            const backWallGeo = new THREE.PlaneGeometry(W, H);
+            const backWall = new THREE.Mesh(backWallGeo, wallMaterial3d);
+            backWall.position.set(0, H / 2, -L / 2);
+            backWall.receiveShadow = true;
+            roomGroup3d.add(backWall);
+
+            // Left Wall
+            const leftWallGeo = new THREE.PlaneGeometry(L, H);
+            const leftWall = new THREE.Mesh(leftWallGeo, wallMaterial3d);
+            leftWall.position.set(-W / 2, H / 2, 0);
+            leftWall.rotation.y = Math.PI / 2;
+            leftWall.receiveShadow = true;
+            roomGroup3d.add(leftWall);
+
+            // Right Wall
+            const rightWall = new THREE.Mesh(leftWallGeo, wallMaterial3d);
+            rightWall.position.set(W / 2, H / 2, 0);
+            rightWall.rotation.y = -Math.PI / 2;
+            rightWall.receiveShadow = true;
+            roomGroup3d.add(rightWall);
+
+            // Window Accent on Left Wall
+            const windowFrameGeo = new THREE.BoxGeometry(0.05, 1.4, 2.0);
+            const windowMat = new THREE.MeshStandardMaterial({ color: 0x334155 });
+            const windowFrame = new THREE.Mesh(windowFrameGeo, windowMat);
+            windowFrame.position.set(-W / 2 + 0.03, 1.8, 0);
+            roomGroup3d.add(windowFrame);
+
+            // Add Furniture Items based on roomConfig or defaults
+            const furnitureList = roomConfig?.furniture || [
+                { type: 'sofa', x: 0, y: 0.4, z: -1.2 },
+                { type: 'table', x: 0, y: 0.25, z: -0.2 },
+                { type: 'tv', x: 0, y: 0.8, z: 2.2 },
+                { type: 'plant', x: -2.3, y: 0.6, z: -1.8 },
+                { type: 'lamp', x: 2.3, y: 0.9, z: -1.8 }
+            ];
+
+            furnitureList.forEach(item => {
+                const mesh = createFurnitureMesh(item.type);
+                if (mesh) {
+                    mesh.position.set(item.x, item.y, item.z);
+                    mesh.castShadow = true;
+                    mesh.receiveShadow = true;
+                    roomGroup3d.add(mesh);
+                }
+            });
+
+            scene3d.add(roomGroup3d);
+        }
+
+        // Parametric 3D Furniture Creator
+        function createFurnitureMesh(type) {
+            const group = new THREE.Group();
+
+            if (type === 'sofa') {
+                // Main seat cushion
+                const baseGeo = new THREE.BoxGeometry(2.4, 0.4, 0.9);
+                const fabricMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
+                const base = new THREE.Mesh(baseGeo, fabricMat);
+                base.castShadow = true;
+                group.add(base);
+
+                // Backrest
+                const backGeo = new THREE.BoxGeometry(2.4, 0.5, 0.25);
+                const back = new THREE.Mesh(backGeo, fabricMat);
+                back.position.set(0, 0.4, -0.32);
+                back.castShadow = true;
+                group.add(back);
+
+                // Armrests
+                const armGeo = new THREE.BoxGeometry(0.25, 0.45, 0.9);
+                const leftArm = new THREE.Mesh(armGeo, fabricMat);
+                leftArm.position.set(-1.2, 0.2, 0);
+                const rightArm = leftArm.clone();
+                rightArm.position.set(1.2, 0.2, 0);
+                group.add(leftArm, rightArm);
+
+                // Wooden legs
+                const legGeo = new THREE.CylinderGeometry(0.04, 0.03, 0.25);
+                const woodMat = new THREE.MeshStandardMaterial({ color: 0x78350f });
+                [-1.1, 1.1].forEach(x => {
+                    [-0.35, 0.35].forEach(z => {
+                        const leg = new THREE.Mesh(legGeo, woodMat);
+                        leg.position.set(x, -0.25, z);
+                        group.add(leg);
+                    });
+                });
+            } else if (type === 'table') {
+                // Marble Coffee Table
+                const topGeo = new THREE.CylinderGeometry(0.5, 0.5, 0.05, 32);
+                const topMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.2 });
+                const top = new THREE.Mesh(topGeo, topMat);
+                top.castShadow = true;
+                group.add(top);
+
+                const legGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.4);
+                const metalMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8 });
+                for (let i = 0; i < 3; i++) {
+                    const angle = (i * Math.PI * 2) / 3;
+                    const leg = new THREE.Mesh(legGeo, metalMat);
+                    leg.position.set(Math.cos(angle) * 0.35, -0.2, Math.sin(angle) * 0.35);
+                    group.add(leg);
+                }
+            } else if (type === 'tv') {
+                // TV Cabinet & Screen
+                const cabGeo = new THREE.BoxGeometry(2.2, 0.45, 0.45);
+                const cabMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5 });
+                const cab = new THREE.Mesh(cabGeo, cabMat);
+                cab.position.set(0, -0.25, 0);
+                cab.castShadow = true;
+                group.add(cab);
+
+                // TV Screen
+                const screenGeo = new THREE.BoxGeometry(1.6, 0.9, 0.05);
+                const screenMat = new THREE.MeshStandardMaterial({ color: 0x020617, roughness: 0.1 });
+                const screen = new THREE.Mesh(screenGeo, screenMat);
+                screen.position.set(0, 0.45, 0);
+                screen.castShadow = true;
+                group.add(screen);
+            } else if (type === 'plant') {
+                // House Plant Pot
+                const potGeo = new THREE.CylinderGeometry(0.25, 0.2, 0.5, 16);
+                const potMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0 });
+                const pot = new THREE.Mesh(potGeo, potMat);
+                pot.castShadow = true;
+                group.add(pot);
+
+                // Foliage
+                const leafMat = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.6 });
+                for (let i = 0; i < 5; i++) {
+                    const leafGeo = new THREE.SphereGeometry(0.22, 8, 8);
+                    const leaf = new THREE.Mesh(leafGeo, leafMat);
+                    leaf.scale.set(1, 1.5, 0.6);
+                    leaf.rotation.x = Math.random() * 0.5;
+                    leaf.rotation.y = (i * Math.PI * 2) / 5;
+                    leaf.position.set(Math.sin(leaf.rotation.y) * 0.15, 0.4 + i * 0.08, Math.cos(leaf.rotation.y) * 0.15);
+                    group.add(leaf);
+                }
+            } else if (type === 'lamp') {
+                // Floor Lamp
+                const baseGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.04);
+                const metalMat = new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.7 });
+                const base = new THREE.Mesh(baseGeo, metalMat);
+                group.add(base);
+
+                const poleGeo = new THREE.CylinderGeometry(0.02, 0.02, 1.6);
+                const pole = new THREE.Mesh(poleGeo, metalMat);
+                pole.position.set(0, 0.8, 0);
+                group.add(pole);
+
+                const shadeGeo = new THREE.ConeGeometry(0.25, 0.35, 16, 1, true);
+                const shadeMat = new THREE.MeshStandardMaterial({ color: 0xfffbeb, side: THREE.DoubleSide });
+                const shade = new THREE.Mesh(shadeGeo, shadeMat);
+                shade.position.set(0, 1.5, 0);
+                group.add(shade);
+
+                // Soft point light
+                const pointLight = new THREE.PointLight(0xfef3c7, 0.8, 3);
+                pointLight.position.set(0, 1.4, 0);
+                group.add(pointLight);
+            }
+
+            return group;
+        }
+
+        // --- 3D INTERACTIVE CONTROLS ---
+
+        function set3DCameraView(preset) {
+            if (!camera3d || !controls3d) return;
+
+            if (preset === 'isometric') {
+                camera3d.position.set(6, 5, 7);
+                controls3d.target.set(0, 0.5, 0);
+            } else if (preset === 'top') {
+                camera3d.position.set(0, 8.5, 0.1);
+                controls3d.target.set(0, 0, 0);
+            } else if (preset === 'eye') {
+                camera3d.position.set(0, 1.4, 4);
+                controls3d.target.set(0, 1.2, 0);
+            }
+            controls3d.update();
+        }
+
+        function updateWallColor(colorHex) {
+            state.wallColor = colorHex;
+            if (wallMaterial3d) {
+                wallMaterial3d.color.set(colorHex);
+            }
+        }
+
+        function updateFloorType(type) {
+            state.floorType = type;
+            if (!floorMaterial3d) return;
+
+            const floorColors = {
+                wood: 0xc49a6c,
+                tile: 0xe2e8f0,
+                concrete: 0x64748b
+            };
+            floorMaterial3d.color.setHex(floorColors[type] || 0xc49a6c);
+        }
+
+        function toggle3DLighting() {
+            state.lightingDay = !state.lightingDay;
+            const btn = document.getElementById('btnLightToggle');
+
+            if (state.lightingDay) {
+                ambLight3d.intensity = 0.6;
+                dirLight3d.intensity = 0.9;
+                scene3d.background.set(0x090d16);
+                btn.innerHTML = `<i class="fa-solid fa-sun text-xs"></i> Ban Ngày`;
+                btn.className = "px-2.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-medium rounded-lg flex items-center gap-1";
+            } else {
+                ambLight3d.intensity = 0.15;
+                dirLight3d.intensity = 0.2;
+                scene3d.background.set(0x020617);
+                btn.innerHTML = `<i class="fa-solid fa-moon text-xs"></i> Ban Đêm (Đèn LED)`;
+                btn.className = "px-2.5 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-medium rounded-lg flex items-center gap-1";
+            }
+        }
+
+        // Reset Everything
+        function resetAll() {
+            loadSampleImage('living');
+            selectStyle('Modern', 'Hiện Đại');
+            document.getElementById('customNote').value = '';
+            switchTab('beforeAfter');
+        }
+
+        // Export Report / Image
+        function exportDesignReport() {
+            if (state.renovatedImageUrl) {
+                const link = document.createElement('a');
+                link.href = state.renovatedImageUrl;
+                link.download = `RenoAI-ThiếtKế-${state.spaceType}-${Date.now()}.jpg`;
+                link.click();
+            } else {
+                alert("Hãy nhấn nút 'Phân Tích & Thiết Kế 3D Với AI' trước khi xuất file.");
+            }
+        }
+    </script>
 </body>
 </html>
