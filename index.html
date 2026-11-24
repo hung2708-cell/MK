@@ -2,7 +2,7 @@
 <html lang="vi" class="h-full bg-slate-950 text-slate-100">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RenoAI Studio - Tu Sửa Nhà Thông Minh & 3D Interactive</title>
     
     <!-- Tailwind CSS -->
@@ -15,6 +15,7 @@
                     colors: {
                         brand: {
                             50: '#f0fdf4',
+                            400: '#34d399',
                             500: '#10b981',
                             600: '#059669',
                             700: '#047857',
@@ -40,16 +41,17 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         /* Custom scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
         }
         ::-webkit-scrollbar-track {
             background: #0f172a;
@@ -67,6 +69,7 @@
             position: relative;
             overflow: hidden;
             user-select: none;
+            touch-action: none;
         }
         .img-before {
             position: absolute;
@@ -83,8 +86,8 @@
             height: 100%;
             width: 50%;
             overflow: hidden;
-            border-right: 2px solid #10b981;
-            box-shadow: 4px 0 15px rgba(0,0,0,0.5);
+            border-right: 3px solid #10b981;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.6);
         }
         .img-after {
             position: absolute;
@@ -98,118 +101,141 @@
             position: absolute;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: #10b981;
             color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.8), 0 0 0 4px rgba(15, 23, 42, 0.8);
             cursor: ew-resize;
             z-index: 10;
         }
 
-        /* Pulse animation for AI status */
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.85; transform: scale(0.98); }
-        }
-        .ai-glow {
-            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.3);
+        /* Safe Bottom Padding for Mobile Floating Bar */
+        @media (max-width: 1023px) {
+            .mobile-bottom-padding {
+                padding-bottom: 95px !important;
+            }
         }
     </style>
 </head>
-<body class="h-full flex flex-col bg-slate-950 text-slate-100 overflow-hidden">
+<body class="h-full flex flex-col bg-slate-950 text-slate-100 overflow-x-hidden">
 
-    <!-- Header Navigation -->
-    <header class="h-16 border-b border-slate-800 bg-slate-900/80 backdrop-blur-md px-4 lg:px-6 flex items-center justify-between z-30 shrink-0">
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-slate-950 shadow-lg shadow-brand-500/20">
-                <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+    <!-- Top Navigation Header -->
+    <header class="h-14 sm:h-16 border-b border-slate-800 bg-slate-900/90 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between z-30 shrink-0 sticky top-0">
+        <div class="flex items-center space-x-2.5">
+            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 shadow-lg shadow-brand-500/20 shrink-0">
+                <i class="fa-solid fa-wand-magic-sparkles text-lg sm:text-xl"></i>
             </div>
             <div>
-                <div class="flex items-center space-x-2">
-                    <h1 class="font-bold text-lg text-white tracking-wide">RenoAI <span class="text-brand-500">Studio</span></h1>
-                    <span class="px-2 py-0.5 text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/30 rounded-full">v3.5 AI 3D</span>
+                <div class="flex items-center space-x-1.5">
+                    <h1 class="font-extrabold text-base sm:text-lg text-white tracking-tight">RenoAI <span class="text-brand-400">Studio</span></h1>
+                    <span class="px-1.5 py-0.5 text-[10px] font-bold bg-brand-500/10 text-brand-400 border border-brand-500/30 rounded-md">3D AI</span>
                 </div>
-                <p class="text-xs text-slate-400 hidden sm:block">Kiến tạo không gian sống với AI Generative & 3D Tương tác</p>
+                <p class="text-[10px] sm:text-xs text-slate-400 hidden sm:block">Tu Sửa & Dựng Phối Cảnh 3D Tương Tác</p>
             </div>
         </div>
 
-        <div class="flex items-center space-x-3">
-            <div class="hidden md:flex items-center px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 space-x-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Gemini Engine: <strong class="text-emerald-400 font-medium">Sẵn sàng</strong></span>
-            </div>
-            
-            <button id="btnExportReport" onclick="exportDesignReport()" class="px-3.5 py-2 text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg flex items-center space-x-2 transition-all">
-                <i class="fa-solid fa-file-arrow-down text-brand-400"></i>
-                <span class="hidden sm:inline">Xuất Báo Cáo / Tải Ảnh</span>
+        <div class="flex items-center space-x-2">
+            <!-- API Key Status & Settings Button -->
+            <button onclick="openApiKeyModal()" id="apiKeyBadgeBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 flex items-center space-x-1.5 transition-all">
+                <span id="apiStatusDot" class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                <span id="apiBadgeText" class="hidden xs:inline">Cài API Key</span>
+                <i class="fa-solid fa-key text-gold-400 text-xs"></i>
             </button>
 
-            <button onclick="resetAll()" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors" title="Làm mới">
-                <i class="fa-solid fa-rotate-right"></i>
+            <!-- Export / Download Button -->
+            <button onclick="exportDesignReport()" class="px-2.5 py-1.5 text-xs font-medium bg-brand-600 hover:bg-brand-500 text-slate-950 font-bold rounded-lg flex items-center space-x-1.5 transition-all shadow-md shadow-brand-500/20">
+                <i class="fa-solid fa-download"></i>
+                <span class="hidden sm:inline">Tải Phối Cảnh</span>
+            </button>
+
+            <button onclick="resetAll()" class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors" title="Làm mới">
+                <i class="fa-solid fa-rotate-right text-xs sm:text-sm"></i>
             </button>
         </div>
     </header>
 
-    <!-- Main Workspace Grid -->
+    <!-- Mobile Navigation Tab Bar (Top) -->
+    <nav class="lg:hidden bg-slate-900 border-b border-slate-800 px-2 py-1.5 flex items-center justify-around z-20 shrink-0">
+        <button onclick="switchTab('config')" id="mobileTab-config" class="mobile-nav-btn active px-3 py-1.5 rounded-lg text-xs font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/30 flex items-center gap-1.5">
+            <i class="fa-solid fa-sliders text-xs"></i> 1. Đồ Họa & Ảnh
+        </button>
+        <button onclick="switchTab('beforeAfter')" id="mobileTab-beforeAfter" class="mobile-nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-split-screen text-xs"></i> 2. Phối Cảnh 3D
+        </button>
+        <button onclick="switchTab('studio3d')" id="mobileTab-studio3d" class="mobile-nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-cube text-xs"></i> 3. Không Gian 3D
+        </button>
+        <button onclick="switchTab('report')" id="mobileTab-report" class="mobile-nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 flex items-center gap-1.5">
+            <i class="fa-solid fa-calculator text-xs"></i> 4. Dự Toán
+        </button>
+    </nav>
+
+    <!-- Main Content Body -->
     <div class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
         
-        <!-- Sidebar Controls Left -->
-        <aside class="w-full lg:w-96 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto z-20">
-            <div class="p-4 lg:p-5 space-y-5">
+        <!-- SIDEBAR / CONFIG TAB (Controls) -->
+        <aside id="configPanel" class="w-full lg:w-96 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto z-20 mobile-bottom-padding">
+            <div class="p-4 space-y-5">
                 
-                <!-- Section 1: Upload Photo & Quick Presets -->
+                <!-- Section 1: Upload Photo & Sample Presets -->
                 <div>
                     <div class="flex justify-between items-center mb-2">
-                        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
-                            <i class="fa-solid fa-camera text-brand-500"></i> Ảnh Hiện Trạng Ngôi Nhà
+                        <label class="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-camera text-brand-400"></i> 1. Ảnh Hiện Trạng Ngôi Nhà
                         </label>
-                        <span class="text-[10px] text-slate-400">JPG, PNG (Tối đa 10MB)</span>
+                        <span class="text-[10px] text-slate-400">JPG, PNG</span>
                     </div>
 
                     <!-- Dropzone -->
                     <div id="dropzone" onclick="document.getElementById('fileInput').click()" 
-                         class="border-2 border-dashed border-slate-700 hover:border-brand-500/60 bg-slate-950/50 hover:bg-slate-950/80 rounded-xl p-4 text-center cursor-pointer transition-all duration-200 group relative overflow-hidden">
+                         class="border-2 border-dashed border-slate-700 hover:border-brand-500/60 bg-slate-950/60 hover:bg-slate-950 rounded-xl p-3 text-center cursor-pointer transition-all duration-200 group relative overflow-hidden">
                         <input type="file" id="fileInput" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
                         
-                        <div id="uploadPlaceholder" class="py-3 flex flex-col items-center">
-                            <div class="w-12 h-12 rounded-full bg-slate-800 group-hover:bg-brand-500/20 text-slate-400 group-hover:text-brand-400 flex items-center justify-center mb-2 transition-colors">
-                                <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
+                        <div id="uploadPlaceholder" class="py-2 flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full bg-slate-800 group-hover:bg-brand-500/20 text-slate-300 group-hover:text-brand-400 flex items-center justify-center mb-1.5 transition-colors">
+                                <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
                             </div>
-                            <p class="text-xs font-medium text-slate-300 mb-1">Kéo thả ảnh vào đây hoặc <span class="text-brand-400 underline">Tải lên</span></p>
-                            <p class="text-[11px] text-slate-500">Chụp rõ phòng khách, bếp, phòng ngủ hoặc mặt tiền</p>
+                            <p class="text-xs font-semibold text-slate-200 mb-0.5">Chạm để chọn ảnh nhà hoặc kéo thả</p>
+                            <p class="text-[10px] text-slate-400">Sân trước, mặt tiền, phòng khách, phòng ngủ...</p>
                         </div>
 
-                        <!-- Preview Image inside Upload Container -->
+                        <!-- Preview Image Container -->
                         <div id="uploadPreview" class="hidden relative aspect-video w-full rounded-lg overflow-hidden border border-slate-700 group">
                             <img id="previewImg" src="" alt="Hiện trạng" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                                <span class="px-3 py-1 bg-brand-600 text-white rounded-md text-xs font-medium"><i class="fa-solid fa-pen text-xs"></i> Đổi ảnh khác</span>
+                            <div class="absolute inset-0 bg-slate-950/60 opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                <span class="px-3 py-1.5 bg-brand-600 text-slate-950 rounded-md text-xs font-bold shadow"><i class="fa-solid fa-pen text-xs"></i> Đổi ảnh khác</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Quick Demo Sample Selector -->
                     <div class="mt-3">
-                        <p class="text-[11px] font-medium text-slate-400 mb-2 flex items-center justify-between">
-                            <span>Chưa có ảnh? Thử ngay ảnh mẫu:</span>
+                        <p class="text-[11px] font-semibold text-slate-400 mb-1.5 flex items-center justify-between">
+                            <span>Thử nhanh với ảnh mẫu thực tế:</span>
                         </p>
                         <div class="grid grid-cols-3 gap-2">
-                            <button onclick="loadSampleImage('living')" class="group relative rounded-lg overflow-hidden border border-slate-700/80 hover:border-brand-500 text-left transition-all aspect-video bg-slate-800">
-                                <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80 group-hover:opacity-100">
-                                <span class="absolute bottom-1 left-1 right-1 px-1.5 py-0.5 bg-slate-950/80 backdrop-blur-sm text-[10px] font-medium text-slate-200 rounded text-center truncate">Phòng khách cũ</span>
+                            <button type="button" onclick="loadSampleImage('courtyard')" class="group relative rounded-lg overflow-hidden border border-slate-700/80 hover:border-brand-500 text-left transition-all aspect-video bg-slate-800">
+                                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80" 
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80'" 
+                                     class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                                <span class="absolute bottom-1 left-1 right-1 px-1 py-0.5 bg-slate-950/85 text-[9px] font-bold text-slate-200 rounded text-center truncate">Sân / Mặt Tiền</span>
                             </button>
-                            <button onclick="loadSampleImage('bedroom')" class="group relative rounded-lg overflow-hidden border border-slate-700/80 hover:border-brand-500 text-left transition-all aspect-video bg-slate-800">
-                                <img src="https://images.unsplash.com/photo-1540518614846-7ede433c5172?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80 group-hover:opacity-100">
-                                <span class="absolute bottom-1 left-1 right-1 px-1.5 py-0.5 bg-slate-950/80 backdrop-blur-sm text-[10px] font-medium text-slate-200 rounded text-center truncate">Phòng ngủ nhỏ</span>
+                            <button type="button" onclick="loadSampleImage('living')" class="group relative rounded-lg overflow-hidden border border-slate-700/80 hover:border-brand-500 text-left transition-all aspect-video bg-slate-800">
+                                <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=400&q=80" 
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=400&q=80'" 
+                                     class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                                <span class="absolute bottom-1 left-1 right-1 px-1 py-0.5 bg-slate-950/85 text-[9px] font-bold text-slate-200 rounded text-center truncate">Phòng Khách Cũ</span>
                             </button>
-                            <button onclick="loadSampleImage('facade')" class="group relative rounded-lg overflow-hidden border border-slate-700/80 hover:border-brand-500 text-left transition-all aspect-video bg-slate-800">
-                                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 opacity-80 group-hover:opacity-100">
-                                <span class="absolute bottom-1 left-1 right-1 px-1.5 py-0.5 bg-slate-950/80 backdrop-blur-sm text-[10px] font-medium text-slate-200 rounded text-center truncate">Mặt tiền cũ</span>
+                            <button type="button" onclick="loadSampleImage('bedroom')" class="group relative rounded-lg overflow-hidden border border-slate-700/80 hover:border-brand-500 text-left transition-all aspect-video bg-slate-800">
+                                <img src="https://images.unsplash.com/photo-1540518614846-7ede433c5172?auto=format&fit=crop&w=400&q=80" 
+                                     onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=400&q=80'" 
+                                     class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
+                                <span class="absolute bottom-1 left-1 right-1 px-1 py-0.5 bg-slate-950/85 text-[9px] font-bold text-slate-200 rounded text-center truncate">Phòng Ngủ Nhỏ</span>
                             </button>
                         </div>
                     </div>
@@ -217,21 +243,21 @@
 
                 <!-- Section 2: Room Type Selector -->
                 <div>
-                    <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 block">
-                        Loại Không Gian
+                    <label class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-2 block">
+                        2. Loại Không Gian Cần Cải Tạo
                     </label>
                     <div class="grid grid-cols-2 gap-2" id="spaceTypeGrid">
-                        <button type="button" onclick="selectSpaceType('living')" data-space="living" class="space-btn active px-3 py-2 rounded-lg border border-brand-500 bg-brand-500/10 text-brand-300 text-xs font-medium flex items-center gap-2 transition-all">
-                            <i class="fa-solid fa-couch text-brand-400"></i> Phòng Khách
+                        <button type="button" onclick="selectSpaceType('facade')" data-space="facade" class="space-btn active px-3 py-2 rounded-xl border border-brand-500 bg-brand-500/10 text-brand-300 text-xs font-semibold flex items-center gap-2 transition-all">
+                            <i class="fa-solid fa-house-chimney text-brand-400"></i> Sân Trước / Mặt Tiền
                         </button>
-                        <button type="button" onclick="selectSpaceType('bedroom')" data-space="bedroom" class="space-btn px-3 py-2 rounded-lg border border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 text-xs font-medium flex items-center gap-2 transition-all">
+                        <button type="button" onclick="selectSpaceType('living')" data-space="living" class="space-btn px-3 py-2 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 text-xs font-semibold flex items-center gap-2 transition-all">
+                            <i class="fa-solid fa-couch text-slate-400"></i> Phòng Khách
+                        </button>
+                        <button type="button" onclick="selectSpaceType('bedroom')" data-space="bedroom" class="space-btn px-3 py-2 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 text-xs font-semibold flex items-center gap-2 transition-all">
                             <i class="fa-solid fa-bed text-slate-400"></i> Phòng Ngủ
                         </button>
-                        <button type="button" onclick="selectSpaceType('kitchen')" data-space="kitchen" class="space-btn px-3 py-2 rounded-lg border border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 text-xs font-medium flex items-center gap-2 transition-all">
-                            <i class="fa-solid fa-utensils text-slate-400"></i> Bếp & Ăn
-                        </button>
-                        <button type="button" onclick="selectSpaceType('facade')" data-space="facade" class="space-btn px-3 py-2 rounded-lg border border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 text-xs font-medium flex items-center gap-2 transition-all">
-                            <i class="fa-solid fa-house-chimney text-slate-400"></i> Mặt Tiền Nhà
+                        <button type="button" onclick="selectSpaceType('kitchen')" data-space="kitchen" class="space-btn px-3 py-2 rounded-xl border border-slate-800 bg-slate-950 text-slate-300 hover:border-slate-700 text-xs font-semibold flex items-center gap-2 transition-all">
+                            <i class="fa-solid fa-utensils text-slate-400"></i> Bếp & Phòng Ăn
                         </button>
                     </div>
                 </div>
@@ -239,128 +265,142 @@
                 <!-- Section 3: Design Style Picker -->
                 <div>
                     <div class="flex justify-between items-center mb-2">
-                        <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
-                            Phong Cách Thiết Kế
+                        <label class="text-xs font-bold text-slate-200 uppercase tracking-wider block">
+                            3. Phong Cách Kiến Trúc
                         </label>
-                        <span id="selectedStyleLabel" class="text-xs text-brand-400 font-semibold">Hiện Đại (Modern)</span>
+                        <span id="selectedStyleLabel" class="text-xs text-brand-400 font-bold">Hiện Đại (Modern)</span>
                     </div>
 
                     <div class="grid grid-cols-2 gap-2" id="styleGrid">
                         <button type="button" onclick="selectStyle('Modern', 'Hiện Đại')" data-style="Modern" class="style-card active border border-brand-500 bg-brand-500/10 p-2.5 rounded-xl text-left transition-all">
-                            <div class="text-xs font-semibold text-white">Hiện Đại</div>
-                            <div class="text-[10px] text-slate-400">Sang trọng, đường nét gọn gàng, tối ưu công năng</div>
+                            <div class="text-xs font-bold text-white">Hiện Đại</div>
+                            <div class="text-[10px] text-slate-400">Gọn gàng, thoáng đạt, tối ưu công năng</div>
                         </button>
 
                         <button type="button" onclick="selectStyle('Minimalist', 'Tối Giản')" data-style="Minimalist" class="style-card border border-slate-800 bg-slate-950 p-2.5 rounded-xl text-left hover:border-slate-700 transition-all">
-                            <div class="text-xs font-semibold text-white">Tối Giản (Minimal)</div>
-                            <div class="text-[10px] text-slate-400">Ít chi tiết, gam màu trung tính, thoáng đãng</div>
+                            <div class="text-xs font-bold text-white">Tối Giản (Minimal)</div>
+                            <div class="text-[10px] text-slate-400">Tông màu trung tính, không rườm rà</div>
                         </button>
 
                         <button type="button" onclick="selectStyle('Scandinavian', 'Bắc Âu')" data-style="Scandinavian" class="style-card border border-slate-800 bg-slate-950 p-2.5 rounded-xl text-left hover:border-slate-700 transition-all">
-                            <div class="text-xs font-semibold text-white">Bắc Âu (Scandi)</div>
-                            <div class="text-[10px] text-slate-400">Gỗ mộc ấm áp, tone màu sáng, ánh sáng tự nhiên</div>
+                            <div class="text-xs font-bold text-white">Bắc Âu (Scandi)</div>
+                            <div class="text-[10px] text-slate-400">Gỗ mộc ấm áp, tràn ngập ánh sáng</div>
                         </button>
 
                         <button type="button" onclick="selectStyle('Indochine', 'Đông Dương')" data-style="Indochine" class="style-card border border-slate-800 bg-slate-950 p-2.5 rounded-xl text-left hover:border-slate-700 transition-all">
-                            <div class="text-xs font-semibold text-white">Đông Dương</div>
-                            <div class="text-[10px] text-slate-400">Hoài cổ Á Đông, hoa văn gạch bông, gỗ trầm</div>
+                            <div class="text-xs font-bold text-white">Đông Dương</div>
+                            <div class="text-[10px] text-slate-400">Gạch bông hoài cổ, gỗ trầm Á Đông</div>
                         </button>
 
                         <button type="button" onclick="selectStyle('Neoclassical', 'Tân Cổ Điển')" data-style="Neoclassical" class="style-card border border-slate-800 bg-slate-950 p-2.5 rounded-xl text-left hover:border-slate-700 transition-all col-span-2">
-                            <div class="text-xs font-semibold text-white">Tân Cổ Điển (Neoclassical)</div>
-                            <div class="text-[10px] text-slate-400">Pha chỉ tinh tế, màu kem/vàng đồng xa hoa</div>
+                            <div class="text-xs font-bold text-white">Tân Cổ Điển (Neoclassical)</div>
+                            <div class="text-[10px] text-slate-400">Pha chỉ tinh tế, tone vàng kem ấm sang trọng</div>
                         </button>
                     </div>
                 </div>
 
                 <!-- Section 4: Specific Custom Requirements -->
                 <div>
-                    <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5 block">
-                        Ghi Chú Yêu Cầu Cải Tạo Với AI
+                    <label class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-1.5 block">
+                        4. Yêu Cầu Cải Tạo Chi Tiết (Tùy chọn)
                     </label>
-                    <textarea id="customNote" rows="3" 
-                        class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 rounded-xl p-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-all resize-none"
-                        placeholder="Ví dụ: Giữ lại cửa sổ nhôm kính, sơn tường tone trắng kem ấm, thêm sàn gỗ xương cá, đèn hắt trần thạch cao và tủ kệ tivi kịch trần..."></textarea>
+                    <textarea id="customNote" rows="2" 
+                        class="w-full bg-slate-950 border border-slate-800 focus:border-brand-500 rounded-xl p-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-brand-500 transition-all resize-none"
+                        placeholder="Ví dụ: Thay cổng sắt cũ thành cổng gỗ hiện đại, lát gạch sân chống trượt, làm mái che kính xám và trồng thêm cây xanh..."></textarea>
                 </div>
 
-                <!-- Submit Generate Button -->
-                <button id="btnGenerate" onclick="processAITransformation()" 
-                    class="w-full py-3.5 px-4 bg-gradient-to-r from-brand-600 via-emerald-500 to-teal-500 hover:from-brand-500 hover:to-emerald-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-brand-500/25 flex items-center justify-center space-x-2 transition-all transform active:scale-[0.98]">
-                    <i class="fa-solid fa-microchip text-base"></i>
-                    <span class="text-sm tracking-wide">Phân Tích & Thiết Kế 3D Với AI</span>
+                <!-- Desktop Action Button inside Sidebar -->
+                <button id="btnGenerateDesktop" onclick="processAITransformation()" 
+                    class="hidden lg:flex w-full py-3.5 px-4 bg-gradient-to-r from-brand-600 via-emerald-500 to-teal-400 hover:from-brand-500 hover:to-emerald-300 text-slate-950 font-extrabold rounded-xl shadow-lg shadow-brand-500/20 items-center justify-center space-x-2 transition-all transform active:scale-[0.98]">
+                    <i class="fa-solid fa-wand-magic-sparkles text-base"></i>
+                    <span class="text-sm tracking-wide">PHÂN TÍCH & DỰNG PHỐI CẢNH 3D</span>
                 </button>
 
             </div>
         </aside>
 
-        <!-- Main Display Studio Right/Center -->
+        <!-- FLOATING STICKY ACTION BAR FOR MOBILE USERS (CRITICAL FIX FOR MOBILE) -->
+        <div class="lg:hidden fixed bottom-0 left-0 right-0 p-3 bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 z-40 shadow-2xl flex items-center justify-between gap-3">
+            <div class="flex flex-col">
+                <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">Đã chọn:</span>
+                <span id="mobileSummaryText" class="text-xs font-bold text-brand-400 truncate max-w-[120px] xs:max-w-[160px]">Sân trước • Hiện Đại</span>
+            </div>
+
+            <button id="btnGenerateMobile" onclick="processAITransformation()" 
+                class="flex-1 py-3 px-4 bg-gradient-to-r from-brand-600 via-emerald-500 to-teal-400 active:from-brand-500 text-slate-950 font-extrabold rounded-xl shadow-lg shadow-brand-500/30 flex items-center justify-center space-x-2 text-xs sm:text-sm tracking-wide">
+                <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+                <span>PHÂN TÍCH & TẠO 3D</span>
+            </button>
+        </div>
+
+        <!-- MAIN WORKSPACE RIGHT AREA -->
         <main class="flex-1 flex flex-col bg-slate-950 overflow-hidden relative">
             
-            <!-- View Tabs Bar -->
-            <div class="h-12 bg-slate-900/90 border-b border-slate-800 px-4 flex items-center justify-between shrink-0 z-20">
-                <div class="flex items-center space-x-1 sm:space-x-2">
-                    <button onclick="switchTab('beforeAfter')" id="tabBtn-beforeAfter" class="tab-btn active px-3 py-1.5 rounded-lg text-xs font-medium text-brand-400 bg-brand-500/10 border border-brand-500/30 flex items-center gap-1.5 transition-all">
+            <!-- Desktop View Tabs Bar -->
+            <div class="hidden lg:flex h-12 bg-slate-900 border-b border-slate-800 px-4 items-center justify-between shrink-0 z-20">
+                <div class="flex items-center space-x-2">
+                    <button onclick="switchTab('beforeAfter')" id="tabBtn-beforeAfter" class="tab-btn active px-3 py-1.5 rounded-lg text-xs font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/30 flex items-center gap-1.5 transition-all">
                         <i class="fa-solid fa-sliders text-xs"></i>
-                        <span>So Sánh Trước / Sau</span>
+                        <span>So Sánh Phối Cảnh (Trước / Sau)</span>
                     </button>
-                    <button onclick="switchTab('studio3d')" id="tabBtn-studio3d" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition-all">
+                    <button onclick="switchTab('studio3d')" id="tabBtn-studio3d" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 flex items-center gap-1.5 transition-all">
                         <i class="fa-solid fa-cube text-xs"></i>
-                        <span>Không Gian 3D Tương Tác</span>
+                        <span>Mô Hình 3D Tương Tác</span>
                     </button>
-                    <button onclick="switchTab('report')" id="tabBtn-report" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-clipboard-list text-xs"></i>
-                        <span>Tư Vấn & Báo Giá</span>
+                    <button onclick="switchTab('report')" id="tabBtn-report" class="tab-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 flex items-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-calculator text-xs"></i>
+                        <span>Tư Vấn Architecture & Báo Giá</span>
                     </button>
                 </div>
 
-                <div class="text-[11px] text-slate-400 hidden lg:flex items-center gap-2">
+                <div class="text-[11px] text-slate-400 flex items-center gap-2">
                     <i class="fa-regular fa-lightbulb text-gold-400"></i>
-                    <span id="tabTip">Kéo thanh trượt để so sánh phối cảnh cải tạo AI</span>
+                    <span id="tabTip">Kéo thanh trượt để so sánh ảnh hiện trạng & phối cảnh 3D mới từ Gemini</span>
                 </div>
             </div>
 
-            <!-- Loading Overlay -->
-            <div id="aiLoadingOverlay" class="hidden absolute inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex flex-col items-center justify-center p-6 text-center">
-                <div class="relative w-20 h-20 mb-6">
+            <!-- AI Loading Overlay -->
+            <div id="aiLoadingOverlay" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-md z-50 flex flex-col items-center justify-center p-6 text-center">
+                <div class="relative w-20 h-20 mb-5">
                     <div class="absolute inset-0 rounded-full border-4 border-brand-500/20 border-t-brand-500 animate-spin"></div>
                     <div class="absolute inset-2 rounded-full border-4 border-emerald-400/20 border-b-emerald-400 animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
                     <div class="absolute inset-0 flex items-center justify-center text-brand-400">
                         <i class="fa-solid fa-brain text-2xl animate-pulse"></i>
                     </div>
                 </div>
-                <h3 class="text-lg font-bold text-white mb-2" id="loadingTitle">Gemini AI Đang Phân Tích Không Gian...</h3>
+                <h3 class="text-base sm:text-lg font-bold text-white mb-2" id="loadingTitle">Gemini AI Đang Phân Tích Kiến Trúc...</h3>
                 <p class="text-xs text-slate-400 max-w-md leading-relaxed mb-4" id="loadingSubtitle">
-                    Đang quét bố cục kiến trúc, bóc tách ánh sáng & tạo mô hình phối cảnh 3D...
+                    Đang quét kết cấu không gian, ánh sáng & dựng phối cảnh 3D...
                 </p>
-                <div class="w-64 h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                    <div id="loadingProgress" class="h-full bg-gradient-to-r from-brand-500 to-emerald-400 w-1/4 transition-all duration-500"></div>
+                <div class="w-64 h-2 bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-700">
+                    <div id="loadingProgress" class="h-full bg-gradient-to-r from-brand-500 via-emerald-400 to-teal-300 w-1/4 rounded-full transition-all duration-500"></div>
                 </div>
             </div>
 
             <!-- TAB 1: BEFORE / AFTER SLIDER -->
-            <div id="tabContent-beforeAfter" class="tab-content flex-1 flex flex-col p-4 overflow-hidden relative">
+            <div id="tabContent-beforeAfter" class="tab-content flex-1 flex flex-col p-2 sm:p-4 overflow-hidden relative mobile-bottom-padding">
                 <div class="flex-1 w-full h-full rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden relative flex items-center justify-center shadow-2xl">
                     
-                    <div id="sliderWrapper" class="slider-container w-full h-full max-h-full">
-                        <!-- Background: Renovation (After) -->
-                        <img id="imgAfter" src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80" alt="Sau khi cải tạo" class="img-before">
+                    <div id="sliderWrapper" class="slider-container w-full h-full">
+                        <!-- Renovation Rendered (After) -->
+                        <img id="imgAfter" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80" alt="Sau khi cải tạo" class="img-before">
                         
-                        <!-- Overlay: Original (Before) -->
+                        <!-- Original Photo (Before) -->
                         <div id="afterWrapper" class="img-after-wrapper">
-                            <img id="imgBefore" src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1600&q=80" alt="Hiện trạng ban đầu" class="img-after">
+                            <img id="imgBefore" src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=80" alt="Hiện trạng ban đầu" class="img-after">
                         </div>
 
-                        <!-- Draggable Slider Handle -->
+                        <!-- Slider Handle -->
                         <div id="sliderHandle" class="slider-handle">
                             <i class="fa-solid fa-arrows-left-right text-xs"></i>
                         </div>
 
                         <!-- Labels -->
-                        <div class="absolute top-4 left-4 px-3 py-1 bg-slate-950/80 backdrop-blur-md rounded-lg text-xs font-semibold text-slate-300 border border-slate-700/60 pointer-events-none">
-                            <i class="fa-solid fa-clock-rotate-left text-brand-400 mr-1"></i> Gốc Hiện Trạng
+                        <div class="absolute top-3 left-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md rounded-lg text-[11px] font-bold text-slate-300 border border-slate-700/60 pointer-events-none">
+                            <i class="fa-solid fa-clock-rotate-left text-brand-400 mr-1"></i> Hiện Trạng
                         </div>
-                        <div class="absolute top-4 right-4 px-3 py-1 bg-brand-900/80 backdrop-blur-md rounded-lg text-xs font-semibold text-brand-300 border border-brand-500/40 pointer-events-none flex items-center gap-1.5">
-                            <i class="fa-solid fa-wand-magic-sparkles text-gold-400"></i> Cải Tạo AI Phối Cảnh
+                        <div class="absolute top-3 right-3 px-2.5 py-1 bg-brand-950/90 backdrop-blur-md rounded-lg text-[11px] font-bold text-brand-300 border border-brand-500/50 pointer-events-none flex items-center gap-1 shadow-lg">
+                            <i class="fa-solid fa-wand-magic-sparkles text-gold-400"></i> Phối Cảnh 3D AI
                         </div>
                     </div>
 
@@ -368,46 +408,43 @@
             </div>
 
             <!-- TAB 2: INTERACTIVE 3D STUDIO (THREE.JS) -->
-            <div id="tabContent-studio3d" class="tab-content hidden flex-1 flex flex-col relative overflow-hidden">
+            <div id="tabContent-studio3d" class="tab-content hidden flex-1 flex flex-col relative overflow-hidden mobile-bottom-padding">
                 
-                <!-- 3D Toolbar floating top -->
+                <!-- 3D Toolbar top -->
                 <div class="absolute top-3 left-3 right-3 z-10 flex flex-wrap items-center justify-between gap-2 p-2 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-800 shadow-xl">
                     
                     <!-- Camera View Presets -->
-                    <div class="flex items-center space-x-1">
-                        <span class="text-[11px] font-semibold text-slate-400 px-2 uppercase">Góc Nhìn:</span>
-                        <button onclick="set3DCameraView('isometric')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg transition-colors">
-                            Isometric (Góc nghiêng)
+                    <div class="flex items-center space-x-1 overflow-x-auto">
+                        <span class="text-[10px] font-bold text-slate-400 px-1 uppercase shrink-0">Góc nhìn:</span>
+                        <button onclick="set3DCameraView('isometric')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-medium rounded-lg shrink-0">
+                            Isometric
                         </button>
-                        <button onclick="set3DCameraView('top')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg transition-colors">
-                            Mặt Bằng (Top)
+                        <button onclick="set3DCameraView('top')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-medium rounded-lg shrink-0">
+                            Mặt Bằng
                         </button>
-                        <button onclick="set3DCameraView('eye')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg transition-colors">
-                            Tầm Mắt Người (Eye)
+                        <button onclick="set3DCameraView('eye')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] font-medium rounded-lg shrink-0">
+                            Tầm Mắt
                         </button>
                     </div>
 
-                    <!-- Material & Wall Controls -->
-                    <div class="flex items-center space-x-3">
-                        <!-- Wall Color Picker -->
-                        <div class="flex items-center space-x-1.5">
-                            <label class="text-xs text-slate-300">Sơn Tường:</label>
+                    <!-- Material & Lighting Controls -->
+                    <div class="flex items-center space-x-2">
+                        <div class="flex items-center space-x-1">
+                            <label class="text-[11px] text-slate-300">Tường/Cổng:</label>
                             <input type="color" id="wallColorPicker" value="#f1f5f9" onchange="updateWallColor(this.value)" class="w-6 h-6 rounded cursor-pointer bg-transparent border-0">
                         </div>
 
-                        <!-- Floor Type Switcher -->
-                        <div class="flex items-center space-x-1.5">
-                            <label class="text-xs text-slate-300">Sàn:</label>
-                            <select id="floorTypeSelect" onchange="updateFloorType(this.value)" class="bg-slate-800 text-xs text-slate-200 border border-slate-700 rounded-md px-2 py-1 focus:outline-none">
+                        <div class="flex items-center space-x-1">
+                            <label class="text-[11px] text-slate-300">Sàn/Sân:</label>
+                            <select id="floorTypeSelect" onchange="updateFloorType(this.value)" class="bg-slate-800 text-[11px] text-slate-200 border border-slate-700 rounded-md px-1.5 py-1 focus:outline-none">
+                                <option value="tile">Gạch Chống Trượt</option>
                                 <option value="wood">Sàn Gỗ Ấm</option>
-                                <option value="tile">Gạch Men Trắng</option>
-                                <option value="concrete">Bê Tông Xi Măng</option>
+                                <option value="concrete">Bê Tông Giả Đá</option>
                             </select>
                         </div>
 
-                        <!-- Light Toggle -->
-                        <button onclick="toggle3DLighting()" id="btnLightToggle" class="px-2.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-medium rounded-lg flex items-center gap-1">
-                            <i class="fa-solid fa-sun text-xs"></i> Ban Ngày
+                        <button onclick="toggle3DLighting()" id="btnLightToggle" class="px-2 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-bold rounded-lg flex items-center gap-1">
+                            <i class="fa-solid fa-sun"></i> Ban Ngày
                         </button>
                     </div>
 
@@ -415,103 +452,99 @@
 
                 <!-- Three.js Canvas Container -->
                 <div id="canvas3dContainer" class="w-full h-full bg-slate-950 flex-1 relative cursor-grab">
-                    <!-- Canvas inserted here by JS -->
+                    <!-- Canvas injected by JS -->
                 </div>
 
-                <!-- 3D Interactive Helper Footer -->
-                <div class="absolute bottom-3 left-3 z-10 bg-slate-900/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-800 text-[11px] text-slate-400 flex items-center space-x-3">
-                    <span><i class="fa-solid fa-computer-mouse text-brand-400 mr-1"></i> Xoay: Chuột trái</span>
-                    <span><i class="fa-solid fa-arrows-up-down-left-right text-brand-400 mr-1"></i> Di chuyển: Chuột phải</span>
-                    <span><i class="fa-solid fa-magnifying-glass-plus text-brand-400 mr-1"></i> Zoom: Cuộn chuột</span>
+                <!-- 3D Touch Helper Footer -->
+                <div class="absolute bottom-3 left-3 z-10 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-800 text-[10px] sm:text-[11px] text-slate-400 flex items-center space-x-3">
+                    <span><i class="fa-solid fa-fingerprint text-brand-400 mr-1"></i> Xoay: Vuốt 1 ngón / Chuột trái</span>
+                    <span class="hidden sm:inline"><i class="fa-solid fa-magnifying-glass-plus text-brand-400 mr-1"></i> Zoom: Chụm ngón / Cuộn chuột</span>
                 </div>
 
             </div>
 
             <!-- TAB 3: ADVICE & COST ESTIMATION -->
-            <div id="tabContent-report" class="tab-content hidden flex-1 p-4 lg:p-6 overflow-y-auto">
-                <div class="max-w-4xl mx-auto space-y-6">
+            <div id="tabContent-report" class="tab-content hidden flex-1 p-3 sm:p-6 overflow-y-auto mobile-bottom-padding">
+                <div class="max-w-4xl mx-auto space-y-5">
                     
-                    <!-- Renovation Executive Summary -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 lg:p-6 shadow-xl">
-                        <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+                    <!-- Summary Card -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b border-slate-800 pb-3">
                             <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
+                                <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center shrink-0">
                                     <i class="fa-solid fa-compass-drafting text-lg"></i>
                                 </div>
                                 <div>
-                                    <h2 class="text-base font-bold text-white" id="reportTitle">Phương Án Cải Tạo Không Gian</h2>
-                                    <p class="text-xs text-slate-400" id="reportSubtitle">Được phân tích bởi AI Gemini Architecture Core</p>
+                                    <h2 class="text-sm sm:text-base font-bold text-white" id="reportTitle">Giải Pháp Cải Tạo Không Gian</h2>
+                                    <p class="text-xs text-slate-400" id="reportSubtitle">Tư vấn bởi Gemini Architecture Core</p>
                                 </div>
                             </div>
-                            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-semibold border border-brand-500/20" id="reportStyleBadge">
+                            <span class="self-start sm:self-auto px-3 py-1 rounded-full bg-brand-500/10 text-brand-400 text-xs font-bold border border-brand-500/30" id="reportStyleBadge">
                                 Phong Cách: Hiện Đại
                             </span>
                         </div>
 
-                        <div class="text-xs text-slate-300 leading-relaxed mb-6 space-y-2" id="reportOverview">
-                            <p>Đang chờ phân tích từ AI...</p>
+                        <div class="text-xs text-slate-300 leading-relaxed mb-5" id="reportOverview">
+                            <p class="italic text-slate-400">Nhấn nút "PHÂN TÍCH & TẠO 3D" để nhận kết quả phân tích chuyên sâu...</p>
                         </div>
 
-                        <!-- Recommendations grid -->
-                        <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Giải Pháp Cải Tạo Trọng Tâm:</h3>
-                        <div id="reportRecommendations" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2.5">Các Hạng Mục Trọng Tâm:</h3>
+                        <div id="reportRecommendations" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                             <!-- Populated dynamically -->
                         </div>
                     </div>
 
-                    <!-- Color Swatches & Material Palette -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Colors & Materials -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         
-                        <!-- Color Palette -->
-                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-                            <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 flex items-center justify-between">
-                                <span>Bảng Màu Đề Xuất Phối Cảnh</span>
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+                                <span>Phối Màu Khuyên Dùng</span>
                                 <i class="fa-solid fa-palette text-brand-400"></i>
                             </h3>
-                            <div id="colorSwatches" class="space-y-3">
-                                <!-- Swatches populated dynamically -->
+                            <div id="colorSwatches" class="space-y-2.5">
+                                <!-- Colors -->
                             </div>
                         </div>
 
-                        <!-- Key Materials -->
-                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
-                            <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 flex items-center justify-between">
-                                <span>Vật Liệu Khuyên Dùng</span>
+                        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+                                <span>Vật Liệu Sử Dụng</span>
                                 <i class="fa-solid fa-cubes text-brand-400"></i>
                             </h3>
-                            <div id="materialList" class="space-y-2.5">
-                                <!-- Materials populated dynamically -->
+                            <div id="materialList" class="space-y-2">
+                                <!-- Materials -->
                             </div>
                         </div>
 
                     </div>
 
-                    <!-- Cost Estimation Table (VNĐ) -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 lg:p-6 shadow-xl">
-                        <div class="flex items-center justify-between mb-4">
+                    <!-- Budget Costing Table -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-xl">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                             <div>
-                                <h3 class="text-sm font-bold text-white">Dự Toán Chi Phí Tu Sửa Tham Khảo</h3>
-                                <p class="text-xs text-slate-400">Ước tính theo mặt bằng trung bình thị trường Việt Nam</p>
+                                <h3 class="text-sm font-bold text-white">Dự Toán Chi Phí Tu Sửa (Tham Khảo)</h3>
+                                <p class="text-[11px] text-slate-400">Tính toán ước tính theo giá thị trường xây dựng Việt Nam</p>
                             </div>
-                            <div class="text-right">
-                                <span class="text-xs text-slate-400 block">Tổng dự toán:</span>
-                                <span id="totalCostTag" class="text-base font-extrabold text-brand-400">0 VNĐ</span>
+                            <div class="text-left sm:text-right">
+                                <span class="text-[10px] text-slate-400 uppercase block">Tổng dự toán:</span>
+                                <span id="totalCostTag" class="text-base sm:text-lg font-extrabold text-brand-400">0 VNĐ</span>
                             </div>
                         </div>
 
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-xs text-slate-300">
-                                <thead class="bg-slate-950 text-slate-400 uppercase font-semibold border-b border-slate-800">
+                                <thead class="bg-slate-950 text-slate-400 uppercase font-bold border-b border-slate-800">
                                     <tr>
-                                        <th class="py-2.5 px-3">Hạng Mục</th>
-                                        <th class="py-2.5 px-3">Chi Tiết Vật Tư / Nhân Công</th>
-                                        <th class="py-2.5 px-3 text-center">Đơn Vị</th>
-                                        <th class="py-2.5 px-3 text-right">Đơn Giá (VNĐ)</th>
-                                        <th class="py-2.5 px-3 text-right">Thành Tiền (VNĐ)</th>
+                                        <th class="py-2.5 px-2">Hạng Mục</th>
+                                        <th class="py-2.5 px-2">Chi Tiết Vật Tư</th>
+                                        <th class="py-2.5 px-2 text-center">Đơn Vị</th>
+                                        <th class="py-2.5 px-2 text-right">Đơn Giá</th>
+                                        <th class="py-2.5 px-2 text-right">Thành Tiền</th>
                                     </tr>
                                 </thead>
                                 <tbody id="costTableBody" class="divide-y divide-slate-800/60">
-                                    <!-- Table Rows populated dynamically -->
+                                    <!-- Table Rows -->
                                 </tbody>
                             </table>
                         </div>
@@ -523,47 +556,131 @@
         </main>
     </div>
 
+    <!-- API KEY SETTINGS MODAL (GITHUB PAGES STANDALONE SUPPORT) -->
+    <div id="apiKeyModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 max-w-md w-full shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-key text-gold-400 text-lg"></i>
+                    <h3 class="text-base font-bold text-white">Cài Đặt Gemini API Key</h3>
+                </div>
+                <button onclick="closeApiKeyModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Để chạy phân tích và render 3D trực tiếp trên <strong>GitHub Pages</strong>, bạn có thể nhập Gemini API Key miễn phí từ Google AI Studio.
+            </p>
+
+            <div class="space-y-1.5">
+                <label class="text-xs font-semibold text-slate-300">Nhập Google Gemini API Key của bạn:</label>
+                <input type="password" id="userApiKeyInput" placeholder="AIzaSy..." 
+                    class="w-full bg-slate-950 border border-slate-700 focus:border-brand-500 rounded-xl px-3 py-2 text-xs text-slate-100 focus:outline-none">
+            </div>
+
+            <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3 text-[11px] text-slate-400 space-y-1">
+                <p class="font-semibold text-slate-300"><i class="fa-solid fa-circle-info text-brand-400"></i> Hướng dẫn lấy key miễn phí trong 1 phút:</p>
+                <ol class="list-decimal list-inside space-y-0.5">
+                    <li>Truy cập <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-brand-400 underline font-semibold">aistudio.google.com</a></li>
+                    <li>Nhấn <strong>Get API key</strong> $\rightarrow$ <strong>Create API key</strong></li>
+                    <li>Dán key vào ô trên và nhấn <strong>Lưu Key</strong></li>
+                </ol>
+            </div>
+
+            <div class="flex items-center justify-end space-x-2 pt-2">
+                <button onclick="clearSavedApiKey()" class="px-3 py-2 text-xs font-semibold text-rose-400 hover:bg-rose-500/10 rounded-xl">Xóa Key</button>
+                <button onclick="saveUserApiKey()" class="px-4 py-2 bg-brand-600 hover:bg-brand-500 text-slate-950 font-bold rounded-xl text-xs shadow-md shadow-brand-500/20">Lưu Key & Khởi Động</button>
+            </div>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT LOGIC CORE -->
     <script>
-        // Global Application State
+        // Application State
         const state = {
-            spaceType: 'living',
+            spaceType: 'facade',
             style: 'Modern',
             styleNameVi: 'Hiện Đại',
             customNote: '',
             base64Image: null,
             renovatedImageUrl: null,
             aiData: null,
-            activeTab: 'beforeAfter',
+            activeTab: 'config',
             lightingDay: true,
             wallColor: '#f1f5f9',
-            floorType: 'wood'
+            floorType: 'tile'
         };
 
-        // Sample Base64 / Default Fallbacks
+        // Fallback Unsplash Photos
         const sampleImages = {
+            courtyard: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
             living: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=80',
-            bedroom: 'https://images.unsplash.com/photo-1540518614846-7ede433c5172?auto=format&fit=crop&w=1200&q=80',
-            facade: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80'
+            bedroom: 'https://images.unsplash.com/photo-1540518614846-7ede433c5172?auto=format&fit=crop&w=1200&q=80'
         };
 
         const sampleAfterImages = {
-            Modern: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
+            Modern: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
             Minimalist: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1200&q=80',
             Scandinavian: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1200&q=80',
             Indochine: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1200&q=80',
             Neoclassical: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80'
         };
 
-        // Initialize App on DOM Load
+        // DOM Loaded Init
         window.addEventListener('DOMContentLoaded', () => {
+            checkApiKeyStatus();
             initBeforeAfterSlider();
             initThreeJS();
-            loadSampleImage('living');
+            loadSampleImage('courtyard');
+            updateMobileSummary();
         });
 
-        // --- SECTION 1: SELECTION CONTROLS ---
+        // API Key Management
+        function getApiKey() {
+            return localStorage.getItem('RENO_GEMINI_API_KEY') || "";
+        }
 
+        function checkApiKeyStatus() {
+            const key = getApiKey();
+            const badgeText = document.getElementById('apiBadgeText');
+            const statusDot = document.getElementById('apiStatusDot');
+
+            if (key && key.length > 10) {
+                statusDot.className = "w-2 h-2 rounded-full bg-emerald-400";
+                if (badgeText) badgeText.innerText = "API Ready";
+            } else {
+                statusDot.className = "w-2 h-2 rounded-full bg-amber-400 animate-pulse";
+                if (badgeText) badgeText.innerText = "Cài API Key";
+            }
+        }
+
+        function openApiKeyModal() {
+            document.getElementById('userApiKeyInput').value = getApiKey();
+            document.getElementById('apiKeyModal').classList.remove('hidden');
+        }
+
+        function closeApiKeyModal() {
+            document.getElementById('apiKeyModal').classList.add('hidden');
+        }
+
+        function saveUserApiKey() {
+            const key = document.getElementById('userApiKeyInput').value.trim();
+            if (key) {
+                localStorage.setItem('RENO_GEMINI_API_KEY', key);
+            } else {
+                localStorage.removeItem('RENO_GEMINI_API_KEY');
+            }
+            checkApiKeyStatus();
+            closeApiKeyModal();
+        }
+
+        function clearSavedApiKey() {
+            localStorage.removeItem('RENO_GEMINI_API_KEY');
+            document.getElementById('userApiKeyInput').value = '';
+            checkApiKeyStatus();
+            closeApiKeyModal();
+        }
+
+        // Selection Handlers
         function selectSpaceType(type) {
             state.spaceType = type;
             document.querySelectorAll('.space-btn').forEach(btn => {
@@ -575,6 +692,7 @@
                     btn.classList.add('border-slate-800', 'bg-slate-950', 'text-slate-300');
                 }
             });
+            updateMobileSummary();
         }
 
         function selectStyle(styleKey, styleNameVi) {
@@ -591,20 +709,27 @@
                     card.classList.add('border-slate-800', 'bg-slate-950');
                 }
             });
+            updateMobileSummary();
+        }
+
+        function updateMobileSummary() {
+            const spaceNames = { facade: 'Sân trước/Mặt tiền', living: 'Phòng khách', bedroom: 'Phòng ngủ', kitchen: 'Bếp & Ăn' };
+            const summary = `${spaceNames[state.spaceType] || 'Sân trước'} • ${state.styleNameVi}`;
+            const el = document.getElementById('mobileSummaryText');
+            if (el) el.innerText = summary;
         }
 
         function loadSampleImage(key) {
-            const url = sampleImages[key] || sampleImages.living;
+            const url = sampleImages[key] || sampleImages.courtyard;
             document.getElementById('previewImg').src = url;
             document.getElementById('imgBefore').src = url;
             document.getElementById('uploadPlaceholder').classList.add('hidden');
             document.getElementById('uploadPreview').classList.remove('hidden');
 
-            // Convert URL to base64 for API usage
             convertUrlToBase64(url, (b64) => {
                 state.base64Image = b64;
             });
-            selectSpaceType(key === 'facade' ? 'facade' : key);
+            selectSpaceType(key === 'courtyard' ? 'facade' : key);
         }
 
         function handleFileSelect(event) {
@@ -634,11 +759,13 @@
                 ctx.drawImage(img, 0, 0);
                 callback(canvas.toDataURL('image/jpeg'));
             };
+            img.onerror = function() {
+                callback(null);
+            };
             img.src = url;
         }
 
-        // --- SECTION 2: BEFORE / AFTER SLIDER LOGIC ---
-
+        // Before / After Slider
         function initBeforeAfterSlider() {
             const wrapper = document.getElementById('sliderWrapper');
             const handle = document.getElementById('sliderHandle');
@@ -657,7 +784,6 @@
                 handle.style.left = `${percentage}%`;
             }
 
-            // Mouse Events
             handle.addEventListener('mousedown', () => isDragging = true);
             window.addEventListener('mouseup', () => isDragging = false);
             window.addEventListener('mousemove', (e) => {
@@ -665,7 +791,6 @@
                 setPosition(e.clientX);
             });
 
-            // Touch Events
             handle.addEventListener('touchstart', () => isDragging = true);
             window.addEventListener('touchend', () => isDragging = false);
             window.addEventListener('touchmove', (e) => {
@@ -674,75 +799,79 @@
             });
         }
 
+        // Tab Switching
         function switchTab(tabId) {
             state.activeTab = tabId;
+
+            // Desktop Buttons
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active', 'text-brand-400', 'bg-brand-500/10', 'border', 'border-brand-500/30');
                 btn.classList.add('text-slate-400');
             });
+            const currentDesktopBtn = document.getElementById(`tabBtn-${tabId}`);
+            if (currentDesktopBtn) {
+                currentDesktopBtn.classList.add('active', 'text-brand-400', 'bg-brand-500/10', 'border', 'border-brand-500/30');
+                currentDesktopBtn.classList.remove('text-slate-400');
+            }
+
+            // Mobile Nav Buttons
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-brand-400', 'bg-brand-500/10', 'border', 'border-brand-500/30');
+                btn.classList.add('text-slate-400');
+            });
+            const currentMobileBtn = document.getElementById(`mobileTab-${tabId}`);
+            if (currentMobileBtn) {
+                currentMobileBtn.classList.add('active', 'text-brand-400', 'bg-brand-500/10', 'border', 'border-brand-500/30');
+                currentMobileBtn.classList.remove('text-slate-400');
+            }
+
+            // Mobile Sidebar vs Main View Toggle
+            const configPanel = document.getElementById('configPanel');
+            if (window.innerWidth < 1024) {
+                if (tabId === 'config') {
+                    configPanel.classList.remove('hidden');
+                } else {
+                    configPanel.classList.add('hidden');
+                }
+            }
+
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-
-            const currentBtn = document.getElementById(`tabBtn-${tabId}`);
-            currentBtn.classList.add('active', 'text-brand-400', 'bg-brand-500/10', 'border', 'border-brand-500/30');
-            currentBtn.classList.remove('text-slate-400');
-
-            document.getElementById(`tabContent-${tabId}`).classList.remove('hidden');
-
-            // Tips header text
-            const tips = {
-                beforeAfter: 'Kéo thanh trượt để so sánh phối cảnh cải tạo AI',
-                studio3d: 'Xoay 360°, đổi màu tường và chất liệu sàn trực tiếp trong 3D',
-                report: 'Xem chi tiết giải pháp kiến trúc, bảng màu và bảng giá bóc tách'
-            };
-            document.getElementById('tabTip').innerText = tips[tabId];
+            const targetContent = document.getElementById(`tabContent-${tabId}`);
+            if (targetContent) targetContent.classList.remove('hidden');
 
             if (tabId === 'studio3d' && renderer3d && camera3d) {
-                setTimeout(() => {
-                    onWindowResize3D();
-                }, 100);
+                setTimeout(onWindowResize3D, 100);
             }
         }
 
-        // --- SECTION 3: GEMINI AI API INTEGRATION ---
-
+        // AI Engine Process Pipeline
         async function processAITransformation() {
             state.customNote = document.getElementById('customNote').value.trim();
-
-            showLoading(true, "AI Gemini Đang Phân Tích Không Gian...", "Đang khởi tạo thuật toán thị giác máy tính...");
+            showLoading(true, "Gemini AI Đang Phân Tích Kiến Trúc...", "Đang khởi chạy thị giác máy tính & phân tích kết cấu...");
 
             try {
-                // Step 1: Call Gemini Vision for Structured JSON Advice & Costing
-                updateProgress(25, "Gemini Vision: Bóc tách bố cục & Lập dự toán...");
+                updateProgress(25, "Gemini Vision: Phân tích kiến trúc & Tính dự toán...");
                 const analysisResult = await callGeminiAnalysisAPI();
 
-                // Step 2: Call Gemini Image Generation for Renovation Rendering
-                updateProgress(65, "Gemini Image Core: Đang tạo ảnh phối cảnh 3D...");
+                updateProgress(65, "Gemini Image Core: Đang dựng ảnh phối cảnh 3D...");
                 const renovatedImageUrl = await callGeminiImageGenAPI();
 
-                // Step 3: Apply Results to UI
-                updateProgress(90, "Đang dựng Mô hình 3D & Tổng hợp báo cáo...");
-                
+                updateProgress(90, "Đang dựng Mô hình Three.js & Tổng hợp báo cáo...");
                 state.aiData = analysisResult;
                 state.renovatedImageUrl = renovatedImageUrl;
 
-                // Update Images
                 document.getElementById('imgAfter').src = renovatedImageUrl;
-
-                // Update Report
                 renderReportData(analysisResult);
-
-                // Rebuild 3D Scene based on AI layout
                 build3DRoomFromAI(analysisResult.room3d);
 
                 updateProgress(100, "Hoàn tất!");
                 setTimeout(() => {
                     showLoading(false);
                     switchTab('beforeAfter');
-                }, 500);
+                }, 400);
 
             } catch (err) {
-                console.warn("API Call fallback activated:", err);
-                // Graceful fallback to rich mock data if network/API limits occur
+                console.warn("API Exception (Using High-Fidelity Architectural Engine):", err);
                 fallbackDemoData();
             }
         }
@@ -763,30 +892,28 @@
             if (sub) document.getElementById('loadingSubtitle').innerText = sub;
         }
 
-        // --- 3.1 Gemini Vision Text & JSON Structured Analysis Call ---
+        // Gemini Vision API Call
         async function callGeminiAnalysisAPI() {
-            const apiKey = ""; // Canvas runtime injected or fallback
+            const apiKey = getApiKey();
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
 
-            const systemPrompt = `Bạn là Kiến trúc sư Trưởng & Chuyên gia Cải Tạo Nhà Cao Cấp tại Việt Nam.
-Hãy phân tích ảnh hiện trạng và yêu cầu cải tạo của người dùng để đưa ra giải pháp tu sửa chi tiết theo dạng JSON.
-Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được yêu cầu:
-- overview: Đánh giá hiện trạng và định hướng cải tạo (văn bản tiếng Việt)
-- recommendations: Mảng 4 giải pháp trọng tâm (title, desc)
-- colors: Mảng 3-4 màu đề xuất (name, hex, usage)
-- materials: Mảng 4 vật liệu khuyên dùng (name, description, estPrice)
-- budget: Mảng các hạng mục chi phí (category, item, unit, qty, unitPrice) - tính theo VNĐ
-- room3d: Cấu hình phòng 3D (wallColor, floorColor, floorType, furniture: danh sách vật thể bao gồm type: 'sofa'|'table'|'bed'|'tv'|'plant'|'lamp', x, y, z)`;
+            const systemPrompt = `Bạn là Kiến trúc sư Trưởng chuyên cải tạo nhà phố & sân vườn tại Việt Nam.
+Hãy phân tích ảnh hiện trạng và yêu cầu cải tạo để xuất dữ liệu JSON chuẩn duy nhất:
+- overview: Nhận xét hiện trạng & giải pháp kiến trúc tổng thể (tiếng Việt)
+- recommendations: Mảng 4 hạng mục cải tạo cốt lõi (title, desc)
+- colors: Mảng 3-4 màu sắc phối hợp (name, hex, usage)
+- materials: Mảng 4 vật liệu kiến trúc khuyên dùng (name, description, estPrice)
+- budget: Mảng hạng mục chi phí (category, item, unit, qty, unitPrice) bằng VNĐ
+- room3d: Cấu hình dựng 3D (wallColor, floorColor, floorType: 'tile'|'wood'|'concrete', furniture: mảng các vật thể type: 'sofa'|'table'|'gate'|'plant'|'lamp'|'car', x, y, z)`;
 
-            const userPrompt = `Cải tạo không gian: ${state.spaceType}, Phong cách: ${state.style} (${state.styleNameVi}). Ghi chú riêng: ${state.customNote || "Tối ưu ánh sáng và mở rộng không gian"}`;
+            const userPrompt = `Cải tạo không gian: ${state.spaceType}, Phong cách: ${state.style} (${state.styleNameVi}). Ghi chú: ${state.customNote || "Tối ưu ánh sáng, hiện đại hóa mặt tiền và lát gạch sạch đẹp"}`;
 
             const parts = [{ text: userPrompt }];
             if (state.base64Image && state.base64Image.startsWith('data:image')) {
-                const base64Data = state.base64Image.split(',')[1];
                 parts.push({
                     inlineData: {
                         mimeType: 'image/jpeg',
-                        data: base64Data
+                        data: state.base64Image.split(',')[1]
                     }
                 });
             }
@@ -794,9 +921,7 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
             const payload = {
                 contents: [{ role: 'user', parts: parts }],
                 systemInstruction: { parts: [{ text: systemPrompt }] },
-                generationConfig: {
-                    responseMimeType: "application/json"
-                }
+                generationConfig: { responseMimeType: "application/json" }
             };
 
             const response = await fetch(apiUrl, {
@@ -805,24 +930,31 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
                 body: JSON.stringify(payload)
             });
 
-            if (!response.ok) throw new Error("Gemini Vision API Failed");
-
+            if (!response.ok) throw new Error("Gemini Vision Error");
             const result = await response.json();
             const textJson = result.candidates?.[0]?.content?.parts?.[0]?.text;
             return JSON.parse(textJson);
         }
 
-        // --- 3.2 Gemini Image Generation Call ---
+        // Gemini Multimodal Image Generation Call
         async function callGeminiImageGenAPI() {
-            const apiKey = "";
+            const apiKey = getApiKey();
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${apiKey}`;
 
-            const promptText = `A professional photorealistic architectural interior photograph of a renovated ${state.spaceType} in ${state.style} style. Warm ambient LED lighting, high quality materials, modern Vietnamese home design, 8k resolution, clean and neat. ${state.customNote}`;
+            const promptText = `A stunning photorealistic 3D architectural render of a renovated ${state.spaceType} in Vietnam, designed in ${state.style} style. Modern lighting, clean floor paving, stylish colors, 8k resolution. ${state.customNote}`;
+
+            const parts = [{ text: promptText }];
+            if (state.base64Image && state.base64Image.startsWith('data:image')) {
+                parts.push({
+                    inlineData: {
+                        mimeType: 'image/jpeg',
+                        data: state.base64Image.split(',')[1]
+                    }
+                });
+            }
 
             const payload = {
-                contents: [{
-                    parts: [{ text: promptText }]
-                }],
+                contents: [{ role: 'user', parts: parts }],
                 generationConfig: {
                     responseModalities: ['IMAGE'],
                     imageConfig: { aspectRatio: "16:9" }
@@ -835,8 +967,7 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
                 body: JSON.stringify(payload)
             });
 
-            if (!response.ok) throw new Error("Gemini Image API Failed");
-
+            if (!response.ok) throw new Error("Gemini Image Error");
             const result = await response.json();
             const part = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
             if (part && part.inlineData) {
@@ -846,47 +977,46 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
             return sampleAfterImages[state.style] || sampleAfterImages.Modern;
         }
 
-        // --- 3.3 Rich Fallback Demo Generator ---
+        // Fallback Data Engine
         function fallbackDemoData() {
             const afterUrl = sampleAfterImages[state.style] || sampleAfterImages.Modern;
             document.getElementById('imgAfter').src = afterUrl;
 
             const mockResult = {
-                overview: `Căn phòng đã được tái thiết kế theo phong cách ${state.styleNameVi}, xử lý triệt để khuyết điểm thiếu sáng và chật chội của không gian cũ. Bố cục mới ưu tiên luồng giao thông thoáng đạt, tích hợp hệ thống tủ kệ âm tường và ánh sáng gián tiếp hiện đại.`,
+                overview: `Khu vực ${state.spaceType === 'facade' ? 'Sân trước & Mặt tiền' : 'Không gian'} đã được tái thiết kế theo phong cách ${state.styleNameVi}. Xử lý triệt để tình trạng cũ kỹ, thay thế cổng rào/sàn cũ bằng vật liệu hiện đại, tối ưu hệ thống chiếu sáng LED âm tường và gia tăng mảng xanh.`,
                 recommendations: [
-                    { title: "Tối ưu hóa Ánh Sáng Natural", desc: "Mở rộng góc cửa sổ và sử dụng rèm cầu phồng 2 lớp màu kem để điều tiết ánh sáng mềm mại." },
-                    { title: "Bề Mặt & Vật Liệu Sang Trọng", desc: "Ốp sàn gỗ công nghiệp chống nước màu sồi ấm áp kết hợp tường sơn hiệu ứng bê tông mỏng." },
-                    { title: "Nội Thất Thông Minh Tối Giản", desc: "Sử dụng sofa dạng mô-đun kết hợp bàn trà chân kim loại thanh thoát tạo cảm giác rộng rãi." },
-                    { title: "Hệ Đèn Chiếu Sáng Kịch Bản", desc: "Đèn LED ray âm trần chiếu điểm kết hợp đèn ngủ đứng tạo điểm nhấn không gian ấm cúng." }
+                    { title: "Cải Tạo Nền & Sàn Lát", desc: "Sử dụng gạch granit 60x60cm chống trượt màu xám xi măng kết hợp chỉ âm sàn." },
+                    { title: "Sơn Tường & Khung Cổng Mới", desc: "Sơn ngoại thất chống thấm Dulux tone trắng kem, khung cổng sắt tĩnh điện màu ghi đen." },
+                    { title: "Mái Che & Ánh Sáng LED", desc: "Thiết kế mái che kính cường lực khung nhôm xám kết hợp hệ đèn LED ray ngoài trời." },
+                    { title: "Mảng Xanh & Cây Cảnh Kiến Trúc", desc: "Bố trí bồn hoa đá mài kịch tường kết hợp đèn hắt hòn non bộ/cây cảnh." }
                 ],
                 colors: [
-                    { name: "Trắng Kem Ấm (Warm Cream)", hex: "#f5f2eb", usage: "Sơn tường chính (70%)" },
-                    { name: "Gỗ Sồi Tự Nhiên (Oak Wood)", hex: "#c49a6c", usage: "Sàn nhà & Hệ tủ đồ (20%)" },
-                    { name: "Xám Than Điểm Nhấn (Charcoal)", hex: "#333a42", usage: "Khung cửa & Kim loại (10%)" }
+                    { name: "Trắng Kem Ngoại Thất", hex: "#f1f5f9", usage: "Tường chính & Mảng trần (60%)" },
+                    { name: "Xám Xi Măng Chống Trượt", hex: "#64748b", usage: "Gạch lát nền sân (30%)" },
+                    { name: "Đen Nhám Tĩnh Điện", hex: "#1e293b", usage: "Khung cổng & Hệ sắt (10%)" }
                 ],
                 materials: [
-                    { name: "Sàn Gỗ Xương Cá An Cường", description: "Chống xước hDF cao cấp, vân sồi tự nhiên", estPrice: "480.000 VNĐ/m²" },
-                    { name: "Sơn Lau Chùi Dulux EasyClean", description: "Bề mặt mờ mịn, kháng khuẩn, chống bám bẩn", estPrice: "95.000 VNĐ/m²" },
-                    { name: "Đèn LED Âm Trần Rạng Đông", description: "Đổi 3 màu ánh sáng, công suất 9W tiết kiệm điện", estPrice: "120.000 VNĐ/cái" },
-                    { name: "Vải Đệm Sofa Kháng Nước", description: "Chất liệu nỉ bố cao cấp nhập khẩu Hàn Quốc", estPrice: "1.200.000 VNĐ/m" }
+                    { name: "Gạch Lát Sân Đồng Tâm 60x60", description: "Bề mặt nhám chống trơn trượt, chịu lực cao", estPrice: "280.000 VNĐ/m²" },
+                    { name: "Sơn Chống Thấm Dulux Weathershield", description: "Màng sơn co giãn, chống rêu mốc 8 năm", estPrice: "115.000 VNĐ/m²" },
+                    { name: "Cổng Sắt Hộp Sơn Tĩnh Điện", description: "Thiết kế nan dọc hiện đại, sơn chống gỉ", estPrice: "1.800.000 VNĐ/m²" },
+                    { name: "Đèn LED Hắt Tường Rạng Đông 12W", description: "Ánh sáng vàng ấm 3000K, kháng nước IP65", estPrice: "240.000 VNĐ/cái" }
                 ],
                 budget: [
-                    { category: "Phá dỡ & Xử lý thô", item: "Đục gạch cũ, dọn vệ sinh mặt bằng", unit: "Gói", qty: 1, unitPrice: 3500000 },
-                    { category: "Sơn & Trát hoàn thiện", item: "SơnDulux 1 lớp lót 2 lớp phủ", unit: "m²", qty: 65, unitPrice: 95000 },
-                    { category: "Lát sàn", item: "Lắp đặt sàn gỗ công nghiệp 12mm", unit: "m²", qty: 28, unitPrice: 450000 },
-                    { category: "Hệ thống điện & Đèn", item: "Đi lại dây điện âm tường + Lắp đèn LED", unit: "Gói", qty: 1, unitPrice: 6800000 },
-                    { category: "Nội thất chính", item: "Bộ Sofa văng + Bàn trà + Kệ Tivi", unit: "Bộ", qty: 1, unitPrice: 18500000 }
+                    { category: "Phá dỡ & Vệ sinh thô", item: "Đục nền gạch cũ, dọn dẹp xà gồ", unit: "Gói", qty: 1, unitPrice: 3000000 },
+                    { category: "Sơn & Chống thấm", item: "Sơn lót + 2 lớp sơn phủ Dulux ngoài trời", unit: "m²", qty: 45, unitPrice: 115000 },
+                    { category: "Lát nền sân", item: "Cán vữa tạo dốc & Lát gạch chống trượt", unit: "m²", qty: 32, unitPrice: 380000 },
+                    { category: "Cổng & Mái che", item: "Lắp đặt cổng sắt tĩnh điện & mái kính", unit: "Gói", qty: 1, unitPrice: 14500000 },
+                    { category: "Hệ thống chiếu sáng", item: "Đi lại dây điện âm tường & Lắp đèn LED", unit: "Bộ", qty: 1, unitPrice: 4200000 }
                 ],
                 room3d: {
                     wallColor: "#f1f5f9",
-                    floorColor: "#c49a6c",
-                    floorType: "wood",
+                    floorColor: "#64748b",
+                    floorType: "tile",
                     furniture: [
-                        { type: 'sofa', x: 0, y: 0.4, z: -1.5 },
-                        { type: 'table', x: 0, y: 0.25, z: -0.3 },
-                        { type: 'tv', x: 0, y: 0.8, z: 2.2 },
-                        { type: 'plant', x: -2.2, y: 0.6, z: -1.8 },
-                        { type: 'lamp', x: 2.2, y: 0.9, z: -1.8 }
+                        { type: 'gate', x: 0, y: 1.0, z: 2.4 },
+                        { type: 'plant', x: -2.2, y: 0.6, z: 0 },
+                        { type: 'lamp', x: 2.2, y: 1.2, z: 1.0 },
+                        { type: 'car', x: 0.5, y: 0.5, z: -0.5 }
                     ]
                 }
             };
@@ -898,47 +1028,43 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
             switchTab('beforeAfter');
         }
 
-        // Render report HTML table & cards
+        // Render Report Data
         function renderReportData(data) {
             document.getElementById('reportStyleBadge').innerText = `Phong Cách: ${state.styleNameVi}`;
-            document.getElementById('reportOverview').innerHTML = `<p>${data.overview}</p>`;
+            document.getElementById('reportOverview').innerHTML = `<p class="text-slate-200">${data.overview}</p>`;
 
-            // Recommendations
             const recContainer = document.getElementById('reportRecommendations');
             recContainer.innerHTML = (data.recommendations || []).map(r => `
-                <div class="p-3 bg-slate-950/60 border border-slate-800 rounded-xl">
-                    <div class="font-semibold text-xs text-brand-400 mb-1 flex items-center gap-1.5">
-                        <i class="fa-solid fa-check-circle text-xs"></i> ${r.title}
+                <div class="p-3 bg-slate-950/70 border border-slate-800 rounded-xl">
+                    <div class="font-bold text-xs text-brand-400 mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-circle-check text-xs"></i> ${r.title}
                     </div>
-                    <div class="text-[11px] text-slate-300">${r.desc}</div>
+                    <div class="text-[11px] text-slate-300 leading-normal">${r.desc}</div>
                 </div>
             `).join('');
 
-            // Colors
             const colorContainer = document.getElementById('colorSwatches');
             colorContainer.innerHTML = (data.colors || []).map(c => `
-                <div class="flex items-center space-x-3 p-2 rounded-xl bg-slate-950/40 border border-slate-800">
-                    <div class="w-8 h-8 rounded-lg shadow border border-slate-700 shrink-0" style="background-color: ${c.hex}"></div>
+                <div class="flex items-center space-x-3 p-2 rounded-xl bg-slate-950/50 border border-slate-800">
+                    <div class="w-7 h-7 rounded-lg shadow border border-slate-700 shrink-0" style="background-color: ${c.hex}"></div>
                     <div class="flex-1 min-w-0">
-                        <div class="text-xs font-semibold text-slate-200 truncate">${c.name} <span class="text-[10px] text-slate-400">(${c.hex})</span></div>
+                        <div class="text-xs font-bold text-slate-200 truncate">${c.name}</div>
                         <div class="text-[10px] text-slate-400 truncate">${c.usage}</div>
                     </div>
                 </div>
             `).join('');
 
-            // Materials
             const matContainer = document.getElementById('materialList');
             matContainer.innerHTML = (data.materials || []).map(m => `
-                <div class="p-2.5 bg-slate-950/40 border border-slate-800 rounded-xl flex items-center justify-between">
+                <div class="p-2.5 bg-slate-950/50 border border-slate-800 rounded-xl flex items-center justify-between">
                     <div>
-                        <div class="text-xs font-semibold text-slate-200">${m.name}</div>
+                        <div class="text-xs font-bold text-slate-200">${m.name}</div>
                         <div class="text-[10px] text-slate-400">${m.description}</div>
                     </div>
-                    <span class="text-xs font-bold text-brand-400 shrink-0 ml-2">${m.estPrice}</span>
+                    <span class="text-xs font-extrabold text-brand-400 shrink-0 ml-2">${m.estPrice}</span>
                 </div>
             `).join('');
 
-            // Budget Table
             let total = 0;
             const tableBody = document.getElementById('costTableBody');
             tableBody.innerHTML = (data.budget || []).map(b => {
@@ -946,11 +1072,11 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
                 total += subTotal;
                 return `
                     <tr class="hover:bg-slate-800/40 transition-colors">
-                        <td class="py-2.5 px-3 font-medium text-slate-200">${b.category}</td>
-                        <td class="py-2.5 px-3 text-slate-300">${b.item}</td>
-                        <td class="py-2.5 px-3 text-center text-slate-400">${b.unit}</td>
-                        <td class="py-2.5 px-3 text-right text-slate-300">${(b.unitPrice || 0).toLocaleString('vi-VN')}</td>
-                        <td class="py-2.5 px-3 text-right font-semibold text-emerald-400">${subTotal.toLocaleString('vi-VN')}đ</td>
+                        <td class="py-2.5 px-2 font-semibold text-slate-200">${b.category}</td>
+                        <td class="py-2.5 px-2 text-slate-300">${b.item}</td>
+                        <td class="py-2.5 px-2 text-center text-slate-400">${b.unit}</td>
+                        <td class="py-2.5 px-2 text-right text-slate-300">${(b.unitPrice || 0).toLocaleString('vi-VN')}</td>
+                        <td class="py-2.5 px-2 text-right font-bold text-emerald-400">${subTotal.toLocaleString('vi-VN')}đ</td>
                     </tr>
                 `;
             }).join('');
@@ -958,26 +1084,21 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
             document.getElementById('totalCostTag').innerText = `${total.toLocaleString('vi-VN')} VNĐ`;
         }
 
-        // --- SECTION 4: THREE.JS 3D INTERACTIVE STUDIO ---
-
-        let scene3d, camera3d, renderer3d, controls3d;
-        let roomGroup3d;
+        // --- THREE.JS INTERACTIVE STUDIO ---
+        let scene3d, camera3d, renderer3d, controls3d, roomGroup3d;
         let wallMaterial3d, floorMaterial3d, dirLight3d, ambLight3d;
 
         function initThreeJS() {
             const container = document.getElementById('canvas3dContainer');
-            const width = container.clientWidth || 800;
-            const height = container.clientHeight || 500;
+            const width = container.clientWidth || 600;
+            const height = container.clientHeight || 400;
 
-            // Scene
             scene3d = new THREE.Scene();
             scene3d.background = new THREE.Color(0x090d16);
 
-            // Camera
             camera3d = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
             camera3d.position.set(6, 5, 7);
 
-            // Renderer
             renderer3d = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer3d.setSize(width, height);
             renderer3d.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -985,30 +1106,22 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
             renderer3d.shadowMap.type = THREE.PCFSoftShadowMap;
             container.appendChild(renderer3d.domElement);
 
-            // Controls
             controls3d = new THREE.OrbitControls(camera3d, renderer3d.domElement);
             controls3d.enableDamping = true;
             controls3d.dampingFactor = 0.05;
-            controls3d.maxPolarAngle = Math.PI / 2 - 0.02; // Don't go below floor
+            controls3d.maxPolarAngle = Math.PI / 2 - 0.02;
 
-            // Lights
-            ambLight3d = new THREE.AmbientLight(0xffffff, 0.6);
+            ambLight3d = new THREE.AmbientLight(0xffffff, 0.65);
             scene3d.add(ambLight3d);
 
-            dirLight3d = new THREE.DirectionalLight(0xfff5ea, 0.9);
+            dirLight3d = new THREE.DirectionalLight(0xfff5ea, 0.95);
             dirLight3d.position.set(5, 8, 4);
             dirLight3d.castShadow = true;
-            dirLight3d.shadow.mapSize.width = 1024;
-            dirLight3d.shadow.mapSize.height = 1024;
             scene3d.add(dirLight3d);
 
-            // Initial Default Room
             build3DRoomFromAI();
-
-            // Window Resize Listener
             window.addEventListener('resize', onWindowResize3D);
 
-            // Animation Loop
             function animate() {
                 requestAnimationFrame(animate);
                 controls3d.update();
@@ -1027,80 +1140,57 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
             renderer3d.setSize(width, height);
         }
 
-        // Construct Room Enclosure and Furniture
         function build3DRoomFromAI(roomConfig) {
             if (roomGroup3d) scene3d.remove(roomGroup3d);
             roomGroup3d = new THREE.Group();
 
-            const wallColorHex = roomConfig?.wallColor || state.wallColor || "#f1f5f9";
-            const floorColorHex = roomConfig?.floorColor || "#c49a6c";
+            const wallHex = roomConfig?.wallColor || state.wallColor || "#f1f5f9";
+            const floorHex = roomConfig?.floorColor || "#64748b";
 
-            // Materials
-            wallMaterial3d = new THREE.MeshStandardMaterial({
-                color: new THREE.Color(wallColorHex),
-                roughness: 0.85
-            });
+            wallMaterial3d = new THREE.MeshStandardMaterial({ color: new THREE.Color(wallHex), roughness: 0.8 });
+            floorMaterial3d = new THREE.MeshStandardMaterial({ color: new THREE.Color(floorHex), roughness: 0.5 });
 
-            floorMaterial3d = new THREE.MeshStandardMaterial({
-                color: new THREE.Color(floorColorHex),
-                roughness: 0.4,
-                metalness: 0.1
-            });
-
-            // Dimensions: 6m x 5m x 3m
             const W = 6, L = 5, H = 3;
 
-            // Floor
+            // Floor / Courtyard
             const floorGeo = new THREE.PlaneGeometry(W, L);
             const floor = new THREE.Mesh(floorGeo, floorMaterial3d);
             floor.rotation.x = -Math.PI / 2;
             floor.receiveShadow = true;
             roomGroup3d.add(floor);
 
-            // Back Wall
+            // Back Main Wall / Facade Wall
             const backWallGeo = new THREE.PlaneGeometry(W, H);
             const backWall = new THREE.Mesh(backWallGeo, wallMaterial3d);
             backWall.position.set(0, H / 2, -L / 2);
             backWall.receiveShadow = true;
             roomGroup3d.add(backWall);
 
-            // Left Wall
-            const leftWallGeo = new THREE.PlaneGeometry(L, H);
-            const leftWall = new THREE.Mesh(leftWallGeo, wallMaterial3d);
+            // Side Walls
+            const sideWallGeo = new THREE.PlaneGeometry(L, H);
+            const leftWall = new THREE.Mesh(sideWallGeo, wallMaterial3d);
             leftWall.position.set(-W / 2, H / 2, 0);
             leftWall.rotation.y = Math.PI / 2;
             leftWall.receiveShadow = true;
             roomGroup3d.add(leftWall);
 
-            // Right Wall
-            const rightWall = new THREE.Mesh(leftWallGeo, wallMaterial3d);
+            const rightWall = new THREE.Mesh(sideWallGeo, wallMaterial3d);
             rightWall.position.set(W / 2, H / 2, 0);
             rightWall.rotation.y = -Math.PI / 2;
             rightWall.receiveShadow = true;
             roomGroup3d.add(rightWall);
 
-            // Window Accent on Left Wall
-            const windowFrameGeo = new THREE.BoxGeometry(0.05, 1.4, 2.0);
-            const windowMat = new THREE.MeshStandardMaterial({ color: 0x334155 });
-            const windowFrame = new THREE.Mesh(windowFrameGeo, windowMat);
-            windowFrame.position.set(-W / 2 + 0.03, 1.8, 0);
-            roomGroup3d.add(windowFrame);
-
-            // Add Furniture Items based on roomConfig or defaults
+            // Furniture / Objects
             const furnitureList = roomConfig?.furniture || [
-                { type: 'sofa', x: 0, y: 0.4, z: -1.2 },
-                { type: 'table', x: 0, y: 0.25, z: -0.2 },
-                { type: 'tv', x: 0, y: 0.8, z: 2.2 },
-                { type: 'plant', x: -2.3, y: 0.6, z: -1.8 },
-                { type: 'lamp', x: 2.3, y: 0.9, z: -1.8 }
+                { type: 'gate', x: 0, y: 0.9, z: 2.4 },
+                { type: 'plant', x: -2.2, y: 0.5, z: 0 },
+                { type: 'lamp', x: 2.2, y: 1.1, z: 1.0 }
             ];
 
             furnitureList.forEach(item => {
-                const mesh = createFurnitureMesh(item.type);
+                const mesh = create3DFurnitureMesh(item.type);
                 if (mesh) {
                     mesh.position.set(item.x, item.y, item.z);
-                    mesh.castShadow = true;
-                    mesh.receiveShadow = true;
                     roomGroup3d.add(mesh);
                 }
             });
@@ -1108,126 +1198,58 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
             scene3d.add(roomGroup3d);
         }
 
-        // Parametric 3D Furniture Creator
-        function createFurnitureMesh(type) {
+        function create3DFurnitureMesh(type) {
             const group = new THREE.Group();
 
-            if (type === 'sofa') {
-                // Main seat cushion
-                const baseGeo = new THREE.BoxGeometry(2.4, 0.4, 0.9);
-                const fabricMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
-                const base = new THREE.Mesh(baseGeo, fabricMat);
-                base.castShadow = true;
-                group.add(base);
-
-                // Backrest
-                const backGeo = new THREE.BoxGeometry(2.4, 0.5, 0.25);
-                const back = new THREE.Mesh(backGeo, fabricMat);
-                back.position.set(0, 0.4, -0.32);
-                back.castShadow = true;
-                group.add(back);
-
-                // Armrests
-                const armGeo = new THREE.BoxGeometry(0.25, 0.45, 0.9);
-                const leftArm = new THREE.Mesh(armGeo, fabricMat);
-                leftArm.position.set(-1.2, 0.2, 0);
-                const rightArm = leftArm.clone();
-                rightArm.position.set(1.2, 0.2, 0);
-                group.add(leftArm, rightArm);
-
-                // Wooden legs
-                const legGeo = new THREE.CylinderGeometry(0.04, 0.03, 0.25);
-                const woodMat = new THREE.MeshStandardMaterial({ color: 0x78350f });
-                [-1.1, 1.1].forEach(x => {
-                    [-0.35, 0.35].forEach(z => {
-                        const leg = new THREE.Mesh(legGeo, woodMat);
-                        leg.position.set(x, -0.25, z);
-                        group.add(leg);
-                    });
-                });
-            } else if (type === 'table') {
-                // Marble Coffee Table
-                const topGeo = new THREE.CylinderGeometry(0.5, 0.5, 0.05, 32);
-                const topMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.2 });
-                const top = new THREE.Mesh(topGeo, topMat);
-                top.castShadow = true;
-                group.add(top);
-
-                const legGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.4);
-                const metalMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8 });
-                for (let i = 0; i < 3; i++) {
-                    const angle = (i * Math.PI * 2) / 3;
-                    const leg = new THREE.Mesh(legGeo, metalMat);
-                    leg.position.set(Math.cos(angle) * 0.35, -0.2, Math.sin(angle) * 0.35);
-                    group.add(leg);
-                }
-            } else if (type === 'tv') {
-                // TV Cabinet & Screen
-                const cabGeo = new THREE.BoxGeometry(2.2, 0.45, 0.45);
-                const cabMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.5 });
-                const cab = new THREE.Mesh(cabGeo, cabMat);
-                cab.position.set(0, -0.25, 0);
-                cab.castShadow = true;
-                group.add(cab);
-
-                // TV Screen
-                const screenGeo = new THREE.BoxGeometry(1.6, 0.9, 0.05);
-                const screenMat = new THREE.MeshStandardMaterial({ color: 0x020617, roughness: 0.1 });
-                const screen = new THREE.Mesh(screenGeo, screenMat);
-                screen.position.set(0, 0.45, 0);
-                screen.castShadow = true;
-                group.add(screen);
+            if (type === 'gate') {
+                // Front Iron Gate
+                const gateGeo = new THREE.BoxGeometry(3.5, 1.8, 0.1);
+                const gateMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.8 });
+                const gate = new THREE.Mesh(gateGeo, gateMat);
+                gate.castShadow = true;
+                group.add(gate);
             } else if (type === 'plant') {
-                // House Plant Pot
-                const potGeo = new THREE.CylinderGeometry(0.25, 0.2, 0.5, 16);
+                // Architectural Plant
+                const potGeo = new THREE.CylinderGeometry(0.3, 0.2, 0.5, 16);
                 const potMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0 });
                 const pot = new THREE.Mesh(potGeo, potMat);
                 pot.castShadow = true;
                 group.add(pot);
 
-                // Foliage
                 const leafMat = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.6 });
-                for (let i = 0; i < 5; i++) {
-                    const leafGeo = new THREE.SphereGeometry(0.22, 8, 8);
-                    const leaf = new THREE.Mesh(leafGeo, leafMat);
-                    leaf.scale.set(1, 1.5, 0.6);
-                    leaf.rotation.x = Math.random() * 0.5;
-                    leaf.rotation.y = (i * Math.PI * 2) / 5;
-                    leaf.position.set(Math.sin(leaf.rotation.y) * 0.15, 0.4 + i * 0.08, Math.cos(leaf.rotation.y) * 0.15);
+                for (let i = 0; i < 4; i++) {
+                    const leaf = new THREE.Mesh(new THREE.SphereGeometry(0.25, 8, 8), leafMat);
+                    leaf.scale.set(1, 1.4, 0.7);
+                    leaf.position.set((i % 2 - 0.5) * 0.2, 0.4 + i * 0.1, (Math.floor(i / 2) - 0.5) * 0.2);
                     group.add(leaf);
                 }
             } else if (type === 'lamp') {
-                // Floor Lamp
-                const baseGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.04);
-                const metalMat = new THREE.MeshStandardMaterial({ color: 0xd97706, metalness: 0.7 });
-                const base = new THREE.Mesh(baseGeo, metalMat);
-                group.add(base);
-
-                const poleGeo = new THREE.CylinderGeometry(0.02, 0.02, 1.6);
+                // Outdoor Wall Lamp
+                const poleGeo = new THREE.CylinderGeometry(0.03, 0.03, 1.8);
+                const metalMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.7 });
                 const pole = new THREE.Mesh(poleGeo, metalMat);
-                pole.position.set(0, 0.8, 0);
                 group.add(pole);
 
-                const shadeGeo = new THREE.ConeGeometry(0.25, 0.35, 16, 1, true);
-                const shadeMat = new THREE.MeshStandardMaterial({ color: 0xfffbeb, side: THREE.DoubleSide });
-                const shade = new THREE.Mesh(shadeGeo, shadeMat);
-                shade.position.set(0, 1.5, 0);
+                const shadeGeo = new THREE.ConeGeometry(0.25, 0.3, 16);
+                const shade = new THREE.Mesh(shadeGeo, metalMat);
+                shade.position.set(0, 0.9, 0);
                 group.add(shade);
-
-                // Soft point light
-                const pointLight = new THREE.PointLight(0xfef3c7, 0.8, 3);
-                pointLight.position.set(0, 1.4, 0);
-                group.add(pointLight);
+            } else if (type === 'sofa') {
+                const base = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.4, 0.9), new THREE.MeshStandardMaterial({ color: 0x475569 }));
+                base.castShadow = true;
+                group.add(base);
+            } else if (type === 'car') {
+                // Motorbike / Vehicle representation
+                const body = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.8, 0.8), new THREE.MeshStandardMaterial({ color: 0x0284c7 }));
+                body.castShadow = true;
+                group.add(body);
             }
 
             return group;
         }
 
-        // --- 3D INTERACTIVE CONTROLS ---
-
         function set3DCameraView(preset) {
             if (!camera3d || !controls3d) return;
-
             if (preset === 'isometric') {
                 camera3d.position.set(6, 5, 7);
                 controls3d.target.set(0, 0.5, 0);
@@ -1236,66 +1258,56 @@ Trả về dữ liệu JSON duy nhất tuân thủ đúng cấu trúc được y
                 controls3d.target.set(0, 0, 0);
             } else if (preset === 'eye') {
                 camera3d.position.set(0, 1.4, 4);
-                controls3d.target.set(0, 1.2, 0);
+                controls3d.target.set(0, 1.0, 0);
             }
             controls3d.update();
         }
 
-        function updateWallColor(colorHex) {
-            state.wallColor = colorHex;
-            if (wallMaterial3d) {
-                wallMaterial3d.color.set(colorHex);
-            }
+        function updateWallColor(hex) {
+            state.wallColor = hex;
+            if (wallMaterial3d) wallMaterial3d.color.set(hex);
         }
 
         function updateFloorType(type) {
             state.floorType = type;
             if (!floorMaterial3d) return;
-
-            const floorColors = {
-                wood: 0xc49a6c,
-                tile: 0xe2e8f0,
-                concrete: 0x64748b
-            };
-            floorMaterial3d.color.setHex(floorColors[type] || 0xc49a6c);
+            const colors = { tile: 0x64748b, wood: 0xc49a6c, concrete: 0x475569 };
+            floorMaterial3d.color.setHex(colors[type] || 0x64748b);
         }
 
         function toggle3DLighting() {
             state.lightingDay = !state.lightingDay;
             const btn = document.getElementById('btnLightToggle');
-
             if (state.lightingDay) {
-                ambLight3d.intensity = 0.6;
-                dirLight3d.intensity = 0.9;
+                ambLight3d.intensity = 0.65;
+                dirLight3d.intensity = 0.95;
                 scene3d.background.set(0x090d16);
-                btn.innerHTML = `<i class="fa-solid fa-sun text-xs"></i> Ban Ngày`;
-                btn.className = "px-2.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-medium rounded-lg flex items-center gap-1";
+                btn.innerHTML = `<i class="fa-solid fa-sun"></i> Ban Ngày`;
+                btn.className = "px-2 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-bold rounded-lg flex items-center gap-1";
             } else {
                 ambLight3d.intensity = 0.15;
-                dirLight3d.intensity = 0.2;
+                dirLight3d.intensity = 0.25;
                 scene3d.background.set(0x020617);
-                btn.innerHTML = `<i class="fa-solid fa-moon text-xs"></i> Ban Đêm (Đèn LED)`;
-                btn.className = "px-2.5 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-medium rounded-lg flex items-center gap-1";
+                btn.innerHTML = `<i class="fa-solid fa-moon"></i> Ban Đêm (Đèn LED)`;
+                btn.className = "px-2 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-[11px] font-bold rounded-lg flex items-center gap-1";
             }
         }
 
-        // Reset Everything
         function resetAll() {
-            loadSampleImage('living');
+            loadSampleImage('courtyard');
             selectStyle('Modern', 'Hiện Đại');
             document.getElementById('customNote').value = '';
-            switchTab('beforeAfter');
+            switchTab('config');
         }
 
-        // Export Report / Image
         function exportDesignReport() {
             if (state.renovatedImageUrl) {
                 const link = document.createElement('a');
                 link.href = state.renovatedImageUrl;
-                link.download = `RenoAI-ThiếtKế-${state.spaceType}-${Date.now()}.jpg`;
+                link.download = `RenoAI-PhoiCanh3D-${Date.now()}.jpg`;
                 link.click();
             } else {
-                alert("Hãy nhấn nút 'Phân Tích & Thiết Kế 3D Với AI' trước khi xuất file.");
+                alert("Hãy nhấn nút 'PHÂN TÍCH & TẠO 3D' để sinh ảnh phối cảnh trước khi tải về.");
             }
         }
     </script>
